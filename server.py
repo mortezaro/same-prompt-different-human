@@ -57,26 +57,26 @@ def synthesize(payload):
 
     instructions = {
         "human": {
-            "focused": "Natural human speech. Alert, confident, quick, and conversational. Never sound like an announcer.",
-            "confused": "Natural human speech with genuine uncertainty, small hesitations, and a searching cadence. Subtle, not theatrical.",
-            "overloaded": "Natural human speech under cognitive load: slightly rushed, self-correcting, and uncertain. Keep it believable and understated.",
-            "low": "Natural human speech with distinctly low energy. Speak very slowly and quietly, with weak breath support, delayed starts, and long pauses. Sound genuinely tired and depleted, never theatrical.",
+            "focused": "Natural male human speech. Alert, confident, slightly brisk, and conversational. Sound like a real person talking, never like a narrator or voice actor.",
+            "confused": "Natural male human speech with genuine uncertainty, a searching cadence, and a couple of small hesitations. Keep it subtle, believable, and fully human.",
+            "overloaded": "Natural male human speech under cognitive load. Slightly rushed, effortful, and tense, with small self-repairs. Keep it understated and believable, never theatrical.",
+            "low": "Natural male human speech with clearly low energy. Softer, slower, tired, and depleted, with light breathiness and delayed starts. Keep it natural, not exaggerated.",
             "longform": "Natural continuous speech from a somewhat tired but engaged student thinking aloud. Keep the tone human, grounded, slightly breathy, and imperfect. Use only occasional natural fillers and small restarts when they feel genuinely motivated. Preserve the hesitations and word-retrieval pauses, but do not overdo them. Leave clear conversational space after incomplete thoughts, after saying Okay, and before the final request. Never sound scripted, polished, or theatrical.",
         },
-        "standard": "Polished general-purpose AI assistant. Clear and neutral, but somewhat uniform and information-dense.",
+        "standard": "Neutral AI assistant voice. Clear and competent, but generic, steady, and less adaptive than a conversational partner.",
         "aware": {
-            "focused": "An excellent conversational AI. Speak briskly and directly with compact, high-density phrasing.",
-            "confused": "An excellent conversational AI with a clearly different feminine voice from the user. Warm, unhurried, and natural. For short backchannels, sound light and conversational, not announcer-like. For explanations, stay calm, supportive, and concise.",
-            "longform": "An excellent conversational AI with one stable feminine voice throughout this entire conversation. Sound like the same listener in every short cue, backchannel, correction, and final answer. Keep the delivery calm, restrained, and consistent in tone. Avoid dramatic pitch changes, bubbly reactions, or mode-switching between short and long responses. For overlap moments like 'Mm-hmm' and 'Exactly,' stay supportive and slightly quieter than the human, but still clear and natural.",
-            "overloaded": "An excellent conversational AI. Calm and grounded. Use short turns, gentle emphasis, and plenty of breathing room.",
-            "low": "An excellent conversational AI responding to a depleted user. Speak much more slowly than normal, softly and quietly, with long pauses between short phrases. Offer only one optional step. Never sound upbeat or energetic.",
+            "focused": "A natural female AI voice. Brisk, clear, and compact, but still conversational and human-sounding. Avoid the feel of a scripted assistant.",
+            "confused": "A natural female AI voice. Warm, unhurried, supportive, and concise. Sound like the same person throughout, with calm consistency and no robotic sharpness.",
+            "longform": "A natural female AI voice that stays stable for the entire conversation. Use the exact same speaker identity and emotional register for every cue, backchannel, correction, and longer answer. Calm, restrained, supportive, and consistent. No sudden tone shifts, exaggerated expressiveness, or robotic crispness. For overlap moments like 'Mm-hmm' and 'Exactly,' stay slightly quieter than the human while remaining natural and clear.",
+            "overloaded": "A natural female AI voice. Calm, grounded, and concise, with short turns and gentle emphasis. Sound supportive without becoming flat or robotic.",
+            "low": "A natural female AI voice responding to a depleted user. Softer and slower than normal, gentle and quiet, with more space between phrases. Never sound upbeat, bright, or energetic.",
         },
     }
     instruction = instructions[role]
     if isinstance(instruction, dict):
         instruction = instruction[state]
 
-    voice = {"human": "ash", "standard": "ash", "aware": "alloy"}[role]
+    voice = {"human": "echo", "standard": "onyx", "aware": "nova"}[role]
     cache_state = "all-states" if role == "standard" else state
     cache_key = hashlib.sha256(
         json.dumps([text, role, cache_state, voice, instruction]).encode("utf-8")

@@ -258,7 +258,7 @@ const deepDemos = {
         time: "00:00",
         speaker: "user",
         transcript:
-          "Uh, so gradient descent, I think it's like... um... you take the, the... wait, no... you take the derivative and then go in the opposite, uh, direction?",
+          "So gradient descent, I think it's like... you take the derivative, and then you go in the opposite direction?",
         interpretation: "Searching explanation",
         policy: "LISTEN",
         policyText: "The learner is engaged but uncertain. Stay light and let the thought continue.",
@@ -273,7 +273,7 @@ const deepDemos = {
       {
         time: "00:04",
         speaker: "attune",
-        transcript: "Opposite direction, yes. Exactly. Keep going.",
+        transcript: "Opposite direction. Yes, exactly. Keep going.",
         interpretation: "Partial concept detected",
         policy: "MICRO GROUNDING",
         policyText: "A tiny confirmation helps without taking over the explanation.",
@@ -310,7 +310,7 @@ const deepDemos = {
       {
         time: "00:17",
         speaker: "user",
-        transcript: "Um, okay, so, I mean, the slope? The slope of the, the loss function? Is that right?",
+        transcript: "Okay, so, I mean, the slope? The slope of the loss function, is that right?",
         interpretation: "Meaning recovered",
         policy: "CONFIRM",
         policyText: "The learner has found the right abstraction and needs a clean confirmation.",
@@ -338,7 +338,7 @@ const deepDemos = {
       {
         time: "00:26",
         speaker: "user",
-        transcript: "Okay, so, with respect to the parameters, I mean, the weights?",
+        transcript: "Okay, so with respect to the parameters, I mean the weights?",
         interpretation: "Parameter link forming",
         policy: "LISTEN FOR SELF-REPAIR",
         policyText: "The learner is completing the chain on their own. Stay with them and avoid over-explaining.",
@@ -394,7 +394,7 @@ const deepDemos = {
         time: "00:00",
         speaker: "user",
         transcript:
-          "I have a shape mismatch and uh, I've tried... wait... my logits are 32 by 1, and targets are just 32. So um, do I squeeze, or reshape?",
+          "I have a shape mismatch, and I've tried... wait. My logits are 32 by 1, and targets are just 32. So, um, do I squeeze or reshape?",
         interpretation: "Concrete error with hesitation",
         policy: "LISTEN",
         policyText: "The problem is already local. Avoid a broad answer and wait for the exact mismatch.",
@@ -406,7 +406,7 @@ const deepDemos = {
       {
         time: "00:04",
         speaker: "attune",
-        transcript: "Squeeze. `logits.squeeze(-1)`.",
+        transcript: "Squeeze. Logits dot squeeze minus one.",
         interpretation: "High-confidence fix",
         policy: "MINIMAL FIX",
         policyText: "Give the smallest safe move first, not a menu of options.",
@@ -431,7 +431,7 @@ const deepDemos = {
         time: "00:10",
         speaker: "attune",
         transcript:
-          "Oh, good question. No. `squeeze(-1)` only drops size-one dimensions. Your batch is safe.",
+          "Oh, good question. No. Squeeze minus 1 only drops size 1 dimensions. Your batch is safe.",
         interpretation: "Concern resolved",
         policy: "TIGHT EXPLANATION",
         policyText: "Answer the exact concern and stop before expanding into theory.",
@@ -444,7 +444,7 @@ const deepDemos = {
         time: "00:14",
         speaker: "user",
         transcript:
-          "Okay, squeeze worked. But now, uh, it's not NaN, but the loss just isn't going down.",
+          "Okay, squeeze worked, but now it's not NaN, and the loss just isn't going down.",
         interpretation: "New issue emerging",
         policy: "TRACK THE NEW STATE",
         policyText: "The original problem is fixed. Shift to the new failure mode rather than repeating shape advice.",
@@ -481,7 +481,7 @@ const deepDemos = {
         time: "00:22",
         speaker: "attune",
         transcript:
-          "Ah, yes, that's it. Missing `zero_grad()` means the gradients pile up, so the loss stops moving. Add it right before backward.",
+          "Ah, yes, that's it. Missing zero grad means the gradients pile up, so the loss stops moving. Add it right before backward.",
         interpretation: "Grounded correction",
         policy: "CONFIRM ONLY",
         policyText: "A short confirmation is enough because the user already found the cause.",
@@ -529,7 +529,7 @@ const longformDemo = {
       clip: "cue",
       pauseHuman: true,
       resumeAt: 6.86,
-      transcript: '<p class="speaker-attune micro"><b>Attune</b> “Labels?”</p>',
+      transcript: '<p class="speaker-attune micro"><b>CAST</b> “Labels?”</p>',
     },
     {
       at: 6.9,
@@ -550,7 +550,7 @@ const longformDemo = {
       clip: "backchannel",
       overlapHuman: true,
       volume: 0.62,
-      transcript: '<p class="speaker-attune micro"><b>Attune</b> “Mm-hmm.”</p>',
+      transcript: '<p class="speaker-attune micro"><b>CAST</b> “Mm-hmm.”</p>',
     },
     {
       at: 19.4,
@@ -575,7 +575,7 @@ const longformDemo = {
       resumeAt: 26.75,
       delivered: true,
       transcript:
-        '<p class="speaker-attune repair"><b>Attune</b> “Small correction there.”</p><p class="speaker-attune"><b>Attune</b> “Unsupervised learning is not necessarily more intelligent. It solves a different kind of problem. It looks for structure without labeled answers, while supervised learning learns a mapping from labeled examples.”</p><p class="speaker-human"><b>User</b> “Okay.”</p>',
+        '<p class="speaker-attune repair"><b>CAST</b> “Small correction there.”</p><p class="speaker-attune"><b>CAST</b> “Unsupervised learning is not necessarily more intelligent. It solves a different kind of problem. It looks for structure without labeled answers, while supervised learning learns a mapping from labeled examples.”</p><p class="speaker-human"><b>User</b> “Okay.”</p>',
     },
     {
       at: 29.55,
@@ -590,7 +590,7 @@ const longformDemo = {
       prepared: true,
       preparedText:
         "A clarification is ready while the learner starts the clustering example.",
-      transcript: '<p class="speaker-human grounded"><b>User</b> “Right, so it is not really about one being smarter. It is more about what information is available.”</p><p class="speaker-attune micro"><b>Attune</b> “Exactly.”</p>',
+      transcript: '<p class="speaker-human grounded"><b>User</b> “Right, so it is not really about one being smarter. It is more about what information is available.”</p><p class="speaker-attune micro"><b>CAST</b> “Exactly.”</p>',
     },
     {
       at: 38.6,
@@ -603,7 +603,7 @@ const longformDemo = {
       clip: "grounding",
       overlapHuman: true,
       volume: 0.6,
-      transcript: '<p class="speaker-human grounded"><b>User</b> “And clustering would be unsupervised because… because it groups similar things without knowing the categories beforehand?”</p><p class="speaker-attune micro"><b>Attune</b> “Right.”</p>',
+      transcript: '<p class="speaker-human grounded"><b>User</b> “And clustering would be unsupervised because… because it groups similar things without knowing the categories beforehand?”</p><p class="speaker-attune micro"><b>CAST</b> “Right.”</p>',
     },
     {
       at: 41.112,
@@ -615,7 +615,7 @@ const longformDemo = {
       longClip: "full",
       pauseHuman: true,
       afterHuman: true,
-      transcript: '<p class="speaker-human"><b>User</b> “Okay, can you give me a simple example of both?”</p><p class="speaker-attune full"><b>Attune</b> “Supervised learning would be showing a model emails labeled ‘spam’ or ‘not spam’ so it can classify new emails. Unsupervised learning would be giving it customer behavior data with no categories and asking it to discover natural groups.”</p>',
+      transcript: '<p class="speaker-human"><b>User</b> “Okay, can you give me a simple example of both?”</p><p class="speaker-attune full"><b>CAST</b> “Supervised learning would be showing a model emails labeled ‘spam’ or ‘not spam’ so it can classify new emails. Unsupervised learning would be giving it customer behavior data with no categories and asking it to discover natural groups.”</p>',
     },
   ],
 };
@@ -768,6 +768,8 @@ let longformHumanYielded = false;
 let longformRunToken = 0;
 let longformAudioContext = null;
 const shapedLongformAudio = new WeakSet();
+let primaryAudioContext = null;
+const shapedPrimaryAudio = new WeakSet();
 let deepDemoRunToken = 0;
 let deepDemoRunning = false;
 let deepDemoPaused = false;
@@ -778,41 +780,41 @@ const deepDemoWordCache = new Map();
 const localAudioLibrary = new Map(
   Object.entries({
     "human|focused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/73a8ad1e3140a5703c05a680ee6ec4ce40163077ccee21028c12e5a4329f07a7.mp3",
+      "audio/f1a5df5d1e77e57b3c9dbd4973537e68892dd216a2a7a82848adfdb5af569dfd.mp3",
     "aware|focused|The mismatch is at the loss boundary: logits are [32, 1] , targets are [32] . Use targets = targets.unsqueeze(1) or return flat logits. I prefer flat logits here because the extra singleton dimension carries no information.":
-      "audio/d8f8abf7e878655079dfb4ec09d77cbf8e698ab29301065e73139b6d23d6e707.mp3",
+      "audio/3758d93a9d3047a0d163ef31cce3ca0a1572c1afbc1a0c008538c30d1d8ef8e2.mp3",
     "human|confused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/0072d651cf9982137be1393bf80b3a6e202c9dc9a6925fac1fdcdbd57f8a116d.mp3",
+      "audio/54f6c3d373f22a685b2e510bc802418bd4e557d157a6c6b20855482927b5674d.mp3",
     "aware|confused|Let’s make the error concrete. The model returns a column of 32 values, but the labels are a simple list of 32 values. They contain the same amount of data, but their shapes are written differently. First check: print logits.shape and targets.shape directly before the loss call.":
-      "audio/34b3f1b12c7fbaa0758f1820680983f1a6b12804c92696bb4cd6ac87a96a46e8.mp3",
+      "audio/9de9b021b5ea165b2a3beef225b20b29f86f335a4133a18feea2d8eaeece6521.mp3",
     "human|overloaded|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/a18abce4f70b8da4d885bee90bfda92265a7cb2ced03d10d7a00387560b4f497.mp3",
+      "audio/8225b2abda8d1ad5055f68f3fe12c509f9dfb28e9804878cda4be192ecf4f9b5.mp3",
     "aware|overloaded|Let’s not branch into five possibilities. The error is coming from one place: your logits are [32, 1], while targets are [32]. Change the loss line to use logits.squeeze(-1) . Run that first. We can inspect the broader pipeline only if it still fails.":
-      "audio/8e89bd6ec598947176c7913ce0edbad585e3896d236fcf884bb4d6c767379f47.mp3",
+      "audio/e49110f1c9b34066f8d3afda5316b44ea305d30414875d80c71d62d2ae9151de.mp3",
     "human|low|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/082d834282bb4d23ed18a088c9e5e8f5f218967e603bd1f2dff90829097abbe4.mp3",
+      "audio/4ac6f1e49fd4e564b14a4ac73b37bc8ce17fe86e497dc5511d3bb1d4de999dad.mp3",
     "aware|low|This is a small mismatch, not a broken model. When you have the energy, make just this change: logits = logits.squeeze(-1) . Then stop there and run it once.":
-      "audio/74c3ee8e05658c7f6fa96750b89003bebcae4dadbe8f520a67b9d33392544711.mp3",
+      "audio/205a0810c55386cf77fd0808825b5f410d07950d6cb0a40a1912361cb77c3b88.mp3",
     "standard|overloaded|A shape mismatch can have several causes. You should check: The input and expected tensor dimensions. Batch dimension ordering and broadcasting behavior. Whether a reshape, squeeze, or transpose was applied incorrectly. The model's output layer and loss function expectations. Data loader collation and padding. Try printing the shape after every operation to identify where the dimensions diverge.":
-      "audio/33ba359d342ca8722982a8fd83d7ac6546f019c3cf1ff977e90ffac9236583fa.mp3",
+      "audio/0d478144ea21448b62218682a581a391e3ecf461f224c9d89ac64fcbd200483c.mp3",
     "human|focused|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/609aee745f7e698cc05ee9601235eb77d7ef69c94eeac685ba9f5ee8371867ca.mp3",
+      "audio/6133b26f8a3792ba5b634d411ead21e8ad11996c12ed295ee47790780536dd5e.mp3",
     "aware|focused|Skip the analogy. Here is the key test: if the learning rate doubles, when does convergence improve and when does it become unstable? Your answer should connect local curvature to step size. Take a shot, and I’ll challenge the weak point.":
-      "audio/4abcf8b3c7dd7f259d7f93daca8912e350c89ff5c57e0fd5003e00464854b52a.mp3",
+      "audio/3603aecbea8c47cf66c79dacb83ccfed46e7073bd37e6b79bac4cf4b6e5dcb5c.mp3",
     "human|confused|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/432cc7519f84b63eda7d1ef63a87dcc4b825fc73e96d764608779896aa103afb.mp3",
+      "audio/f9a2d3de692d57246d68d162991dd0ad3711bc70cee0a0bb885feaf25094512a.mp3",
     "aware|confused|One idea only: imagine standing on a foggy hill. You cannot see the bottom, but you can feel which way the ground slopes under your feet. Gradient descent means taking one small step downhill, checking the slope again, then repeating. Before we move on: what tells you which direction is downhill?":
-      "audio/b750376b85726fa4e22cfc7905bf6e6902dd040c992f0b97e432c484cb07b0a1.mp3",
+      "audio/019396b6816fcc0b4d625dcb5bb2149ce55a3c3862591448591635118059f7fc.mp3",
     "human|overloaded|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/fe66caf1946baa198b54f2284cecc2a715ccfc5f85777824a0b2e8e98b013b7b.mp3",
+      "audio/b895b19af2f62fa6c1db6cae84d1771c824309ad472201bd3d6bd5d975ca2f18.mp3",
     "aware|overloaded|Let’s strip away the notation. Remember only this: Check the slope. Take one small downhill step. Repeat. That is gradient descent. We can leave learning rates and derivatives for the next pass.":
-      "audio/db3e605ff8208bc2675c0bfff69bf220ff04a57455aec44b5d80369d7c1a25e6.mp3",
+      "audio/62047df6478996feadf2e108dbf446ae8141e86dea3e251e199cd2b2960f1eec.mp3",
     "human|low|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/c7c62d6308dcbbeed06eeba60dff5739b362a67588e122cc7dbe9eaa8baa14e0.mp3",
+      "audio/a88908157680d44d2d3fbe6eb32b8f87a37ed64e913c3bd7db10137f5093d2f7.mp3",
     "aware|low|We can leave the equation alone today. Keep one quiet picture in mind: a ball settling toward the bottom of a bowl. The slope tells it where to move next. That is enough.":
-      "audio/ccbb25a698ed28c320e647e07089e8bc184ccdeebe0dfa2d9e5f6ea734bd3406.mp3",
+      "audio/254b52c89547bbf164bc40a76d11079a346d504d81cd9e08bb1d7eb99b5702df.mp3",
     "standard|overloaded|Gradient descent is an optimization algorithm used to minimize a loss function. It works by calculating the gradient, which is the vector of partial derivatives, and updating parameters in the opposite direction. The update rule is θ = θ − α∇J(θ), where α is the learning rate. Common variants include batch, stochastic, and mini-batch gradient descent.":
-      "audio/d5db9d36ffec7a97b7ba32984c12af4b695442d8b8a32bfe7a18eb5f9bb76669.mp3",
+      "audio/463879447adf538ed2655bb34d8275deb43858d09c60dfa6d5519ea3e1c059ea.mp3",
     "human|focused|So I think recursion is when a function calls another function many times, and it keeps looping until the computer stops it. Basically recursion is just a kind of loop, right? And it should always be faster because it breaks the problem into smaller parts. So I would probably use recursion whenever performance matters.":
       "audio/b859bef5affbf81885abce2da1801691ec2d647126f86ddb0367d4796b6bc27e.mp3",
     "human|overloaded|The error is annoying. I've been stuck on it for too long. I think I'll just remove this validation check because it blocks the request. Then the function should work and I can move on to the rest of the pipeline. I can always add the validation back later.":
@@ -843,6 +845,8 @@ const localAudioLibrary = new Map(
       "audio/47b0ffac4c1dc3d344e08c5c6da3203a231043161a962bfb4475c6df7010f05d.mp3",
   }),
 );
+
+const deepDemoWordLibrary = {"g_s1":[{"w":"So","s":0,"e":0.7200000286102295},{"w":"gradient","s":0.7200000286102295,"e":1.159999966621399},{"w":"descent","s":1.159999966621399,"e":1.7599999904632568},{"w":"I","s":2.440000057220459,"e":2.440000057220459},{"w":"think","s":2.440000057220459,"e":2.6600000858306885},{"w":"it's","s":2.6600000858306885,"e":3},{"w":"like","s":3,"e":3.5999999046325684},{"w":"you","s":3.5999999046325684,"e":4.739999771118164},{"w":"take","s":4.739999771118164,"e":4.980000019073486},{"w":"the","s":4.980000019073486,"e":6.880000114440918},{"w":"derivative","s":6.880000114440918,"e":7.260000228881836},{"w":"and","s":7.260000228881836,"e":7.800000190734863},{"w":"then","s":7.800000190734863,"e":8},{"w":"you","s":8,"e":8.199999809265137},{"w":"go","s":8.199999809265137,"e":8.300000190734863},{"w":"in","s":8.300000190734863,"e":8.4399995803833},{"w":"the","s":8.4399995803833,"e":8.720000267028809},{"w":"opposite","s":8.720000267028809,"e":9.119999885559082},{"w":"direction","s":9.119999885559082,"e":10.039999961853027}],"g_int1":[{"w":"Opposite","s":0,"e":0.5199999809265137},{"w":"direction","s":0.5199999809265137,"e":0.9399999976158142},{"w":"Yes","s":1.2799999713897705,"e":1.340000033378601},{"w":"exactly","s":1.440000057220459,"e":1.7799999713897705},{"w":"Keep","s":2.0399999618530273,"e":2.0999999046325684},{"w":"going","s":2.0999999046325684,"e":2.3399999141693115}],"g_s1b":[{"w":"Yeah","s":0,"e":0.41999998688697815},{"w":"yeah","s":0.7200000286102295,"e":1.059999942779541},{"w":"and","s":1.0800000429153442,"e":1.3600000143051147},{"w":"the","s":1.3600000143051147,"e":1.4800000190734863},{"w":"gradient","s":1.4800000190734863,"e":1.7799999713897705},{"w":"points","s":1.7799999713897705,"e":2.140000104904175},{"w":"that","s":2.140000104904175,"e":2.440000057220459},{"w":"way","s":2.440000057220459,"e":2.640000104904175}],"g_a1":[{"w":"It","s":0,"e":0.2800000011920929},{"w":"points","s":0.2800000011920929,"e":0.5199999809265137},{"w":"uphill","s":0.5199999809265137,"e":0.8999999761581421},{"w":"so","s":1.0199999809265137,"e":1.1200000047683716},{"w":"you","s":1.1200000047683716,"e":1.340000033378601},{"w":"subtract","s":1.340000033378601,"e":1.600000023841858},{"w":"it","s":1.600000023841858,"e":1.7799999713897705},{"w":"to","s":1.7799999713897705,"e":1.9199999570846558},{"w":"go","s":1.9199999570846558,"e":2.140000104904175},{"w":"downhill","s":2.140000104904175,"e":2.5399999618530273},{"w":"What","s":3.319999933242798,"e":3.4600000381469727},{"w":"does","s":3.4600000381469727,"e":3.700000047683716},{"w":"taking","s":3.700000047683716,"e":4.039999961853027},{"w":"the","s":4.039999961853027,"e":4.659999847412109},{"w":"derivative","s":4.659999847412109,"e":4.659999847412109},{"w":"actually","s":4.659999847412109,"e":5.260000228881836},{"w":"mean","s":5.260000228881836,"e":5.659999847412109},{"w":"here","s":5.659999847412109,"e":5.900000095367432}],"g_s2":[{"w":"Okay","s":0.6600000262260437,"e":1.100000023841858},{"w":"so","s":1.440000057220459,"e":1.5199999809265137},{"w":"I","s":1.5199999809265137,"e":1.600000023841858},{"w":"mean","s":1.600000023841858,"e":1.7599999904632568},{"w":"the","s":1.7599999904632568,"e":2.0199999809265137},{"w":"slope","s":2.0199999809265137,"e":2.299999952316284},{"w":"the","s":2.440000057220459,"e":2.740000009536743},{"w":"slope","s":2.740000009536743,"e":2.9600000381469727},{"w":"of","s":2.9600000381469727,"e":3.180000066757202},{"w":"the","s":3.180000066757202,"e":3.5799999237060547},{"w":"loss","s":3.5799999237060547,"e":3.940000057220459},{"w":"function","s":3.940000057220459,"e":4.360000133514404},{"w":"is","s":4.5,"e":4.860000133514404},{"w":"that","s":4.860000133514404,"e":5.019999980926514},{"w":"right","s":5.019999980926514,"e":5.239999771118164}],"g_a2":[{"w":"Yes","s":0,"e":0.3400000035762787},{"w":"slope","s":0.6000000238418579,"e":0.6200000047683716},{"w":"of","s":0.6200000047683716,"e":0.7599999904632568},{"w":"the","s":0.7599999904632568,"e":0.8999999761581421},{"w":"loss","s":0.8999999761581421,"e":1.2599999904632568},{"w":"exactly","s":1.7400000095367432,"e":2.0799999237060547},{"w":"right","s":2.0799999237060547,"e":2.4200000762939453},{"w":"And","s":2.940000057220459,"e":3.200000047683716},{"w":"slope","s":3.200000047683716,"e":3.380000114440918},{"w":"at","s":3.380000114440918,"e":3.5},{"w":"a","s":3.5,"e":3.859999895095825},{"w":"point","s":3.859999895095825,"e":3.859999895095825},{"w":"is","s":3.859999895095825,"e":4.059999942779541},{"w":"the","s":4.059999942779541,"e":4.260000228881836},{"w":"gradient","s":4.260000228881836,"e":4.5},{"w":"there","s":4.5,"e":4.880000114440918},{"w":"So","s":5.5,"e":5.760000228881836},{"w":"with","s":5.760000228881836,"e":5.900000095367432},{"w":"respect","s":5.900000095367432,"e":6.179999828338623},{"w":"to","s":6.179999828338623,"e":6.380000114440918},{"w":"what","s":6.380000114440918,"e":6.559999942779541}],"g_s3":[{"w":"Okay","s":0,"e":0.30000001192092896},{"w":"so","s":0.47999998927116394,"e":0.6399999856948853},{"w":"with","s":0.6399999856948853,"e":0.7200000286102295},{"w":"respect","s":0.7200000286102295,"e":1.2000000476837158},{"w":"to","s":1.2000000476837158,"e":1.5},{"w":"the","s":1.5,"e":1.7200000286102295},{"w":"parameters","s":1.7200000286102295,"e":2.140000104904175},{"w":"I","s":2.5,"e":2.5199999809265137},{"w":"mean","s":2.5199999809265137,"e":2.640000104904175},{"w":"the","s":2.640000104904175,"e":2.799999952316284},{"w":"weights","s":2.799999952316284,"e":3.5199999809265137}],"g_a3":[{"w":"Exactly","s":0,"e":0.5},{"w":"the","s":0.5,"e":0.6600000262260437},{"w":"weights","s":0.6600000262260437,"e":0.8999999761581421},{"w":"and","s":0.8999999761581421,"e":1.059999942779541},{"w":"the","s":1.059999942779541,"e":1.2999999523162842},{"w":"biases","s":1.2999999523162842,"e":1.5},{"w":"too","s":1.9600000381469727,"e":2},{"w":"Quick","s":2.7200000286102295,"e":2.799999952316284},{"w":"check","s":2.799999952316284,"e":3.119999885559082},{"w":"If","s":3.299999952316284,"e":3.319999933242798},{"w":"a","s":3.319999933242798,"e":3.5199999809265137},{"w":"weight","s":3.5199999809265137,"e":3.640000104904175},{"w":"pushes","s":3.640000104904175,"e":3.9000000953674316},{"w":"the","s":3.9000000953674316,"e":4.179999828338623},{"w":"loss","s":4.179999828338623,"e":4.400000095367432},{"w":"up","s":4.400000095367432,"e":4.699999809265137},{"w":"which","s":5.039999961853027,"e":5.139999866485596},{"w":"weight","s":5.139999866485596,"e":5.320000171661377},{"w":"is","s":5.320000171661377,"e":5.440000057220459},{"w":"the","s":5.440000057220459,"e":5.639999866485596},{"w":"gradient","s":5.639999866485596,"e":5.900000095367432},{"w":"point","s":5.900000095367432,"e":6.340000152587891}],"g_s4":[{"w":"Oh","s":0,"e":0.25999999046325684},{"w":"up","s":0.46000000834465027,"e":0.5600000023841858},{"w":"so","s":0.6800000071525574,"e":0.7599999904632568},{"w":"we","s":0.7599999904632568,"e":0.8600000143051147},{"w":"go","s":0.8600000143051147,"e":1.0199999809265137},{"w":"down","s":1.0199999809265137,"e":1.4199999570846558},{"w":"Okay","s":2.140000104904175,"e":2.319999933242798},{"w":"that","s":2.380000114440918,"e":2.5199999809265137},{"w":"actually","s":2.5199999809265137,"e":2.7799999713897705},{"w":"makes","s":2.7799999713897705,"e":3},{"w":"sense","s":3,"e":3.2799999713897705},{"w":"now","s":3.2799999713897705,"e":3.5399999618530273}],"g_a4":[{"w":"That's","s":0,"e":0.3400000035762787},{"w":"it","s":0.3400000035762787,"e":0.6399999856948853},{"w":"Now","s":1.059999942779541,"e":1.2599999904632568},{"w":"what","s":1.2599999904632568,"e":1.3600000143051147},{"w":"if","s":1.3600000143051147,"e":1.5},{"w":"the","s":1.5,"e":1.6799999475479126},{"w":"learning","s":1.6799999475479126,"e":1.9199999570846558},{"w":"rate","s":1.9199999570846558,"e":2.180000066757202},{"w":"is","s":2.180000066757202,"e":2.359999895095825},{"w":"too","s":2.359999895095825,"e":2.559999942779541},{"w":"large","s":2.559999942779541,"e":2.940000057220459}],"c_s1":[{"w":"I","s":0,"e":0.1599999964237213},{"w":"have","s":0.1599999964237213,"e":0.2800000011920929},{"w":"a","s":0.2800000011920929,"e":0.47999998927116394},{"w":"shape","s":0.47999998927116394,"e":0.699999988079071},{"w":"mismatch","s":0.699999988079071,"e":1.2599999904632568},{"w":"and","s":1.2599999904632568,"e":1.600000023841858},{"w":"I've","s":1.600000023841858,"e":1.9600000381469727},{"w":"tried","s":1.9600000381469727,"e":2.259999990463257},{"w":"wait","s":2.4600000381469727,"e":2.5999999046325684},{"w":"my","s":2.700000047683716,"e":2.9200000762939453},{"w":"logits","s":2.9200000762939453,"e":3.240000009536743},{"w":"are","s":3.240000009536743,"e":3.4600000381469727},{"w":"32","s":3.4600000381469727,"e":3.8399999141693115},{"w":"by","s":3.8399999141693115,"e":4.059999942779541},{"w":"1","s":4.059999942779541,"e":4.360000133514404},{"w":"and","s":4.360000133514404,"e":4.940000057220459},{"w":"targets","s":4.940000057220459,"e":5.28000020980835},{"w":"are","s":5.28000020980835,"e":5.5},{"w":"just","s":5.5,"e":5.71999979019165},{"w":"32","s":5.71999979019165,"e":6.199999809265137},{"w":"So","s":6.840000152587891,"e":7.059999942779541},{"w":"um","s":7.159999847412109,"e":7.679999828338623},{"w":"do","s":7.679999828338623,"e":7.71999979019165},{"w":"I","s":7.71999979019165,"e":7.980000019073486},{"w":"squeeze","s":7.980000019073486,"e":8.399999618530273},{"w":"or","s":8.399999618530273,"e":8.9399995803833},{"w":"reshape","s":8.9399995803833,"e":9.420000076293945}],"c_int1":[{"w":"Squeeze","s":0,"e":0.4000000059604645},{"w":"logits","s":0.4000000059604645,"e":0.8600000143051147},{"w":"dot","s":0.8600000143051147,"e":1.1200000047683716},{"w":"squeeze","s":1.1200000047683716,"e":1.4800000190734863},{"w":"minus","s":1.4800000190734863,"e":1.9800000190734863},{"w":"one","s":1.9800000190734863,"e":2.240000009536743}],"c_s1b":[{"w":"Yeah","s":0,"e":0.25999999046325684},{"w":"but","s":0.25999999046325684,"e":0.47999998927116394},{"w":"wait","s":0.47999998927116394,"e":0.800000011920929},{"w":"won't","s":1.0199999809265137,"e":1.2799999713897705},{"w":"that","s":1.2799999713897705,"e":1.5199999809265137},{"w":"break","s":1.5199999809265137,"e":1.8600000143051147},{"w":"with","s":1.8600000143051147,"e":2.0399999618530273},{"w":"a","s":2.0399999618530273,"e":2.240000009536743},{"w":"bigger","s":2.240000009536743,"e":2.4200000762939453},{"w":"batch","s":2.4200000762939453,"e":2.7799999713897705}],"c_a1_resume":[{"w":"Oh","s":0,"e":0.3400000035762787},{"w":"good","s":0.5400000214576721,"e":0.6600000262260437},{"w":"question","s":0.6600000262260437,"e":1},{"w":"no","s":1.1799999475479126,"e":1.3799999952316284},{"w":"Squeeze","s":1.600000023841858,"e":1.659999966621399},{"w":"minus","s":1.659999966621399,"e":2.0399999618530273},{"w":"1","s":2.0399999618530273,"e":2.299999952316284},{"w":"only","s":2.299999952316284,"e":2.640000104904175},{"w":"drops","s":2.640000104904175,"e":2.940000057220459},{"w":"size","s":2.940000057220459,"e":3.319999933242798},{"w":"1","s":3.319999933242798,"e":3.5399999618530273},{"w":"dimensions","s":3.5399999618530273,"e":3.9800000190734863},{"w":"Your","s":4.360000133514404,"e":4.519999980926514},{"w":"batch","s":4.519999980926514,"e":4.760000228881836},{"w":"is","s":4.760000228881836,"e":5.039999961853027},{"w":"safe","s":5.039999961853027,"e":5.320000171661377}],"c_s2":[{"w":"Okay","s":0,"e":0.41999998688697815},{"w":"squeeze","s":0.5600000023841858,"e":0.8799999952316284},{"w":"worked","s":0.8799999952316284,"e":1.2400000095367432},{"w":"but","s":1.7000000476837158,"e":1.7799999713897705},{"w":"now","s":1.7799999713897705,"e":2.059999942779541},{"w":"it's","s":2.059999942779541,"e":2.5799999237060547},{"w":"not","s":2.5799999237060547,"e":2.880000114440918},{"w":"Nan","s":2.880000114440918,"e":3.1600000858306885},{"w":"but","s":3.319999933242798,"e":3.4200000762939453},{"w":"the","s":3.4200000762939453,"e":3.5799999237060547},{"w":"loss","s":3.5799999237060547,"e":3.9000000953674316},{"w":"just","s":3.9000000953674316,"e":4.199999809265137},{"w":"isn't","s":4.199999809265137,"e":4.400000095367432},{"w":"going","s":4.400000095367432,"e":4.659999847412109},{"w":"down","s":4.659999847412109,"e":4.960000038146973}],"c_a2_partial":[{"w":"That","s":0,"e":0.25999999046325684},{"w":"sounds","s":0.25999999046325684,"e":0.46000000834465027},{"w":"like","s":0.46000000834465027,"e":0.6399999856948853},{"w":"a","s":0.6399999856948853,"e":0.8199999928474426},{"w":"learning","s":0.8199999928474426,"e":1},{"w":"rate","s":1,"e":1.340000033378601}],"c_s2_interrupt":[{"w":"No","s":0,"e":0.23999999463558197},{"w":"wait","s":0.23999999463558197,"e":0.5},{"w":"I","s":0.6200000047683716,"e":0.7200000286102295},{"w":"forgot","s":0.7200000286102295,"e":0.9599999785423279},{"w":"ZeroGrad","s":0.9599999785423279,"e":1.5800000429153442}],"c_a2_resume":[{"w":"Ah","s":0,"e":0.2800000011920929},{"w":"Yes","s":0.7200000286102295,"e":1.0399999618530273},{"w":"that's","s":1.059999942779541,"e":1.2599999904632568},{"w":"it","s":1.2599999904632568,"e":1.6200000047683716},{"w":"Missing","s":2.140000104904175,"e":2.319999933242798},{"w":"zero","s":2.319999933242798,"e":2.5799999237060547},{"w":"grad","s":2.5799999237060547,"e":2.819999933242798},{"w":"means","s":2.819999933242798,"e":3.059999942779541},{"w":"the","s":3.059999942779541,"e":3.319999933242798},{"w":"gradients","s":3.319999933242798,"e":3.559999942779541},{"w":"pile","s":3.559999942779541,"e":3.859999895095825},{"w":"up","s":3.859999895095825,"e":4.139999866485596},{"w":"so","s":4.199999809265137,"e":4.28000020980835},{"w":"the","s":4.28000020980835,"e":4.519999980926514},{"w":"law","s":4.519999980926514,"e":4.599999904632568},{"w":"stops","s":4.599999904632568,"e":4.880000114440918},{"w":"moving","s":4.880000114440918,"e":5.179999828338623},{"w":"Add","s":6.139999866485596,"e":6.159999847412109},{"w":"it","s":6.159999847412109,"e":6.320000171661377},{"w":"right","s":6.320000171661377,"e":6.599999904632568},{"w":"before","s":6.599999904632568,"e":6.820000171661377},{"w":"backward","s":6.820000171661377,"e":7.139999866485596}]};
 const affectProfiles = {
   focused: { x: 78, y: 28, label: "Positive · high engagement" },
   confused: { x: 44, y: 42, label: "Searching · moderate arousal" },
@@ -886,7 +890,7 @@ const deepStateLibrary = {
     affect: { x: 58, y: 38, label: "Helpful correction · steady" },
     chips: ["intent: clarify", "mood: calm", "behavior: brief teach-back"],
     analysis:
-      "Attune gives the minimum clarification, then immediately checks understanding instead of taking over.",
+      "CAST gives the minimum clarification, then immediately checks understanding instead of taking over.",
   },
   g_s2: {
     load: [32, "Meaning recovered"],
@@ -913,7 +917,7 @@ const deepStateLibrary = {
     affect: { x: 67, y: 40, label: "Building confidence · moderate arousal" },
     chips: ["intent: connect terms", "mood: stabilizing", "behavior: productive continuation"],
     analysis:
-      "The user is finishing the chain alone. Attune should mostly stay out of the way here.",
+      "The user is finishing the chain alone. CAST should mostly stay out of the way here.",
   },
   g_a3: {
     load: [29, "Diagnostic check"],
@@ -940,7 +944,7 @@ const deepStateLibrary = {
     affect: { x: 72, y: 42, label: "Stable confidence · moderate arousal" },
     chips: ["intent: continue learning", "mood: upbeat", "behavior: next-step prompt"],
     analysis:
-      "Once the concept is stable, Attune advances with one sharp next question instead of a big explanation dump.",
+      "Once the concept is stable, CAST advances with one sharp next question instead of a big explanation dump.",
   },
   c_s1: {
     load: [61, "Concrete friction"],
@@ -958,7 +962,7 @@ const deepStateLibrary = {
     affect: { x: 56, y: 38, label: "Direct repair · low drama" },
     chips: ["intent: unblock quickly", "mood: steady", "behavior: one-line fix"],
     analysis:
-      "The fix is local and safe, so Attune answers with one line instead of a menu of possibilities.",
+      "The fix is local and safe, so CAST answers with one line instead of a menu of possibilities.",
   },
   c_s1b: {
     load: [39, "Healthy skepticism"],
@@ -976,7 +980,7 @@ const deepStateLibrary = {
     affect: { x: 63, y: 39, label: "Reassuring correction" },
     chips: ["intent: reassure", "mood: warm", "behavior: direct explanation"],
     analysis:
-      "Attune answers the exact concern and stops there, which keeps the debugging rhythm natural.",
+      "CAST answers the exact concern and stops there, which keeps the debugging rhythm natural.",
   },
   c_s2: {
     load: [57, "New failure mode"],
@@ -994,7 +998,7 @@ const deepStateLibrary = {
     affect: { x: 49, y: 37, label: "Working hypothesis" },
     chips: ["intent: propose likely cause", "mood: cautious", "behavior: intervention prepared"],
     analysis:
-      "Attune starts a likely explanation but stays lightweight enough to be interrupted if the user self-repairs.",
+      "CAST starts a likely explanation but stays lightweight enough to be interrupted if the user self-repairs.",
   },
   c_s2_interrupt: {
     load: [22, "Self-repair detected"],
@@ -1025,7 +1029,12 @@ function localAudioKey(role, state, text) {
 }
 
 function resolveLocalAudio(role, state, text) {
-  return localAudioLibrary.get(localAudioKey(role, state, text)) || null;
+  return (
+    localAudioLibrary.get(localAudioKey(role, state, text)) ||
+    (role === "standard" ? localAudioLibrary.get(localAudioKey(role, "all-states", text)) : null) ||
+    (role === "standard" ? localAudioLibrary.get(localAudioKey(role, "overloaded", text)) : null) ||
+    null
+  );
 }
 
 function resolveDeepDemoClip(clipId) {
@@ -1159,6 +1168,7 @@ function deepFrameForStep(step, progress = 1) {
 
 async function fetchDeepDemoWords(step) {
   if (!step?.clipId) return [];
+  if (deepDemoWordLibrary[step.clipId]) return deepDemoWordLibrary[step.clipId];
   if (deepDemoWordCache.has(step.clipId)) return deepDemoWordCache.get(step.clipId);
   const request = fetch(`audio/${step.clipId}.words.json`)
     .then((response) => {
@@ -1175,11 +1185,17 @@ async function fetchDeepDemoWords(step) {
 
 function renderWordSequence(words, visibleCount, showCursor = false) {
   const safeWords = words || [];
-  return safeWords
+  const revealedWords = safeWords.slice(0, Math.max(0, visibleCount));
+  if (!revealedWords.length) {
+    return showCursor ? '<span class="live-cursor"></span>' : "";
+  }
+  return revealedWords
     .map((word, index) => {
-      const visible = index < visibleCount ? " visible" : "";
-      const cursor = showCursor && index === visibleCount - 1 ? '<span class="live-cursor"></span>' : "";
-      return `<span class="word-fragment${visible}">${word}${cursor}</span>`;
+      const cursor =
+        showCursor && index === revealedWords.length - 1
+          ? '<span class="live-cursor"></span>'
+          : "";
+      return `<span class="word-fragment visible">${word}${cursor}</span>`;
     })
     .join(" ");
 }
@@ -1190,6 +1206,24 @@ function wordsFromStep(step) {
     .replace(/[`]/g, "")
     .split(/\s+/)
     .filter(Boolean);
+}
+
+function transcriptWordsForTimings(transcript) {
+  return (transcript || "")
+    .replace(/[“”`]/g, "")
+    .replace(/\.\.\./g, " ")
+    .replace(/[.,?!:;()]/g, " ")
+    .replace(/-/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+function timedLabelsForStep(step, words) {
+  const transcriptWords = transcriptWordsForTimings(step?.transcript || "");
+  if (transcriptWords.length === words.length) {
+    return transcriptWords;
+  }
+  return words.map((item) => item.w);
 }
 
 function renderDeepDemoColumns(currentIndex, activeWordCount = null) {
@@ -1207,7 +1241,7 @@ function renderDeepDemoColumns(currentIndex, activeWordCount = null) {
       : step.transcript;
     const markup = `<p class="${step.speaker === "user" ? "speaker-human" : "speaker-attune"}${
       isCurrent ? " active-entry" : ""
-    }"><b>${step.speaker === "user" ? "User" : "Attune"}</b>${body}</p>`;
+    }"><b>${step.speaker === "user" ? "User" : "CAST"}</b>${body}</p>`;
     if (step.speaker === "user") {
       userSteps.push(markup);
     } else {
@@ -1219,7 +1253,7 @@ function renderDeepDemoColumns(currentIndex, activeWordCount = null) {
     userSteps.join("") || '<p class="empty-transcript">Run the example to watch speech appear live.</p>';
   elements.deepResponseLog.innerHTML =
     attuneSteps.join("") ||
-    '<p class="empty-transcript">Machine cues and replies appear here as the example unfolds.</p>';
+    '<p class="empty-transcript">CAST cues and replies appear here as the example unfolds.</p>';
   elements.longformTranscript.scrollTop = elements.longformTranscript.scrollHeight;
   elements.deepResponseLog.scrollTop = elements.deepResponseLog.scrollHeight;
 }
@@ -1366,7 +1400,7 @@ function renderLongformEvent(index, rebuildTranscript = false) {
   } else if (event.withdrawn) {
     elements.withdrawalCard.className = "withdrawal-card withdrawn";
     elements.withdrawalCard.innerHTML =
-      "<span>INTERVENTION WITHDRAWN</span><strong>User self-repaired. Attune stays out of the way.</strong>";
+      "<span>INTERVENTION WITHDRAWN</span><strong>User self-repaired. CAST stays out of the way.</strong>";
   } else if (index < 4) {
     elements.withdrawalCard.className = "withdrawal-card";
   }
@@ -1398,8 +1432,8 @@ async function playLongformClip(
   longformAttuneAudio = attuneAudio;
   await shapeLongformAudio(attuneAudio, "attune");
   elements.longformAudioStatus.textContent = waitForEnd
-    ? "Attune speaking"
-    : "Human speaking · Attune backchanneling";
+    ? "CAST speaking"
+    : "Human speaking · CAST backchanneling";
   document.querySelector("#longformDemo").classList.add("attune-speaking");
 
   const finishPlayback = () => {
@@ -1408,8 +1442,8 @@ async function playLongformClip(
     }
     document.querySelector("#longformDemo").classList.remove("attune-speaking");
     elements.longformAudioStatus.textContent = longformHumanYielded
-      ? "Attune speaking · human yielded"
-      : "Human speaking · Attune listening";
+      ? "CAST speaking · human yielded"
+      : "Human speaking · CAST listening";
   };
 
   attuneAudio.addEventListener("ended", finishPlayback, { once: true });
@@ -1483,8 +1517,8 @@ async function runLongformConversation() {
         }
         elements.longformAudioStatus.textContent =
           longformHumanYielded
-            ? "Attune speaking · human yielded"
-            : "Human speaking · Attune listening";
+            ? "CAST speaking · human yielded"
+            : "Human speaking · CAST listening";
         elements.runLongformButton.innerHTML = "<i>Ⅱ</i> Pause conversation";
         demo.classList.remove("paused");
       } catch {
@@ -1523,7 +1557,7 @@ async function runLongformConversation() {
       longformHumanAudio.addEventListener("error", resolve, { once: true });
     });
     await longformHumanAudio.play();
-    elements.longformAudioStatus.textContent = "Human speaking · Attune listening";
+    elements.longformAudioStatus.textContent = "Human speaking · CAST listening";
   } catch (error) {
     if (error.name === "NotAllowedError" && longformHumanAudio) {
       longformPaused = true;
@@ -1667,7 +1701,7 @@ async function runLongformConversation() {
   elements.longformTranscript.innerHTML =
     '<p class="empty-transcript">Run the example to watch speech appear live.</p>';
   elements.deepResponseLog.innerHTML =
-    '<p class="empty-transcript">Machine cues and replies appear here as the example unfolds.</p>';
+    '<p class="empty-transcript">CAST cues and replies appear here as the example unfolds.</p>';
 
   for (let index = 0; index < demo.timeline.length; index += 1) {
     if (token !== deepDemoRunToken) return;
@@ -1791,7 +1825,7 @@ async function playDeepDemoStep(step, index, token) {
   audio.volume = step.speaker === "attune" ? 0.82 : 0.98;
   deepDemoAudio = audio;
   await shapeLongformAudio(audio, step.speaker === "user" ? "human" : "attune");
-  step._words = words.map((item) => item.w);
+  step._words = timedLabelsForStep(step, words);
   await new Promise((resolve) => {
     if (audio.readyState >= 2) {
       resolve();
@@ -1804,7 +1838,7 @@ async function playDeepDemoStep(step, index, token) {
   });
 
   elements.longformAudioStatus.textContent =
-    step.speaker === "user" ? "User speaking live" : "Attune responding";
+    step.speaker === "user" ? "User speaking live" : "CAST responding";
 
   await new Promise((resolve) => {
     let rafId = null;
@@ -1914,6 +1948,59 @@ function studioVoiceSource(role, text, statusElement) {
   );
 }
 
+async function shapePrimaryAudio(audio, profile) {
+  if (!window.AudioContext || shapedPrimaryAudio.has(audio)) return;
+  const profileKey = profile || "standard";
+  const configs = {
+    standard: { rate: 1, low: 0, high: 0, pan: -0.02, gain: 1, threshold: -20, ratio: 2.2 },
+    "human:focused": { rate: 1.03, low: 2.2, high: 1.1, pan: -0.07, gain: 1.01, threshold: -20, ratio: 2.1 },
+    "human:confused": { rate: 0.98, low: 3.4, high: -1.2, pan: -0.09, gain: 1.02, threshold: -22, ratio: 2.4 },
+    "human:overloaded": { rate: 0.95, low: 4.5, high: -3.1, pan: -0.1, gain: 1.04, threshold: -24, ratio: 2.8 },
+    "human:low": { rate: 0.9, low: 5.2, high: -4.8, pan: -0.12, gain: 1.06, threshold: -25, ratio: 3.0 },
+    aware: { rate: 0.99, low: -2.6, high: 3.8, pan: 0.12, gain: 0.98, threshold: -20, ratio: 2.0 },
+  };
+  const config = configs[profileKey] || configs.standard;
+  audio.playbackRate = config.rate;
+  audio.preservesPitch = true;
+  try {
+    if (!primaryAudioContext) {
+      primaryAudioContext = new window.AudioContext();
+    }
+    if (primaryAudioContext.state === "suspended") {
+      primaryAudioContext.resume().catch(() => {});
+    }
+    const source = primaryAudioContext.createMediaElementSource(audio);
+    const lowShelf = primaryAudioContext.createBiquadFilter();
+    lowShelf.type = "lowshelf";
+    lowShelf.frequency.value = 200;
+    lowShelf.gain.value = config.low;
+    const highShelf = primaryAudioContext.createBiquadFilter();
+    highShelf.type = "highshelf";
+    highShelf.frequency.value = 2500;
+    highShelf.gain.value = config.high;
+    const compressor = primaryAudioContext.createDynamicsCompressor();
+    compressor.threshold.value = config.threshold;
+    compressor.knee.value = 18;
+    compressor.ratio.value = config.ratio;
+    compressor.attack.value = 0.008;
+    compressor.release.value = 0.16;
+    const pan = primaryAudioContext.createStereoPanner();
+    pan.pan.value = config.pan;
+    const gain = primaryAudioContext.createGain();
+    gain.gain.value = config.gain;
+
+    source.connect(lowShelf);
+    lowShelf.connect(highShelf);
+    highShelf.connect(compressor);
+    compressor.connect(pan);
+    pan.connect(gain);
+    gain.connect(primaryAudioContext.destination);
+    shapedPrimaryAudio.add(audio);
+  } catch {
+    // Native playback fallback is still fine for browsers that block routing.
+  }
+}
+
 function prefetchAllAudio() {
   Object.values(scenarios).forEach((scenario) => {
     const standardText = plainText(scenario.standard);
@@ -1955,7 +2042,7 @@ function prefetchCurrentAudio() {
   });
 }
 
-async function playAudioSource(source, waveform, button, statusElement) {
+async function playAudioSource(source, waveform, button, statusElement, profile = "standard") {
   if (activeAudio && activeAudioButton === button) {
     if (activeAudio.paused) {
       await activeAudio.play();
@@ -1983,6 +2070,7 @@ async function playAudioSource(source, waveform, button, statusElement) {
     const candidate = typeof source === "function" ? source() : source;
     const url = typeof candidate === "string" ? candidate : await candidate;
     activeAudio = new Audio(url);
+    await shapePrimaryAudio(activeAudio, profile);
     activeAudioButton = button;
     activeAudioWaveform = waveform;
     elements.pauseAudioButton.disabled = false;
@@ -2049,6 +2137,7 @@ async function playHumanVoice() {
     elements.userWaveform,
     elements.replayButton,
     elements.inputQuality,
+    `human:${activeState}`,
   );
 }
 
@@ -2184,6 +2273,52 @@ function updateTelemetry(step) {
   elements.telemetryAffectBar.style.width = `${affectValue}%`;
   elements.telemetryConfidenceBar.style.width = `${confidence}%`;
   renderLiveAffect(value);
+}
+
+function liveMomentChunkDurations(moment, audioDuration) {
+  const totalCharacters = moment.chunks.reduce(
+    (total, chunkText) => total + chunkText.length,
+    0,
+  );
+  return moment.chunks.map((chunkText) =>
+    Math.max(1.5, audioDuration * (chunkText.length / totalCharacters)),
+  );
+}
+
+function buildLiveWordTimeline(moment, audioDuration) {
+  const chunkDurations = liveMomentChunkDurations(moment, audioDuration);
+  const chunkStarts = [];
+  const words = [];
+  let cursor = 0;
+
+  moment.chunks.forEach((chunkText, chunkIndex) => {
+    chunkStarts.push(cursor);
+    const labels = transcriptWordsForTimings(chunkText);
+    const weights = labels.map((label) => Math.max(label.length, 1));
+    const totalWeight = weights.reduce((sum, value) => sum + value, 0) || 1;
+    let localCursor = 0;
+
+    labels.forEach((label, wordIndex) => {
+      words.push({
+        label,
+        at: cursor + localCursor,
+        chunkIndex,
+        trigger: chunkIndex === moment.triggerIndex,
+      });
+      localCursor += chunkDurations[chunkIndex] * (weights[wordIndex] / totalWeight);
+    });
+
+    cursor += chunkDurations[chunkIndex];
+  });
+
+  return { words, chunkStarts };
+}
+
+function appendLiveTranscriptWord(word) {
+  const span = document.createElement("span");
+  span.className = `transcript-chunk${word.trigger ? " triggered-words" : ""}`;
+  span.textContent = `${word.label} `;
+  elements.liveTranscript.appendChild(span);
 }
 
 async function prefetchLiveMomentAudio(name) {
@@ -2370,28 +2505,20 @@ async function runLiveMoment() {
     demo.dataset.audioError = error.message;
   }
 
-  const totalCharacters = moment.chunks.reduce(
-    (total, chunkText) => total + chunkText.length,
-    0,
-  );
   const audioDuration =
     liveMomentAudio && Number.isFinite(liveMomentAudio.duration)
       ? liveMomentAudio.duration
       : 18;
-  let visualElapsed = 0;
+  const { words, chunkStarts } = buildLiveWordTimeline(moment, audioDuration);
+  let renderedWordCount = 0;
+  let processedChunkCount = 0;
+  let fallbackStartedAt = performance.now();
+  let pausedAt = null;
+  let pausedDuration = 0;
 
-  for (let index = 0; index < moment.chunks.length; index += 1) {
-    if (token !== liveRunToken) return;
-    while (liveMomentPaused && token === liveRunToken) {
-      await wait(100);
-    }
-    const chunk = document.createElement("span");
-    chunk.className = "transcript-chunk";
-    chunk.textContent = `${moment.chunks[index]} `;
-    if (index === moment.triggerIndex) chunk.classList.add("triggered-words");
-    elements.liveTranscript.appendChild(chunk);
-    elements.liveClock.textContent = `00:${String(Math.round(visualElapsed)).padStart(2, "0")}`;
+  const processChunk = (index, currentTime) => {
     updateTelemetry(moment.telemetry[index]);
+    elements.liveClock.textContent = `00:${String(Math.round(currentTime)).padStart(2, "0")}`;
 
     if (moment.thoughts[index]) {
       const [label, text] = moment.thoughts[index];
@@ -2419,36 +2546,52 @@ async function runLiveMoment() {
       elements.interjectionAudioStatus.textContent =
         "Potential response · available after the full speech";
     }
+  };
 
-    const chunkDuration = Math.max(
-      1.5,
-      audioDuration * (moment.chunks[index].length / totalCharacters),
-    );
-    const waitTime = chunkDuration * 1000;
-    let elapsed = 0;
-    while (elapsed < waitTime && token === liveRunToken) {
-      if (!liveMomentPaused) elapsed += 50;
-      await wait(50);
+  while (token === liveRunToken) {
+    if (liveMomentPaused) {
+      if (pausedAt == null) pausedAt = performance.now();
+      await wait(60);
+      continue;
     }
-    visualElapsed += chunkDuration;
-    elements.liveClock.textContent = `00:${String(Math.min(
-      Math.round(visualElapsed),
-      Math.round(audioDuration),
-    )).padStart(2, "0")}`;
+
+    if (pausedAt != null) {
+      pausedDuration += performance.now() - pausedAt;
+      pausedAt = null;
+    }
+
+    const currentTime = liveMomentAudio
+      ? liveMomentAudio.currentTime || 0
+      : Math.min((performance.now() - fallbackStartedAt - pausedDuration) / 1000, audioDuration);
+
+    while (
+      processedChunkCount < chunkStarts.length &&
+      currentTime >= chunkStarts[processedChunkCount]
+    ) {
+      processChunk(processedChunkCount, currentTime);
+      processedChunkCount += 1;
+    }
+
+    while (renderedWordCount < words.length && currentTime >= words[renderedWordCount].at) {
+      appendLiveTranscriptWord(words[renderedWordCount]);
+      renderedWordCount += 1;
+    }
+
+    elements.liveClock.textContent = `00:${String(
+      Math.min(Math.round(currentTime), Math.round(audioDuration)),
+    ).padStart(2, "0")}`;
+
+    const audioFinished = liveMomentAudio
+      ? liveMomentAudio.ended || (!liveMomentAudio.paused && currentTime >= audioDuration - 0.05)
+      : currentTime >= audioDuration;
+
+    if (audioFinished && renderedWordCount >= words.length && processedChunkCount >= chunkStarts.length) {
+      break;
+    }
+
+    await wait(40);
   }
 
-  if (token !== liveRunToken) return;
-  while (
-    liveMomentAudio &&
-    !liveMomentAudio.paused &&
-    !liveMomentAudio.ended &&
-    token === liveRunToken
-  ) {
-    elements.liveClock.textContent = `00:${String(
-      Math.min(Math.round(liveMomentAudio.currentTime), Math.round(audioDuration)),
-    ).padStart(2, "0")}`;
-    await wait(100);
-  }
   elements.liveClock.textContent = `00:${String(Math.round(audioDuration)).padStart(2, "0")}`;
   elements.analysisStatus.textContent = "HUMAN FINISHED";
   elements.continuationText.textContent =
@@ -2677,6 +2820,7 @@ elements.standardAudioButton.addEventListener("click", () => {
     elements.standardVoiceWave,
     elements.standardAudioButton,
     elements.standardAudioStatus,
+    "standard",
   );
 });
 
@@ -2690,6 +2834,7 @@ elements.awareAudioButton.addEventListener("click", () => {
     elements.adaptiveVoiceWave,
     elements.awareAudioButton,
     elements.awareAudioStatus,
+    "aware",
   );
 });
 

@@ -55,6 +55,7 @@ const scenarios = {
 const states = {
   focused: {
     label: "Focused + confident",
+    sampleLabel: "FOCUSED SAMPLE · BRISK",
     confidence: "92%",
     policies: ["1.12× pace", "denser turns", "challenge directly"],
     awareBurden: "OPTIMAL",
@@ -71,6 +72,7 @@ const states = {
   },
   confused: {
     label: "Confused",
+    sampleLabel: "CONFUSED SAMPLE · SEARCHING",
     confidence: "84%",
     policies: ["0.90× pace", "one concept", "pause for reply"],
     awareBurden: "LOW",
@@ -87,6 +89,7 @@ const states = {
   },
   overloaded: {
     label: "Overloaded",
+    sampleLabel: "OVERLOADED SAMPLE · TENSE",
     confidence: "87%",
     policies: ["0.86× pace", "short turns", "no interruption"],
     awareBurden: "LOW",
@@ -103,6 +106,7 @@ const states = {
   },
   low: {
     label: "Low energy",
+    sampleLabel: "LOW-ENERGY SAMPLE · SOFT",
     confidence: "79%",
     policies: ["0.70× pace", "long pauses", "one gentle step"],
     awareBurden: "VERY LOW",
@@ -261,6 +265,10 @@ const deepDemos = {
         response: "Listening...",
         status: "Confidence still building",
         clipId: "g_s1",
+        overlayClipId: "bc_right",
+        overlayAt: 5.6,
+        overlayVolume: 0.34,
+        gapAfterMs: 90,
       },
       {
         time: "00:04",
@@ -272,6 +280,7 @@ const deepDemos = {
         response: "Short grounding cue",
         status: "Intervention delivered",
         clipId: "g_int1",
+        gapAfterMs: 80,
       },
       {
         time: "00:08",
@@ -283,6 +292,7 @@ const deepDemos = {
         response: "Hold response",
         status: "Still listening",
         clipId: "g_s1b",
+        gapAfterMs: 70,
       },
       {
         time: "00:11",
@@ -295,6 +305,7 @@ const deepDemos = {
         response: "Brief clarification",
         status: "Shared concept forming",
         clipId: "g_a1",
+        gapAfterMs: 95,
       },
       {
         time: "00:17",
@@ -306,6 +317,10 @@ const deepDemos = {
         response: "Ready to confirm",
         status: "Repair pressure dropping",
         clipId: "g_s2",
+        overlayClipId: "bc_mmhm",
+        overlayAt: 3.7,
+        overlayVolume: 0.3,
+        gapAfterMs: 70,
       },
       {
         time: "00:20",
@@ -318,6 +333,7 @@ const deepDemos = {
         response: "Confirm and extend",
         status: "Learner back in control",
         clipId: "g_a2",
+        gapAfterMs: 90,
       },
       {
         time: "00:26",
@@ -329,6 +345,7 @@ const deepDemos = {
         response: "Keep thread alive",
         status: "Grounding becoming explicit",
         clipId: "g_s3",
+        gapAfterMs: 65,
       },
       {
         time: "00:30",
@@ -341,6 +358,7 @@ const deepDemos = {
         response: "Short diagnostic question",
         status: "Model keeping the learner active",
         clipId: "g_a3",
+        gapAfterMs: 90,
       },
       {
         time: "00:36",
@@ -352,6 +370,7 @@ const deepDemos = {
         response: "Hold floor briefly",
         status: "Concept clicked",
         clipId: "g_s4",
+        gapAfterMs: 60,
       },
       {
         time: "00:39",
@@ -363,6 +382,7 @@ const deepDemos = {
         response: "Escalate to next concept",
         status: "Ready for deeper reasoning",
         clipId: "g_a4",
+        gapAfterMs: 80,
       },
     ],
   },
@@ -381,6 +401,7 @@ const deepDemos = {
         response: "Listening...",
         status: "Error surface located",
         clipId: "c_s1",
+        gapAfterMs: 75,
       },
       {
         time: "00:04",
@@ -392,6 +413,7 @@ const deepDemos = {
         response: "One-line repair",
         status: "Intervention delivered",
         clipId: "c_int1",
+        gapAfterMs: 60,
       },
       {
         time: "00:07",
@@ -403,6 +425,7 @@ const deepDemos = {
         response: "Prepare reassurance",
         status: "Clarification needed",
         clipId: "c_s1b",
+        gapAfterMs: 55,
       },
       {
         time: "00:10",
@@ -415,6 +438,7 @@ const deepDemos = {
         response: "Direct reassurance",
         status: "User continues smoothly",
         clipId: "c_a1_resume",
+        gapAfterMs: 80,
       },
       {
         time: "00:14",
@@ -427,6 +451,7 @@ const deepDemos = {
         response: "Listening for next hypothesis",
         status: "Mismatch resolved",
         clipId: "c_s2",
+        gapAfterMs: 60,
       },
       {
         time: "00:18",
@@ -438,6 +463,7 @@ const deepDemos = {
         response: "Tentative diagnosis",
         status: "Interruption ready",
         clipId: "c_a2_partial",
+        gapAfterMs: 40,
       },
       {
         time: "00:20",
@@ -449,6 +475,7 @@ const deepDemos = {
         response: "Withdraw intervention",
         status: "User self-repaired",
         clipId: "c_s2_interrupt",
+        gapAfterMs: 35,
       },
       {
         time: "00:22",
@@ -461,6 +488,7 @@ const deepDemos = {
         response: "Short confirm",
         status: "Control returned to user",
         clipId: "c_a2_resume",
+        gapAfterMs: 70,
       },
     ],
   },
@@ -744,6 +772,7 @@ let deepDemoRunToken = 0;
 let deepDemoRunning = false;
 let deepDemoPaused = false;
 let deepDemoAudio = null;
+let deepDemoOverlayAudio = null;
 const deepDemoAudioCache = new Map();
 const deepDemoWordCache = new Map();
 const localAudioLibrary = new Map(
@@ -1643,6 +1672,7 @@ async function runLongformConversation() {
   for (let index = 0; index < demo.timeline.length; index += 1) {
     if (token !== deepDemoRunToken) return;
     renderLongformEvent(index, true);
+    renderDeepDemoColumns(index, 0);
     try {
       await playDeepDemoStep(demo.timeline[index], index, token);
     } catch (error) {
@@ -1709,10 +1739,39 @@ async function fetchDeepDemoAudio(step, index, demoKey = activeDeepDemo) {
 }
 
 function stopDeepDemoPlayback() {
+  stopDeepDemoOverlay();
   if (!deepDemoAudio) return;
   deepDemoAudio.pause();
   deepDemoAudio.currentTime = 0;
   deepDemoAudio = null;
+}
+
+function stopDeepDemoOverlay() {
+  if (!deepDemoOverlayAudio) return;
+  deepDemoOverlayAudio.pause();
+  deepDemoOverlayAudio.currentTime = 0;
+  deepDemoOverlayAudio = null;
+}
+
+async function playDeepDemoOverlay(clipId, volume = 0.3) {
+  if (!clipId) return;
+  stopDeepDemoOverlay();
+  const source = resolveDeepDemoClip(clipId);
+  if (!source) return;
+  const audio = new Audio(source);
+  audio.preload = "auto";
+  audio.volume = volume;
+  deepDemoOverlayAudio = audio;
+  await shapeLongformAudio(audio, "attune");
+  await new Promise((resolve) => {
+    const settle = () => {
+      if (deepDemoOverlayAudio === audio) deepDemoOverlayAudio = null;
+      resolve();
+    };
+    audio.addEventListener("ended", settle, { once: true });
+    audio.addEventListener("error", settle, { once: true });
+    audio.play().catch(settle);
+  });
 }
 
 async function playDeepDemoStep(step, index, token) {
@@ -1733,12 +1792,23 @@ async function playDeepDemoStep(step, index, token) {
   deepDemoAudio = audio;
   await shapeLongformAudio(audio, step.speaker === "user" ? "human" : "attune");
   step._words = words.map((item) => item.w);
+  await new Promise((resolve) => {
+    if (audio.readyState >= 2) {
+      resolve();
+      return;
+    }
+    const settle = () => resolve();
+    audio.addEventListener("loadeddata", settle, { once: true });
+    audio.addEventListener("canplaythrough", settle, { once: true });
+    audio.addEventListener("error", settle, { once: true });
+  });
 
   elements.longformAudioStatus.textContent =
     step.speaker === "user" ? "User speaking live" : "Attune responding";
 
   await new Promise((resolve) => {
     let rafId = null;
+    let overlayStarted = false;
     const finalize = () => {
       if (rafId) window.cancelAnimationFrame(rafId);
       if (deepDemoAudio === audio) {
@@ -1752,6 +1822,10 @@ async function playDeepDemoStep(step, index, token) {
       if (token !== deepDemoRunToken || deepDemoAudio !== audio) return;
       const currentTime = audio.currentTime || 0;
       const visibleWords = words.filter((word) => currentTime >= word.s).length;
+      if (!overlayStarted && step.overlayClipId && currentTime >= (step.overlayAt || 0)) {
+        overlayStarted = true;
+        playDeepDemoOverlay(step.overlayClipId, step.overlayVolume ?? 0.3).catch(() => {});
+      }
       renderDeepDemoColumns(index, Math.max(visibleWords, 0));
       renderDeepState(
         deepFrameForStep(
@@ -1782,6 +1856,7 @@ function prefetchDeepDemoAudio(demoKey = activeDeepDemo) {
   demo?.timeline?.forEach((step, index) => {
     fetchDeepDemoAudio(step, index, demoKey).catch(() => {});
     fetchDeepDemoWords(step).catch(() => {});
+    if (step.overlayClipId) fetchDeepDemoWords({ clipId: step.overlayClipId }).catch(() => {});
   });
 }
 
@@ -2455,6 +2530,9 @@ async function playExchange(instant = false) {
   elements.liveSpeech.textContent = `${state.metrics[0][2]}%`;
   elements.liveVision.textContent = `${state.metrics[1][2]}%`;
   elements.liveText.textContent = `${state.metrics[2][2]}%`;
+  if (!recordedAudioUrl) {
+    elements.inputQuality.textContent = state.sampleLabel;
+  }
   elements.userWaveform.dataset.state = activeState;
   renderPrimaryAffect(activeState);
   prefetchCurrentAudio();

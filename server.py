@@ -58,7 +58,7 @@ def synthesize(payload):
     instructions = {
         "human": {
             "focused": "Natural male human speech. Alert, confident, slightly brisk, and conversational. Sound like a real person talking, never like a narrator or voice actor.",
-            "confused": "Natural male human speech with genuine uncertainty, a searching cadence, and a couple of small hesitations. Keep it subtle, believable, and fully human.",
+            "confused": "Natural male human speech that sounds frustrated and impatient, but still controlled. Slightly clipped delivery, sharper onsets, and audible irritation. Keep it believable and fully human.",
             "overloaded": "Natural male human speech under cognitive load. Slightly rushed, effortful, and tense, with small self-repairs. Keep it understated and believable, never theatrical.",
             "low": "Natural male human speech with clearly low energy. Softer, slower, tired, and depleted, with light breathiness and delayed starts. Keep it natural, not exaggerated.",
             "longform": "Natural continuous speech from a somewhat tired but engaged student thinking aloud. Keep the tone human, grounded, slightly breathy, and imperfect. Use only occasional natural fillers and small restarts when they feel genuinely motivated. Preserve the hesitations and word-retrieval pauses, but do not overdo them. Leave clear conversational space after incomplete thoughts, after saying Okay, and before the final request. Never sound scripted, polished, or theatrical.",
@@ -66,7 +66,7 @@ def synthesize(payload):
         "standard": "Neutral AI assistant voice. Clear and competent, but generic, steady, and less adaptive than a conversational partner.",
         "aware": {
             "focused": "A natural female AI voice. Brisk, clear, and compact, but still conversational and human-sounding. Avoid the feel of a scripted assistant.",
-            "confused": "A natural female AI voice. Warm, unhurried, supportive, and concise. Sound like the same person throughout, with calm consistency and no robotic sharpness.",
+            "confused": "A natural female AI voice responding to a frustrated user. Calm the interaction down, sound steady and composed, and make the next step concrete. Keep the same speaker identity and avoid robotic sharpness.",
             "longform": "A natural female AI voice that stays stable for the entire conversation. Use the exact same speaker identity and emotional register for every cue, backchannel, correction, and longer answer. Calm, restrained, supportive, and consistent. No sudden tone shifts, exaggerated expressiveness, or robotic crispness. For overlap moments like 'Mm-hmm' and 'Exactly,' stay slightly quieter than the human while remaining natural and clear.",
             "overloaded": "A natural female AI voice. Calm, grounded, and concise, with short turns and gentle emphasis. Sound supportive without becoming flat or robotic.",
             "low": "A natural female AI voice responding to a depleted user. Softer and slower than normal, gentle and quiet, with more space between phrases. Never sound upbeat, bright, or energetic.",

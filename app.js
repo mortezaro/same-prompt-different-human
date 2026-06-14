@@ -2,6 +2,16 @@ const scenarios = {
   code: {
     prompt:
       "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+    promptAudio: {
+      focused:
+        "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+      confused:
+        "I've tried five things, and it still doesn't work. What is wrong with this shape mismatch?",
+      overloaded:
+        "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+      low:
+        "I've tried five things... it still doesn't work. What is wrong with this shape mismatch?",
+    },
     standard: `
       <p>A shape mismatch can have several causes. You should check:</p>
       <ol>
@@ -30,6 +40,16 @@ const scenarios = {
   learn: {
     prompt:
       "I keep getting lost with gradient descent. Can you explain it one more time?",
+    promptAudio: {
+      focused:
+        "I keep getting lost with gradient descent. Can you explain it one more time?",
+      confused:
+        "I keep getting lost with gradient descent, and I still don't have it. Can you explain it one more time?",
+      overloaded:
+        "I keep getting lost with gradient descent. Can you explain it one more time?",
+      low:
+        "I keep getting lost with gradient descent... can you explain it one more time?",
+    },
     standard: `
       <p>Gradient descent is an optimization algorithm used to minimize a loss function. It works by calculating the gradient, which is the vector of partial derivatives, and updating parameters in the opposite direction.</p>
       <p>The update rule is θ = θ − α∇J(θ), where α is the learning rate. Common variants include batch, stochastic, and mini-batch gradient descent.</p>`,
@@ -71,20 +91,20 @@ const states = {
     ],
   },
   confused: {
-    label: "Confused",
-    sampleLabel: "CONFUSED SAMPLE · SEARCHING",
+    label: "Frustrated",
+    sampleLabel: "FRUSTRATED SAMPLE · CLIPPED",
     confidence: "84%",
-    policies: ["0.90× pace", "one concept", "pause for reply"],
+    policies: ["0.94× pace", "de-escalate", "make it concrete"],
     awareBurden: "LOW",
     awareMeter: "29%",
-    voice: "0.90× · WARM · CHECK-IN PAUSES",
-    audioStrategy: "Warm pace. One concept. Pause for understanding.",
-    cue: "Searching explanation · uneven pacing",
+    voice: "0.94× · CALM · DE-ESCALATING",
+    audioStrategy: "Calm the tempo. Reduce friction. Make the next step concrete.",
+    cue: "Clipped delivery · rising irritation",
     weights: ["61%", "27%", "12%"],
     metrics: [
-      ["Word finding", "Searching", 42],
-      ["Engagement stability", "Variable", 52],
-      ["Concept friction", "High", 78],
+      ["Prosodic tension", "Rising", 72],
+      ["Engagement stability", "Holding", 58],
+      ["Task friction", "High", 81],
     ],
   },
   overloaded: {
@@ -785,6 +805,8 @@ const localAudioLibrary = new Map(
       "audio/3758d93a9d3047a0d163ef31cce3ca0a1572c1afbc1a0c008538c30d1d8ef8e2.mp3",
     "human|confused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
       "audio/54f6c3d373f22a685b2e510bc802418bd4e557d157a6c6b20855482927b5674d.mp3",
+    "human|confused|I've tried five things, and it still doesn't work. What is wrong with this shape mismatch?":
+      "audio/dbd3eab81cf8ba024c514102003dc4902d19715d278ccda82ff52779e9ac8116.mp3",
     "aware|confused|Let’s make the error concrete. The model returns a column of 32 values, but the labels are a simple list of 32 values. They contain the same amount of data, but their shapes are written differently. First check: print logits.shape and targets.shape directly before the loss call.":
       "audio/9de9b021b5ea165b2a3beef225b20b29f86f335a4133a18feea2d8eaeece6521.mp3",
     "human|overloaded|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
@@ -793,6 +815,8 @@ const localAudioLibrary = new Map(
       "audio/e49110f1c9b34066f8d3afda5316b44ea305d30414875d80c71d62d2ae9151de.mp3",
     "human|low|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
       "audio/4ac6f1e49fd4e564b14a4ac73b37bc8ce17fe86e497dc5511d3bb1d4de999dad.mp3",
+    "human|low|I've tried five things... it still doesn't work. What is wrong with this shape mismatch?":
+      "audio/67cd8949910c483ff7ca97db8e82445916bd6fdcc2cc951f4437c3b4acf2cc6d.mp3",
     "aware|low|This is a small mismatch, not a broken model. When you have the energy, make just this change: logits = logits.squeeze(-1) . Then stop there and run it once.":
       "audio/205a0810c55386cf77fd0808825b5f410d07950d6cb0a40a1912361cb77c3b88.mp3",
     "standard|overloaded|A shape mismatch can have several causes. You should check: The input and expected tensor dimensions. Batch dimension ordering and broadcasting behavior. Whether a reshape, squeeze, or transpose was applied incorrectly. The model's output layer and loss function expectations. Data loader collation and padding. Try printing the shape after every operation to identify where the dimensions diverge.":
@@ -803,6 +827,8 @@ const localAudioLibrary = new Map(
       "audio/3603aecbea8c47cf66c79dacb83ccfed46e7073bd37e6b79bac4cf4b6e5dcb5c.mp3",
     "human|confused|I keep getting lost with gradient descent. Can you explain it one more time?":
       "audio/f9a2d3de692d57246d68d162991dd0ad3711bc70cee0a0bb885feaf25094512a.mp3",
+    "human|confused|I keep getting lost with gradient descent, and I still don't have it. Can you explain it one more time?":
+      "audio/db360fc76ff591d984faa218ac3b5d7ee1bfdd57ae275d766ebfeb75e4aa461a.mp3",
     "aware|confused|One idea only: imagine standing on a foggy hill. You cannot see the bottom, but you can feel which way the ground slopes under your feet. Gradient descent means taking one small step downhill, checking the slope again, then repeating. Before we move on: what tells you which direction is downhill?":
       "audio/019396b6816fcc0b4d625dcb5bb2149ce55a3c3862591448591635118059f7fc.mp3",
     "human|overloaded|I keep getting lost with gradient descent. Can you explain it one more time?":
@@ -811,6 +837,8 @@ const localAudioLibrary = new Map(
       "audio/62047df6478996feadf2e108dbf446ae8141e86dea3e251e199cd2b2960f1eec.mp3",
     "human|low|I keep getting lost with gradient descent. Can you explain it one more time?":
       "audio/a88908157680d44d2d3fbe6eb32b8f87a37ed64e913c3bd7db10137f5093d2f7.mp3",
+    "human|low|I keep getting lost with gradient descent... can you explain it one more time?":
+      "audio/3ef95cd8454ba3f6d2645a3a734e21c74e7cd1045b9a9c6308137a9caac33b97.mp3",
     "aware|low|We can leave the equation alone today. Keep one quiet picture in mind: a ball settling toward the bottom of a bowl. The slope tells it where to move next. That is enough.":
       "audio/254b52c89547bbf164bc40a76d11079a346d504d81cd9e08bb1d7eb99b5702df.mp3",
     "standard|overloaded|Gradient descent is an optimization algorithm used to minimize a loss function. It works by calculating the gradient, which is the vector of partial derivatives, and updating parameters in the opposite direction. The update rule is θ = θ − α∇J(θ), where α is the learning rate. Common variants include batch, stochastic, and mini-batch gradient descent.":
@@ -1022,6 +1050,11 @@ const deepStateLibrary = {
 
 function wait(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+}
+
+function activeHumanPromptText() {
+  const scenario = scenarios[activeScenario];
+  return scenario.promptAudio?.[activeState] || scenario.prompt;
 }
 
 function localAudioKey(role, state, text) {
@@ -2009,7 +2042,7 @@ function prefetchAllAudio() {
     }
     Object.keys(states).forEach((state) => {
       const jobs = [
-        ["human", scenario.prompt],
+        ["human", scenario.promptAudio?.[state] || scenario.prompt],
         ["aware", plainText(scenario.aware[state])],
       ];
       jobs.forEach(([role, text]) => {
@@ -2029,7 +2062,7 @@ function prefetchAllAudio() {
 function prefetchCurrentAudio() {
   const scenario = scenarios[activeScenario];
   const items = [
-    ["human", scenario.prompt, elements.inputQuality],
+    ["human", activeHumanPromptText(), elements.inputQuality],
     ["standard", plainText(scenario.standard), elements.standardAudioStatus],
     ["aware", plainText(scenario.aware[activeState]), elements.awareAudioStatus],
   ];
@@ -2131,7 +2164,7 @@ async function playHumanVoice() {
   await playAudioSource(
     () => studioVoiceSource(
       "human",
-      scenarios[activeScenario].prompt,
+      activeHumanPromptText(),
       elements.inputQuality,
     ),
     elements.userWaveform,
@@ -2224,7 +2257,9 @@ async function toggleCamera() {
 function renderLiveMoment(revealed = true) {
   const moment = liveMoments[activeLiveScenario];
   prefetchLiveMomentAudio(activeLiveScenario).catch(() => {});
-  elements.liveTranscript.textContent = revealed ? moment.chunks.join(" ") : "";
+  elements.liveTranscript.innerHTML = revealed
+    ? '<span class="transcript-chunk">Run the moment to watch the transcript grow live.</span>'
+    : "";
   elements.triggerPhrase.textContent = `“${moment.trigger}”`;
   elements.liveSignal.textContent = moment.signal;
   elements.liveState.textContent = moment.state;

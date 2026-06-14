@@ -4548,6 +4548,30 @@ footer {
   animation: transcript-in 260ms ease forwards;
 }
 
+.conversation-transcript p.active-entry {
+  border: 1px solid rgba(57, 72, 143, 0.16);
+  box-shadow: 0 18px 36px rgba(57, 72, 143, 0.08);
+}
+
+.conversation-transcript .word-fragment {
+  opacity: 0.24;
+  transition: opacity 110ms ease;
+}
+
+.conversation-transcript .word-fragment.visible {
+  opacity: 1;
+}
+
+.conversation-transcript .live-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 2px;
+  vertical-align: -0.08em;
+  background: currentColor;
+  animation: blink-cursor 0.8s steps(1) infinite;
+}
+
 .conversation-transcript p b {
   display: block;
   margin-bottom: 5px;
@@ -4651,6 +4675,97 @@ footer {
   font-size: 0.72rem;
   line-height: 1.58;
   text-align: center;
+}
+
+.deep-state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 22px;
+  margin-top: 16px;
+}
+
+.deep-state-metric {
+  padding: 13px 13px 12px;
+  border: 1px solid rgba(57, 72, 143, 0.12);
+  border-radius: 14px;
+  background: rgba(57, 72, 143, 0.04);
+}
+
+.deep-state-metric span,
+.deep-state-metric strong,
+.deep-state-metric small {
+  display: block;
+}
+
+.deep-state-metric span {
+  color: var(--dim);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.deep-state-metric strong {
+  margin-top: 7px;
+  color: var(--acid);
+  font-size: 1rem;
+}
+
+.deep-state-metric small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.deep-state-bar {
+  display: block;
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: rgba(57, 72, 143, 0.08);
+  overflow: hidden;
+}
+
+.deep-state-bar i {
+  display: block;
+  width: 30%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--acid), #7e90d8);
+  transition: width 180ms ease;
+}
+
+.deep-affect-card {
+  margin: 16px 22px 0;
+  padding: 14px;
+}
+
+.deep-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.deep-chip-row span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(57, 72, 143, 0.12);
+  background: rgba(57, 72, 143, 0.05);
+  color: var(--acid);
+  font-size: 0.63rem;
+}
+
+.deep-analysis-box {
+  margin: 16px 22px 0;
+  padding: 14px 15px;
+  border-left: 3px solid var(--acid);
+  border-radius: 12px;
+  background: rgba(57, 72, 143, 0.06);
+  color: #3a3d4e;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  min-height: 78px;
 }
 
 .micro-response-card,
@@ -4906,6 +5021,12 @@ footer {
   background: #c9c6bf;
 }
 
+@keyframes blink-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1120px) {
   .longform-workspace {
     grid-template-columns: 1fr 1fr;
@@ -4957,6 +5078,10 @@ footer {
   }
 
   .event-timeline .timeline-list {
+    grid-template-columns: 1fr;
+  }
+
+  .deep-state-grid {
     grid-template-columns: 1fr;
   }
 }

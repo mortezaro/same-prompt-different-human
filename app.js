@@ -282,6 +282,7 @@ const deepDemos = {
         policyText: "The user is testing the idea aloud. Keep the thread moving.",
         response: "Hold response",
         status: "Still listening",
+        clipId: "g_s1b",
       },
       {
         time: "00:11",
@@ -379,6 +380,7 @@ const deepDemos = {
         policyText: "The problem is already local. Avoid a broad answer and wait for the exact mismatch.",
         response: "Listening...",
         status: "Error surface located",
+        clipId: "c_s1",
       },
       {
         time: "00:04",
@@ -696,6 +698,19 @@ const elements = {
   longformTimeline: document.querySelector("#longformTimeline"),
   microResponseCard: document.querySelector("#microResponseCard"),
   withdrawalCard: document.querySelector("#withdrawalCard"),
+  deepMetricOneValue: document.querySelector("#deepMetricOneValue"),
+  deepMetricOneLabel: document.querySelector("#deepMetricOneLabel"),
+  deepMetricOneBar: document.querySelector("#deepMetricOneBar"),
+  deepMetricTwoValue: document.querySelector("#deepMetricTwoValue"),
+  deepMetricTwoLabel: document.querySelector("#deepMetricTwoLabel"),
+  deepMetricTwoBar: document.querySelector("#deepMetricTwoBar"),
+  deepMetricThreeValue: document.querySelector("#deepMetricThreeValue"),
+  deepMetricThreeLabel: document.querySelector("#deepMetricThreeLabel"),
+  deepMetricThreeBar: document.querySelector("#deepMetricThreeBar"),
+  deepAffectDot: document.querySelector("#deepAffectDot"),
+  deepAffectReading: document.querySelector("#deepAffectReading"),
+  deepChipRow: document.querySelector("#deepChipRow"),
+  deepAnalysisBox: document.querySelector("#deepAnalysisBox"),
 };
 
 let activeAudio = null;
@@ -730,6 +745,7 @@ let deepDemoRunning = false;
 let deepDemoPaused = false;
 let deepDemoAudio = null;
 const deepDemoAudioCache = new Map();
+const deepDemoWordCache = new Map();
 const localAudioLibrary = new Map(
   Object.entries({
     "human|focused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
@@ -806,6 +822,171 @@ const affectProfiles = {
   listening: { x: 50, y: 50, label: "Neutral · listening" },
 };
 
+const deepStateLibrary = {
+  g_s1: {
+    load: [42, "Thought forming"],
+    engagement: [86, "Engaged and searching"],
+    confidence: [34, "Too early to intervene"],
+    affect: { x: 44, y: 34, label: "Uncertain · high effort" },
+    chips: ["intent: explain aloud", "mood: hesitant", "behavior: active retrieval"],
+    analysis:
+      "The learner is still building the concept. The right move is to stay with the thread and keep the floor open.",
+  },
+  g_int1: {
+    load: [38, "Supportive moment"],
+    engagement: [91, "Thread intact"],
+    confidence: [62, "Micro-grounding ready"],
+    affect: { x: 56, y: 38, label: "Warm support · steady arousal" },
+    chips: ["intent: keep momentum", "mood: encouraging", "behavior: backchannel"],
+    analysis:
+      "A short cue helps the learner hold onto the idea without replacing their explanation.",
+  },
+  g_s1b: {
+    load: [46, "Testing the idea"],
+    engagement: [89, "Still engaged"],
+    confidence: [53, "Clarify if needed"],
+    affect: { x: 50, y: 36, label: "Curious probe · elevated effort" },
+    chips: ["intent: verify meaning", "mood: curious", "behavior: concept check"],
+    analysis:
+      "The learner is probing the concept aloud. Keep the explanation lightweight and tied to their wording.",
+  },
+  g_a1: {
+    load: [36, "Repairing gently"],
+    engagement: [88, "Shared thread"],
+    confidence: [77, "Clarification justified"],
+    affect: { x: 58, y: 38, label: "Helpful correction · steady" },
+    chips: ["intent: clarify", "mood: calm", "behavior: brief teach-back"],
+    analysis:
+      "Attune gives the minimum clarification, then immediately checks understanding instead of taking over.",
+  },
+  g_s2: {
+    load: [32, "Meaning recovered"],
+    engagement: [92, "Concept coming together"],
+    confidence: [58, "Confirm and return"],
+    affect: { x: 60, y: 42, label: "Recovery · moderate arousal" },
+    chips: ["intent: confirm", "mood: relieved", "behavior: self-repair"],
+    analysis:
+      "The learner has found the right abstraction. This is the moment for a clean confirmation, not a lecture.",
+  },
+  g_a2: {
+    load: [30, "Grounding complete"],
+    engagement: [90, "Learner active"],
+    confidence: [81, "Safe to extend one step"],
+    affect: { x: 65, y: 43, label: "Grounded · steady focus" },
+    chips: ["intent: deepen", "mood: confident", "behavior: confirm + hand back"],
+    analysis:
+      "The concept is now grounded enough for one precise extension while keeping the learner in control.",
+  },
+  g_s3: {
+    load: [27, "Chain completing"],
+    engagement: [93, "Learner driving"],
+    confidence: [68, "Stay light"],
+    affect: { x: 67, y: 40, label: "Building confidence · moderate arousal" },
+    chips: ["intent: connect terms", "mood: stabilizing", "behavior: productive continuation"],
+    analysis:
+      "The user is finishing the chain alone. Attune should mostly stay out of the way here.",
+  },
+  g_a3: {
+    load: [29, "Diagnostic check"],
+    engagement: [91, "Still collaborative"],
+    confidence: [83, "Question is targeted"],
+    affect: { x: 63, y: 40, label: "Grounded checkback" },
+    chips: ["intent: verify grounding", "mood: focused", "behavior: precise check"],
+    analysis:
+      "A short checkback verifies real understanding without changing the learner-centered rhythm.",
+  },
+  g_s4: {
+    load: [18, "Insight landed"],
+    engagement: [95, "Self-repair succeeded"],
+    confidence: [74, "No interruption needed"],
+    affect: { x: 77, y: 46, label: "Positive resolution · energized" },
+    chips: ["intent: claim understanding", "mood: relieved", "behavior: self-correction"],
+    analysis:
+      "The learner repaired the idea in their own words. The best move is to let that click land.",
+  },
+  g_a4: {
+    load: [24, "Ready to advance"],
+    engagement: [93, "Momentum preserved"],
+    confidence: [86, "Advance one concept"],
+    affect: { x: 72, y: 42, label: "Stable confidence · moderate arousal" },
+    chips: ["intent: continue learning", "mood: upbeat", "behavior: next-step prompt"],
+    analysis:
+      "Once the concept is stable, Attune advances with one sharp next question instead of a big explanation dump.",
+  },
+  c_s1: {
+    load: [61, "Concrete friction"],
+    engagement: [83, "Seeking a fix"],
+    confidence: [49, "Need the exact mismatch"],
+    affect: { x: 40, y: 31, label: "Frustrated but focused" },
+    chips: ["intent: debug aloud", "mood: strained", "behavior: localizing error"],
+    analysis:
+      "The developer is already close to the error surface. Listen for the exact mismatch before expanding the search space.",
+  },
+  c_int1: {
+    load: [35, "Minimal repair available"],
+    engagement: [88, "Fast path open"],
+    confidence: [90, "High-confidence fix"],
+    affect: { x: 56, y: 38, label: "Direct repair · low drama" },
+    chips: ["intent: unblock quickly", "mood: steady", "behavior: one-line fix"],
+    analysis:
+      "The fix is local and safe, so Attune answers with one line instead of a menu of possibilities.",
+  },
+  c_s1b: {
+    load: [39, "Healthy skepticism"],
+    engagement: [91, "Still reasoning"],
+    confidence: [63, "Explain narrowly"],
+    affect: { x: 52, y: 39, label: "Concern check · collaborative" },
+    chips: ["intent: stress test fix", "mood: cautious", "behavior: sanity check"],
+    analysis:
+      "This is a good hesitation. The user is checking whether the fix generalizes, so the answer should stay tight and specific.",
+  },
+  c_a1_resume: {
+    load: [28, "Concern resolved"],
+    engagement: [90, "Flow preserved"],
+    confidence: [82, "Return to user"],
+    affect: { x: 63, y: 39, label: "Reassuring correction" },
+    chips: ["intent: reassure", "mood: warm", "behavior: direct explanation"],
+    analysis:
+      "Attune answers the exact concern and stops there, which keeps the debugging rhythm natural.",
+  },
+  c_s2: {
+    load: [57, "New failure mode"],
+    engagement: [85, "Still working"],
+    confidence: [56, "Track the shift"],
+    affect: { x: 43, y: 34, label: "Renewed friction · alert" },
+    chips: ["intent: continue debugging", "mood: slightly strained", "behavior: state shift"],
+    analysis:
+      "The original mismatch is fixed. The model should now follow the new symptom rather than repeating old advice.",
+  },
+  c_a2_partial: {
+    load: [48, "Tentative diagnosis"],
+    engagement: [87, "Interruptible"],
+    confidence: [66, "Prepared, not committed"],
+    affect: { x: 49, y: 37, label: "Working hypothesis" },
+    chips: ["intent: propose likely cause", "mood: cautious", "behavior: intervention prepared"],
+    analysis:
+      "Attune starts a likely explanation but stays lightweight enough to be interrupted if the user self-repairs.",
+  },
+  c_s2_interrupt: {
+    load: [22, "Self-repair detected"],
+    engagement: [95, "User solved it"],
+    confidence: [88, "Withdraw intervention"],
+    affect: { x: 74, y: 45, label: "Relief · successful repair" },
+    chips: ["intent: confirm fix", "mood: relieved", "behavior: self-repair"],
+    analysis:
+      "This is the subtle win: the model was ready to intervene, then backs off because the user fixed it themselves.",
+  },
+  c_a2_resume: {
+    load: [24, "Close the loop"],
+    engagement: [92, "Control returned"],
+    confidence: [84, "Short confirmation only"],
+    affect: { x: 68, y: 41, label: "Grounded closure" },
+    chips: ["intent: confirm", "mood: steady", "behavior: concise follow-through"],
+    analysis:
+      "A brief confirmation is enough now because the user already located the real cause.",
+  },
+};
+
 function wait(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
@@ -878,6 +1059,140 @@ function renderLiveAffect([state, load, affect, confidence, stateValue, loadValu
     0,
     99,
   )}%`;
+}
+
+function renderDeepState(frame) {
+  if (!frame) return;
+  const metrics = [
+    [elements.deepMetricOneValue, elements.deepMetricOneLabel, elements.deepMetricOneBar, frame.load],
+    [
+      elements.deepMetricTwoValue,
+      elements.deepMetricTwoLabel,
+      elements.deepMetricTwoBar,
+      frame.engagement,
+    ],
+    [
+      elements.deepMetricThreeValue,
+      elements.deepMetricThreeLabel,
+      elements.deepMetricThreeBar,
+      frame.confidence,
+    ],
+  ];
+  metrics.forEach(([valueEl, labelEl, barEl, data]) => {
+    if (!data) return;
+    valueEl.textContent = `${Math.round(data[0])}%`;
+    labelEl.textContent = data[1];
+    barEl.style.width = `${Math.round(data[0])}%`;
+  });
+  setAffectMarker(elements.deepAffectDot, elements.deepAffectReading, frame.affect);
+  elements.deepChipRow.innerHTML = (frame.chips || [])
+    .map((chip) => `<span>${chip}</span>`)
+    .join("");
+  elements.deepAnalysisBox.textContent = frame.analysis || "";
+}
+
+function interpolateMetric(startValue, endValue, progress) {
+  return Math.round(startValue + (endValue - startValue) * progress);
+}
+
+function deepFrameForStep(step, progress = 1) {
+  const timeline = deepDemos[activeDeepDemo]?.timeline || [];
+  const stepIndex = timeline.indexOf(step);
+  const previousClipId =
+    step.previousClipId ||
+    [...timeline.slice(0, Math.max(stepIndex, 0))]
+      .reverse()
+      .find((candidate) => candidate.clipId)?.clipId;
+  const endFrame = deepStateLibrary[step.clipId] || deepStateLibrary[previousClipId] || null;
+  if (!endFrame) return null;
+  const startFrame = previousClipId ? deepStateLibrary[previousClipId] || endFrame : endFrame;
+  const mixMetric = (key) => {
+    const startMetric = startFrame[key] || endFrame[key];
+    const endMetric = endFrame[key];
+    return [
+      interpolateMetric(startMetric[0], endMetric[0], progress),
+      progress < 0.55 ? startMetric[1] : endMetric[1],
+    ];
+  };
+  return {
+    load: mixMetric("load"),
+    engagement: mixMetric("engagement"),
+    confidence: mixMetric("confidence"),
+    affect: {
+      x: interpolateMetric(startFrame.affect.x, endFrame.affect.x, progress),
+      y: interpolateMetric(startFrame.affect.y, endFrame.affect.y, progress),
+      label: progress < 0.55 ? startFrame.affect.label : endFrame.affect.label,
+    },
+    chips: progress < 0.55 ? startFrame.chips : endFrame.chips,
+    analysis: progress < 0.55 ? startFrame.analysis : endFrame.analysis,
+  };
+}
+
+async function fetchDeepDemoWords(step) {
+  if (!step?.clipId) return [];
+  if (deepDemoWordCache.has(step.clipId)) return deepDemoWordCache.get(step.clipId);
+  const request = fetch(`audio/${step.clipId}.words.json`)
+    .then((response) => {
+      if (!response.ok) throw new Error("Word timing unavailable");
+      return response.json();
+    })
+    .catch((error) => {
+      deepDemoWordCache.delete(step.clipId);
+      throw error;
+    });
+  deepDemoWordCache.set(step.clipId, request);
+  return request;
+}
+
+function renderWordSequence(words, visibleCount, showCursor = false) {
+  const safeWords = words || [];
+  return safeWords
+    .map((word, index) => {
+      const visible = index < visibleCount ? " visible" : "";
+      const cursor = showCursor && index === visibleCount - 1 ? '<span class="live-cursor"></span>' : "";
+      return `<span class="word-fragment${visible}">${word}${cursor}</span>`;
+    })
+    .join(" ");
+}
+
+function wordsFromStep(step) {
+  return step.transcript
+    .replace(/[“”]/g, "")
+    .replace(/[`]/g, "")
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+function renderDeepDemoColumns(currentIndex, activeWordCount = null) {
+  const demo = deepDemos[activeDeepDemo];
+  const currentStep = demo.timeline[currentIndex];
+  const userSteps = [];
+  const attuneSteps = [];
+
+  demo.timeline.forEach((step, index) => {
+    if (index > currentIndex) return;
+    const isCurrent = index === currentIndex && activeWordCount != null;
+    const words = step._words || wordsFromStep(step);
+    const body = isCurrent
+      ? renderWordSequence(words, activeWordCount, true)
+      : step.transcript;
+    const markup = `<p class="${step.speaker === "user" ? "speaker-human" : "speaker-attune"}${
+      isCurrent ? " active-entry" : ""
+    }"><b>${step.speaker === "user" ? "User" : "Attune"}</b>${body}</p>`;
+    if (step.speaker === "user") {
+      userSteps.push(markup);
+    } else {
+      attuneSteps.push(markup);
+    }
+  });
+
+  elements.longformTranscript.innerHTML =
+    userSteps.join("") || '<p class="empty-transcript">Run the example to watch speech appear live.</p>';
+  elements.deepResponseLog.innerHTML =
+    attuneSteps.join("") ||
+    '<p class="empty-transcript">Machine cues and replies appear here as the example unfolds.</p>';
+  elements.longformTranscript.scrollTop = elements.longformTranscript.scrollHeight;
+  elements.deepResponseLog.scrollTop = elements.deepResponseLog.scrollHeight;
 }
 
 function formatLongformTime(seconds) {
@@ -1263,24 +1578,10 @@ function renderLongformEvent(index = 0, rebuildTranscript = true) {
   elements.longformPolicyText.textContent = step.policyText;
   elements.longformResponse.textContent = step.response;
   elements.longformAudioStatus.textContent = step.status;
+  renderDeepState(deepFrameForStep(step, 1));
 
-  const visibleSteps = demo.timeline.slice(0, index + 1);
   if (rebuildTranscript) {
-    elements.longformTranscript.innerHTML = visibleSteps
-      .filter((item) => item.speaker === "user")
-      .map(
-        (item) =>
-          `<p class="speaker-human"><b>User</b>${item.transcript}</p>`,
-      )
-      .join("") || '<p class="empty-transcript">Run the example to watch speech appear live.</p>';
-
-    elements.deepResponseLog.innerHTML = visibleSteps
-      .filter((item) => item.speaker === "attune")
-      .map(
-        (item) =>
-          `<p class="speaker-attune"><b>Attune</b>${item.transcript}</p>`,
-      )
-      .join("") || '<p class="empty-transcript">Machine cues and replies appear here as the example unfolds.</p>';
+    renderDeepDemoColumns(index);
   }
 
   elements.longformTimeline.innerHTML = demo.timeline
@@ -1330,7 +1631,7 @@ async function runLongformConversation() {
   deepDemoRunning = true;
   deepDemoPaused = false;
   longformRunning = false;
-  stopDeepDemoAudio();
+  stopDeepDemoPlayback();
   shell?.classList.remove("complete", "paused");
   shell?.classList.add("running");
   elements.runLongformButton.innerHTML = "<i>Ⅱ</i> Pause example";
@@ -1407,73 +1708,72 @@ async function fetchDeepDemoAudio(step, index, demoKey = activeDeepDemo) {
   return request;
 }
 
-function stopDeepDemoAudio() {
+function stopDeepDemoPlayback() {
   if (!deepDemoAudio) return;
   deepDemoAudio.pause();
   deepDemoAudio.currentTime = 0;
   deepDemoAudio = null;
 }
 
-function playSpeechSynthesis(text, speaker = "attune") {
-  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
-    return Promise.reject(new Error("Example audio unavailable"));
-  }
-  window.speechSynthesis.cancel();
-  return new Promise((resolve) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = speaker === "user" ? 0.94 : 1.0;
-    utterance.pitch = speaker === "user" ? 0.92 : 1.18;
-    utterance.volume = speaker === "user" ? 0.98 : 0.9;
-    utterance.onend = () => resolve();
-    utterance.onerror = () => resolve();
-    window.speechSynthesis.speak(utterance);
-  });
-}
-
 async function playDeepDemoStep(step, index, token) {
   if (!step?.transcript) return;
-  let source = null;
-  try {
-    source = await fetchDeepDemoAudio(step, index);
-  } catch (error) {
-    elements.longformAudioStatus.textContent = "Using local browser voice";
-    await playSpeechSynthesis(step.audioText || step.transcript, step.speaker);
-    return;
-  }
+  const [source, words] = await Promise.all([
+    fetchDeepDemoAudio(step, index),
+    fetchDeepDemoWords(step).catch(() => wordsFromStep(step).map((word, wordIndex, allWords) => {
+      const segment = 2.4 / Math.max(allWords.length, 1);
+      return { w: word, s: wordIndex * segment, e: (wordIndex + 1) * segment };
+    })),
+  ]);
   if (token !== deepDemoRunToken) return;
 
-  stopDeepDemoAudio();
+  stopDeepDemoPlayback();
   const audio = new Audio(source);
   audio.preload = "auto";
-  audio.volume = step.speaker === "attune" ? 0.88 : 0.98;
+  audio.volume = step.speaker === "attune" ? 0.82 : 0.98;
   deepDemoAudio = audio;
   await shapeLongformAudio(audio, step.speaker === "user" ? "human" : "attune");
+  step._words = words.map((item) => item.w);
 
   elements.longformAudioStatus.textContent =
     step.speaker === "user" ? "User speaking live" : "Attune responding";
 
   await new Promise((resolve) => {
-    const settle = () => {
+    let rafId = null;
+    const finalize = () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
       if (deepDemoAudio === audio) {
         deepDemoAudio = null;
       }
+      renderDeepDemoColumns(index);
+      renderDeepState(deepFrameForStep(step, 1));
       resolve();
     };
-
-    const fallback = async () => {
-      if (deepDemoAudio === audio) {
-        deepDemoAudio = null;
-      }
-      elements.longformAudioStatus.textContent = "Using local browser voice";
-      await playSpeechSynthesis(step.audioText || step.transcript, step.speaker);
-      resolve();
+    const tick = () => {
+      if (token !== deepDemoRunToken || deepDemoAudio !== audio) return;
+      const currentTime = audio.currentTime || 0;
+      const visibleWords = words.filter((word) => currentTime >= word.s).length;
+      renderDeepDemoColumns(index, Math.max(visibleWords, 0));
+      renderDeepState(
+        deepFrameForStep(
+          step,
+          clamp(currentTime / Math.max(audio.duration || words.at(-1)?.e || 1, 0.001), 0, 1),
+        ),
+      );
+      elements.longformClock.textContent = formatLongformTime(currentTime);
+      rafId = window.requestAnimationFrame(tick);
     };
 
-    audio.addEventListener("ended", settle, { once: true });
+    audio.addEventListener("ended", finalize, { once: true });
     audio.addEventListener("error", () => {
-      fallback();
+      elements.longformAudioStatus.textContent = "Cached example audio missing";
+      finalize();
     }, { once: true });
-    audio.play().catch(fallback);
+    audio.play().then(() => {
+      tick();
+    }).catch(() => {
+      elements.longformAudioStatus.textContent = "Tap play again to unlock audio";
+      finalize();
+    });
   });
 }
 
@@ -1481,6 +1781,7 @@ function prefetchDeepDemoAudio(demoKey = activeDeepDemo) {
   const demo = deepDemos[demoKey];
   demo?.timeline?.forEach((step, index) => {
     fetchDeepDemoAudio(step, index, demoKey).catch(() => {});
+    fetchDeepDemoWords(step).catch(() => {});
   });
 }
 
@@ -2280,7 +2581,7 @@ document.querySelectorAll(".deep-demo-button").forEach((button) => {
     deepDemoRunToken += 1;
     deepDemoRunning = false;
     deepDemoPaused = false;
-    stopDeepDemoAudio();
+    stopDeepDemoPlayback();
     document.querySelector("#longformDemo")?.classList.remove("running", "complete", "paused");
     elements.runLongformButton.innerHTML = "<i>▶</i> Run example";
     renderLongformEvent(0, true);
@@ -2346,7 +2647,7 @@ document.querySelector("#resetButton").addEventListener("click", () => {
   deepDemoRunToken += 1;
   deepDemoRunning = false;
   deepDemoPaused = false;
-  stopDeepDemoAudio();
+  stopDeepDemoPlayback();
   longformHumanAudio?.pause();
   longformAttuneAudio?.pause();
   longformHumanAudio = null;

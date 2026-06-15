@@ -648,9 +648,6 @@ const elements = {
   replayLabel: document.querySelector(".replay-label"),
   scenarioSelect: document.querySelector("#scenarioSelect"),
   awareThinking: document.querySelector(".aware-thinking"),
-  awareBurden: document.querySelector("#awareBurden"),
-  awareMeter: document.querySelector("#awareMeter"),
-  voiceProfile: document.querySelector("#voiceProfile"),
   visualCue: document.querySelector("#visualCue"),
   userWaveform: document.querySelector("#userWaveform"),
   speechWeight: document.querySelector("#speechWeight"),
@@ -658,7 +655,6 @@ const elements = {
   textWeight: document.querySelector("#textWeight"),
   adaptiveVoiceWave: document.querySelector("#adaptiveVoiceWave"),
   awareAudioButton: document.querySelector("#awareAudioButton"),
-  awareAudioResponse: document.querySelector("#awareAudioResponse"),
   awareAudioStatus: document.querySelector("#awareAudioStatus"),
   audioStrategy: document.querySelector("#audioStrategy"),
   recordButton: document.querySelector("#recordButton"),
@@ -669,16 +665,6 @@ const elements = {
   liveText: document.querySelector("#liveText"),
   primaryAnalysisStatus: document.querySelector("#primaryAnalysisStatus"),
   primaryAnalysisStage: document.querySelector("#primaryAnalysisStage"),
-  primaryAnalysisSummary: document.querySelector("#primaryAnalysisSummary"),
-  primarySpeechSignal: document.querySelector("#primarySpeechSignal"),
-  primarySpeechReading: document.querySelector("#primarySpeechReading"),
-  primarySpeechConfidence: document.querySelector("#primarySpeechConfidence"),
-  primaryLanguageSignal: document.querySelector("#primaryLanguageSignal"),
-  primaryLanguageReading: document.querySelector("#primaryLanguageReading"),
-  primaryLanguageConfidence: document.querySelector("#primaryLanguageConfidence"),
-  primaryPolicySignal: document.querySelector("#primaryPolicySignal"),
-  primaryPolicyReading: document.querySelector("#primaryPolicyReading"),
-  primaryPolicyConfidence: document.querySelector("#primaryPolicyConfidence"),
   cameraFeed: document.querySelector("#cameraFeed"),
   cameraButton: document.querySelector("#cameraButton"),
   visionStatus: document.querySelector("#visionStatus"),
@@ -710,8 +696,6 @@ const elements = {
   interjectionAudioButton: document.querySelector("#interjectionAudioButton"),
   interjectionAudioStatus: document.querySelector("#interjectionAudioStatus"),
   continuationText: document.querySelector("#continuationText"),
-  fusionState: document.querySelector("#fusionState"),
-  fusionConfidence: document.querySelector("#fusionConfidence"),
   metricOneLabel: document.querySelector("#metricOneLabel"),
   metricOneValue: document.querySelector("#metricOneValue"),
   metricOneBar: document.querySelector("#metricOneBar"),
@@ -1676,8 +1660,9 @@ function renderLongformEvent(index = 0, rebuildTranscript = true) {
     .map((item, itemIndex) => {
       const activeClass =
         itemIndex === index ? " active" : itemIndex < index ? " complete" : "";
+      const revealedClass = itemIndex <= index ? " revealed" : "";
       const icon = item.speaker === "user" ? "◌" : "✦";
-      return `<button class="timeline-event revealed${activeClass}" data-event="${itemIndex}" type="button"><time>${item.time}</time><span><b>${item.interpretation}</b><em>${item.policy}</em></span><i>${icon}</i></button>`;
+      return `<button class="timeline-event${revealedClass}${activeClass}" data-event="${itemIndex}" type="button"><time>${item.time}</time><span><b>${item.interpretation}</b><em>${item.policy}</em></span><i>${icon}</i></button>`;
     })
     .join("");
 
@@ -1730,7 +1715,7 @@ async function runLongformConversation() {
 
   for (let index = 0; index < demo.timeline.length; index += 1) {
     if (token !== deepDemoRunToken) return;
-    renderLongformEvent(index, true);
+    renderLongformEvent(index, false);
     renderDeepDemoColumns(index, 0);
     try {
       await playDeepDemoStep(demo.timeline[index], index, token);
@@ -2639,72 +2624,14 @@ function typeHTML(target, html, duration, token) {
   });
 }
 
-const primaryAnalysisCopy = {
-  focused: {
-    speech: "steady pace · decisive delivery",
-    language: "specific request · high task clarity",
-    policy: "match pace · challenge directly",
-    summary: "The person is fluent, engaged, and ready for a dense technical answer.",
-  },
-  confused: {
-    speech: "clipped pace · rising tension",
-    language: "repeated attempts · friction unresolved",
-    policy: "de-escalate · make one check concrete",
-    summary: "Frustration is rising, but engagement is intact. Reduce friction without oversimplifying.",
-  },
-  overloaded: {
-    speech: "strained pace · compressed breathing",
-    language: "too many attempted branches",
-    policy: "reduce choices · give one next action",
-    summary: "Cognitive load is high. The helpful response is one diagnosis and one immediate step.",
-  },
-  low: {
-    speech: "soft onset · low vocal energy",
-    language: "low momentum · help still requested",
-    policy: "slow down · offer one optional step",
-    summary: "The person is depleted but still engaged. Preserve energy and avoid creating more work.",
-  },
-};
-
-function setPrimarySignal(signal, reading, confidence, text, value, active) {
-  reading.textContent = text;
-  confidence.textContent = `${value}%`;
-  signal.classList.toggle("active", active);
-}
-
 function resetPrimaryAnalysis() {
-  elements.primaryAnalysisStatus.textContent = "Listening";
-  elements.primaryAnalysisStage.textContent = "Speech stream opened";
-  elements.primaryAnalysisSummary.textContent =
-    "The model is gathering enough evidence before committing to a state.";
-  setPrimarySignal(
-    elements.primarySpeechSignal,
-    elements.primarySpeechReading,
-    elements.primarySpeechConfidence,
-    "pace · pauses · certainty",
-    12,
-    true,
-  );
-  setPrimarySignal(
-    elements.primaryLanguageSignal,
-    elements.primaryLanguageReading,
-    elements.primaryLanguageConfidence,
-    "meaning · repair · intent",
-    0,
-    false,
-  );
-  setPrimarySignal(
-    elements.primaryPolicySignal,
-    elements.primaryPolicyReading,
-    elements.primaryPolicyConfidence,
-    "waiting for enough evidence",
-    0,
-    false,
-  );
+  elements.primaryAnalysisStatus.textContent = "Listening live";
+  elements.primaryAnalysisStage.textContent = "Reading vocal effort and pace";
   elements.detectedState.textContent = "Listening…";
   elements.confidence.textContent = "—";
-  elements.fusionState.textContent = "Listening";
-  elements.fusionConfidence.textContent = "gathering evidence";
+  elements.speechWeight.textContent = "…";
+  elements.visionWeight.textContent = "…";
+  elements.textWeight.textContent = "…";
   elements.metricOneValue.textContent = "Sampling";
   elements.metricTwoValue.textContent = "Waiting";
   elements.metricThreeValue.textContent = "Waiting";
@@ -2714,39 +2641,13 @@ function resetPrimaryAnalysis() {
 }
 
 function renderPrimaryAnalysisComplete(state) {
-  const copy = primaryAnalysisCopy[activeState];
-  const confidence = Number.parseInt(state.confidence, 10);
-  elements.primaryAnalysisStatus.textContent = "Policy ready";
-  elements.primaryAnalysisStage.textContent = `${state.label} detected`;
-  elements.primaryAnalysisSummary.textContent = copy.summary;
-  setPrimarySignal(
-    elements.primarySpeechSignal,
-    elements.primarySpeechReading,
-    elements.primarySpeechConfidence,
-    copy.speech,
-    state.metrics[0][2],
-    true,
-  );
-  setPrimarySignal(
-    elements.primaryLanguageSignal,
-    elements.primaryLanguageReading,
-    elements.primaryLanguageConfidence,
-    copy.language,
-    state.metrics[1][2],
-    true,
-  );
-  setPrimarySignal(
-    elements.primaryPolicySignal,
-    elements.primaryPolicyReading,
-    elements.primaryPolicyConfidence,
-    copy.policy,
-    confidence,
-    true,
-  );
+  elements.primaryAnalysisStatus.textContent = "State + response policy";
+  elements.primaryAnalysisStage.textContent = `${state.label} · response adapted`;
   elements.detectedState.textContent = state.label;
   elements.confidence.textContent = state.confidence;
-  elements.fusionState.textContent = state.label;
-  elements.fusionConfidence.textContent = `${state.confidence} confidence`;
+  elements.speechWeight.textContent = state.weights[0];
+  elements.visionWeight.textContent = state.weights[1];
+  elements.textWeight.textContent = state.weights[2];
   state.metrics.forEach((metric, index) => {
     const prefix = ["metricOne", "metricTwo", "metricThree"][index];
     elements[`${prefix}Label`].textContent = metric[0];
@@ -2756,37 +2657,21 @@ function renderPrimaryAnalysisComplete(state) {
 }
 
 async function runPrimaryAnalysis(token, state) {
-  const copy = primaryAnalysisCopy[activeState];
   await wait(420);
   if (token !== animationToken) return;
-  elements.primaryAnalysisStage.textContent = "Prosody pattern forming";
-  setPrimarySignal(
-    elements.primarySpeechSignal,
-    elements.primarySpeechReading,
-    elements.primarySpeechConfidence,
-    copy.speech,
-    Math.round(state.metrics[0][2] * 0.72),
-    true,
-  );
+  elements.primaryAnalysisStage.textContent = "Vocal effort estimate forming";
+  elements.speechWeight.textContent = state.weights[0];
   elements.metricOneValue.textContent = "Forming";
   elements.metricOneBar.style.width = `${Math.round(state.metrics[0][2] * 0.72)}%`;
 
   await wait(520);
   if (token !== animationToken) return;
-  elements.primaryAnalysisStatus.textContent = "Fusing signals";
-  elements.primaryAnalysisStage.textContent = "Language and speech aligned";
-  setPrimarySignal(
-    elements.primaryLanguageSignal,
-    elements.primaryLanguageReading,
-    elements.primaryLanguageConfidence,
-    copy.language,
-    Math.round(state.metrics[1][2] * 0.82),
-    true,
-  );
+  elements.primaryAnalysisStatus.textContent = "Fusing live signals";
+  elements.primaryAnalysisStage.textContent = "Attention and task pressure updating";
+  elements.visionWeight.textContent = state.weights[1];
+  elements.textWeight.textContent = state.weights[2];
   elements.metricTwoValue.textContent = "Aligning";
   elements.metricTwoBar.style.width = `${Math.round(state.metrics[1][2] * 0.82)}%`;
-  elements.fusionState.textContent = "Fusing";
-  elements.fusionConfidence.textContent = "speech + language";
 
   await wait(620);
   if (token !== animationToken) return;
@@ -2802,8 +2687,6 @@ async function playExchange(instant = false) {
   elements.userWaveform.classList.remove("playing");
   elements.adaptiveVoiceWave.classList.remove("speaking");
   elements.detectedState.textContent = state.label;
-  elements.fusionState.textContent = state.label;
-  elements.fusionConfidence.textContent = `${state.confidence} confidence`;
   [0, 1, 2].forEach((index) => {
     const metric = state.metrics[index];
     const prefix = ["metricOne", "metricTwo", "metricThree"][index];
@@ -2813,11 +2696,7 @@ async function playExchange(instant = false) {
   });
   elements.confidence.textContent = state.confidence;
   setPolicies(activeState);
-  elements.awareBurden.textContent = state.awareBurden;
-  elements.awareMeter.style.width = state.awareMeter;
-  elements.voiceProfile.textContent = state.voice;
   elements.audioStrategy.textContent = state.audioStrategy;
-  elements.awareAudioResponse.innerHTML = scenario.aware[activeState];
   if (elements.visualCue) elements.visualCue.textContent = state.cue;
   elements.speechWeight.textContent = state.weights[0];
   elements.visionWeight.textContent = state.weights[1];
@@ -2829,7 +2708,6 @@ async function playExchange(instant = false) {
     elements.inputQuality.textContent = state.sampleLabel;
   }
   elements.userWaveform.dataset.state = activeState;
-  renderPrimaryAffect(activeState);
   prefetchCurrentAudio();
 
   if (instant) {
@@ -2943,7 +2821,8 @@ document.querySelectorAll(".deep-demo-button").forEach((button) => {
     stopDeepDemoPlayback();
     document.querySelector("#longformDemo")?.classList.remove("running", "complete", "paused");
     elements.runLongformButton.innerHTML = "<i>▶</i> Run example";
-    renderLongformEvent(0, true);
+    renderLongformEvent(0, false);
+    renderDeepDemoColumns(-1);
     prefetchDeepDemoAudio(activeDeepDemo);
   });
 });
@@ -3005,7 +2884,8 @@ document.querySelector("#resetButton").addEventListener("click", () => {
   document.querySelector(".deep-demo-button.active")?.classList.remove("active");
   document.querySelector('[data-deep-demo="gradient"]')?.classList.add("active");
   elements.runLongformButton.innerHTML = "<i>▶</i> Run example";
-  renderLongformEvent(0, true);
+  renderLongformEvent(0, false);
+  renderDeepDemoColumns(-1);
   elements.inputQuality.textContent = "STUDIO SAMPLE · EN";
   elements.inputDuration.textContent = "00:08";
   playExchange();
@@ -3013,7 +2893,7 @@ document.querySelector("#resetButton").addEventListener("click", () => {
 
 playExchange(true);
 renderLiveMoment(false);
-renderLongformEvent(0, true);
-renderPrimaryAffect(activeState);
+renderLongformEvent(0, false);
+renderDeepDemoColumns(-1);
 prefetchAllAudio();
 prefetchDeepDemoAudio();

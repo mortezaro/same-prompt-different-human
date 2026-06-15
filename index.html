@@ -8,7 +8,7 @@
         content="CAST: Same words, different human. A multimodal speech-first demo about internal-state-aware AI."
       />
     <title>CAST — Same Words, Different Human</title>
-    <link rel="stylesheet" href="styles.css?v=48" />
+    <link rel="stylesheet" href="styles.css?v=49" />
   </head>
   <body>
     <div class="noise"></div>
@@ -127,44 +127,14 @@
           </div>
           </div>
 
-          <div class="signal-constellation" aria-label="Human state signal layer">
+          <div class="signal-constellation primary-analysis-column" aria-label="Live multimodal state analysis">
             <div class="compact-card-heading">
               <span>ANALYSIS</span>
-              <strong id="primaryAnalysisStatus">Ready</strong>
+              <strong id="primaryAnalysisStatus">Live fusion</strong>
             </div>
-            <div class="signal-intro">
+            <div class="analysis-live-status">
+              <i></i>
               <span id="primaryAnalysisStage">Waiting for speech</span>
-              <strong id="primaryAnalysisSummary">Play the utterance to watch the state estimate form live.</strong>
-            </div>
-            <div class="signal-family speech-family" id="primarySpeechSignal">
-              <i>◌</i><span><b id="primarySpeechLabel">Speech</b><em id="primarySpeechReading">pace · pauses · certainty</em></span>
-              <strong id="primarySpeechConfidence">0%</strong>
-            </div>
-            <div class="signal-family language-family" id="primaryLanguageSignal">
-              <i>Aa</i><span><b id="primaryLanguageLabel">Language</b><em id="primaryLanguageReading">meaning · repair · intent</em></span>
-              <strong id="primaryLanguageConfidence">0%</strong>
-            </div>
-            <div class="signal-family behavior-family" id="primaryPolicySignal">
-              <i>✦</i><span><b id="primaryPolicyLabel">Policy</b><em id="primaryPolicyReading">waiting for enough evidence</em></span>
-              <strong id="primaryPolicyConfidence">0%</strong>
-            </div>
-          </div>
-
-          <div class="comparison-grid">
-          <article class="response-panel aware-panel">
-            <div class="compact-card-heading machine-heading">
-              <span>CAST MODEL</span>
-              <strong>State-aware response</strong>
-            </div>
-            <div class="panel-heading">
-              <div>
-                <span class="model-orb aware-orb"><i></i></span>
-                <span>
-                  <small>CAST</small>
-                  Speech-native · multimodal
-                </span>
-              </div>
-              <span class="model-status aware-status">ADAPTING LIVE</span>
             </div>
 
             <div class="state-readout multimodal-readout">
@@ -191,95 +161,28 @@
               <div id="policyChips"></div>
             </div>
 
-            <div class="live-fusion-stage" aria-label="Live human state fusion">
-              <div class="fusion-stage-copy">
-                <span><i></i> Live human-state fusion</span>
-                <strong>Signals update continuously while the person speaks.</strong>
-                <p>The model reduces uncertain observations into an interaction-relevant state and response policy.</p>
-              </div>
-              <div class="prominent-orbit" id="prominentOrbit">
-                <span class="orbit-ring ring-one"></span>
-                <span class="orbit-ring ring-two"></span>
-                <span class="orbit-pulse"></span>
-                <div>
-                  <small>Estimated state</small>
-                  <strong id="fusionState">Overloaded</strong>
-                  <em id="fusionConfidence">87% confidence</em>
-                </div>
-              </div>
-              <div class="fusion-metrics">
-                <div class="fusion-metric">
-                  <span class="metric-sign voice-sign">≈</span>
-                  <div><small id="metricOneLabel">Vocal effort</small><strong id="metricOneValue">Elevated</strong></div>
-                  <span class="metric-gauge"><i id="metricOneBar"></i></span>
-                </div>
-                <div class="fusion-metric">
-                  <span class="metric-sign attention-sign">◎</span>
-                  <div><small id="metricTwoLabel">Attention stability</small><strong id="metricTwoValue">Fragmented</strong></div>
-                  <span class="metric-gauge"><i id="metricTwoBar"></i></span>
-                </div>
-                <div class="fusion-metric">
-                  <span class="metric-sign friction-sign">⌁</span>
-                  <div><small id="metricThreeLabel">Task friction</small><strong id="metricThreeValue">High</strong></div>
-                  <span class="metric-gauge"><i id="metricThreeBar"></i></span>
-                </div>
-              </div>
-              <div class="affect-space-card primary-affect-card">
-                <div class="affect-card-heading">
-                  <span>Live affect space</span>
-                  <strong id="mainAffectReading">Strained · high arousal</strong>
-                </div>
-                <div class="affect-space">
-                  <span class="affect-axis x-axis">negative</span>
-                  <span class="affect-axis x-axis positive">positive</span>
-                  <span class="affect-axis y-axis">high arousal</span>
-                  <span class="affect-axis y-axis low">low arousal</span>
-                  <span class="affect-grid"></span>
-                  <span class="affect-dot primary-dot" id="mainAffectDot"></span>
-                </div>
-                <div class="signal-pill-row">
-                  <div class="signal-pill">
-                    <i>◌</i>
-                    <small>Prosodic strain</small>
-                    <strong id="mainSignalOne">79%</strong>
-                  </div>
-                  <div class="signal-pill">
-                    <i>◎</i>
-                    <small>Engagement stability</small>
-                    <strong id="mainSignalTwo">38%</strong>
-                  </div>
-                  <div class="signal-pill">
-                    <i>✦</i>
-                    <small>Repair pressure</small>
-                    <strong id="mainSignalThree">86%</strong>
-                  </div>
-                </div>
+            <div class="attention-live primary-attention-live">
+              <div class="attention-orbit"><i></i><span>ATTENTION<br />FUSION</span></div>
+              <div class="attention-signals">
+                <span><b id="liveSpeech">79%</b><em id="metricOneLabel">Prosodic strain</em><strong id="metricOneValue">Elevated</strong><i><u id="metricOneBar"></u></i></span>
+                <span><b id="liveVision">38%</b><em id="metricTwoLabel">Engagement stability</em><strong id="metricTwoValue">Fragmented</strong><i><u id="metricTwoBar"></u></i></span>
+                <span><b id="liveText">86%</b><em id="metricThreeLabel">Repair pressure</em><strong id="metricThreeValue">High</strong><i><u id="metricThreeBar"></u></i></span>
               </div>
             </div>
+          </div>
 
-            <div class="output-voice adaptive-voice">
-              <div class="output-voice-label">
-                <span><i class="speaker-icon"></i> ADAPTIVE VOICE</span>
-                <span id="voiceProfile">0.86× · CALM · SHORT TURNS</span>
-              </div>
-              <div class="mini-waveform adaptive-waveform" id="adaptiveVoiceWave">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
+          <div class="comparison-grid">
+          <article class="response-panel aware-panel">
+            <div class="compact-card-heading machine-heading">
+              <span>CAST RESPONSE</span>
+              <strong>Adapted to this human state</strong>
             </div>
-
-            <div class="modality-tabs" data-panel="aware" role="group" aria-label="CAST output view">
-              <button class="modality-tab active" data-view="audio" type="button">Audio</button>
-              <button class="modality-tab" data-view="transcript" type="button">Transcript</button>
-              <button class="modality-tab" data-view="live" type="button">Live signals</button>
-            </div>
-            <div class="response-body aware-response-body view-pane transcript-pane" data-pane="aware-transcript">
+            <div class="machine-answer-shell">
               <div class="thinking aware-thinking">
                 <span></span><span></span><span></span>
-                Choosing collaboration strategy
+                Preparing the response
               </div>
               <div class="response-text" id="awareResponse"></div>
-            </div>
-            <div class="response-body aware-response-body view-pane audio-pane active" data-pane="aware-audio">
               <div class="audio-stage aware-audio-stage">
                 <button class="round-play aware-round-play" id="awareAudioButton" type="button" aria-label="Play adaptive AI voice">▶</button>
                 <div>
@@ -288,29 +191,9 @@
                   <span class="audio-status" id="awareAudioStatus">Studio voice ready on play</span>
                 </div>
               </div>
-              <div class="audio-response-preview">
-                <small>STATE-ADAPTED ANSWER</small>
-                <div id="awareAudioResponse" aria-live="polite"></div>
-              </div>
-              <div class="large-waveform aware-large-wave" aria-hidden="true">
+              <div class="mini-waveform adaptive-waveform" id="adaptiveVoiceWave" aria-hidden="true">
                 <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
               </div>
-            </div>
-            <div class="response-body aware-response-body view-pane live-pane" data-pane="aware-live">
-              <div class="attention-live">
-                <div class="attention-orbit"><i></i><span>ATTENTION<br />FUSION</span></div>
-                <div class="attention-signals">
-                  <span><b id="liveSpeech">79%</b> Vocal effort</span>
-                  <span><b id="liveVision">38%</b> Attention stability</span>
-                  <span><b id="liveText">86%</b> Task friction</span>
-                </div>
-              </div>
-            </div>
-            <div class="impact-meter">
-              <div class="impact-label">
-                <span>COGNITIVE BURDEN</span><strong id="awareBurden">LOW</strong>
-              </div>
-              <div class="meter-track aware-track"><i id="awareMeter"></i></div>
             </div>
           </article>
         </div>
@@ -634,6 +517,6 @@
       <span>DEMO 01 / 2026</span>
     </footer>
 
-    <script src="app.js?v=49"></script>
+    <script src="app.js?v=50"></script>
   </body>
 </html>

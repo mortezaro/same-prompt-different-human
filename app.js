@@ -670,6 +670,7 @@ const elements = {
   adaptiveVoiceWave: document.querySelector("#adaptiveVoiceWave"),
   standardAudioButton: document.querySelector("#standardAudioButton"),
   awareAudioButton: document.querySelector("#awareAudioButton"),
+  awareAudioResponse: document.querySelector("#awareAudioResponse"),
   standardAudioStatus: document.querySelector("#standardAudioStatus"),
   awareAudioStatus: document.querySelector("#awareAudioStatus"),
   audioStrategy: document.querySelector("#audioStrategy"),
@@ -1876,7 +1877,13 @@ async function playDeepDemoStep(step, index, token) {
   await new Promise((resolve) => {
     let rafId = null;
     let overlayStarted = false;
+    let finalized = false;
+    let usingFallbackTimeline = false;
+    let fallbackStartedAt = 0;
+    const fallbackDuration = Math.max(words.at(-1)?.e || 2.4, 1.2);
     const finalize = () => {
+      if (finalized) return;
+      finalized = true;
       if (rafId) window.cancelAnimationFrame(rafId);
       if (deepDemoAudio === audio) {
         deepDemoAudio = null;
@@ -1886,8 +1893,11 @@ async function playDeepDemoStep(step, index, token) {
       resolve();
     };
     const tick = () => {
-      if (token !== deepDemoRunToken || deepDemoAudio !== audio) return;
-      const currentTime = audio.currentTime || 0;
+      if (token !== deepDemoRunToken || finalized) return;
+      if (!usingFallbackTimeline && deepDemoAudio !== audio) return;
+      const currentTime = usingFallbackTimeline
+        ? (performance.now() - fallbackStartedAt) / 1000
+        : audio.currentTime || 0;
       const visibleWords = words.filter((word) => currentTime >= word.s).length;
       if (!overlayStarted && step.overlayClipId && currentTime >= (step.overlayAt || 0)) {
         overlayStarted = true;
@@ -1901,19 +1911,34 @@ async function playDeepDemoStep(step, index, token) {
         ),
       );
       elements.longformClock.textContent = formatLongformTime(currentTime);
+      if (usingFallbackTimeline && currentTime >= fallbackDuration) {
+        finalize();
+        return;
+      }
       rafId = window.requestAnimationFrame(tick);
     };
+    const startFallbackTimeline = () => {
+      if (finalized || usingFallbackTimeline) return;
+      if (rafId) window.cancelAnimationFrame(rafId);
+      usingFallbackTimeline = true;
+      fallbackStartedAt = performance.now();
+      elements.longformAudioStatus.textContent =
+        step.speaker === "user"
+          ? "User transcript streaming"
+          : "CAST response streaming";
+      tick();
+    };
 
-    audio.addEventListener("ended", finalize, { once: true });
+    audio.addEventListener("ended", () => {
+      if (!usingFallbackTimeline) finalize();
+    }, { once: true });
     audio.addEventListener("error", () => {
-      elements.longformAudioStatus.textContent = "Cached example audio missing";
-      finalize();
+      startFallbackTimeline();
     }, { once: true });
     audio.play().then(() => {
       tick();
     }).catch(() => {
-      elements.longformAudioStatus.textContent = "Tap play again to unlock audio";
-      finalize();
+      startFallbackTimeline();
     });
   });
 }
@@ -2701,6 +2726,7 @@ async function playExchange(instant = false) {
   elements.awareMeter.style.width = state.awareMeter;
   elements.voiceProfile.textContent = state.voice;
   elements.audioStrategy.textContent = state.audioStrategy;
+  elements.awareAudioResponse.innerHTML = scenario.aware[activeState];
   if (elements.visualCue) elements.visualCue.textContent = state.cue;
   elements.speechWeight.textContent = state.weights[0];
   elements.visionWeight.textContent = state.weights[1];

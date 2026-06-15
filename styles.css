@@ -3789,6 +3789,34 @@ footer {
   color: var(--acid);
 }
 
+.audio-response-preview {
+  margin: 0 24px;
+  padding: 18px 0 2px;
+  border-top: 1px solid var(--line);
+}
+
+.audio-response-preview > small {
+  color: var(--dim);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+}
+
+.audio-response-preview > div {
+  margin-top: 12px;
+  color: #45474f;
+  font-size: 0.82rem;
+  line-height: 1.58;
+}
+
+.audio-response-preview p {
+  margin: 0 0 10px;
+}
+
+.audio-response-preview strong {
+  color: var(--acid);
+  font-weight: 600;
+}
+
 .audio-status {
   margin-top: 8px;
   color: var(--muted);
@@ -4545,7 +4573,7 @@ footer {
   background: #f6f4ef;
   font-size: 0.78rem;
   line-height: 1.58;
-  animation: transcript-in 260ms ease forwards;
+  opacity: 1;
 }
 
 .conversation-transcript p.active-entry {

@@ -1390,7 +1390,7 @@ function prefetchLongformAudio() {
   });
 }
 
-function renderLongformEvent(index, rebuildTranscript = false) {
+function renderLegacyLongformEvent(index, rebuildTranscript = false) {
   const event = longformDemo.events[index];
   if (!event) return;
   const demo = document.querySelector("#longformDemo");
@@ -1499,7 +1499,7 @@ async function playLongformClip(
 
 async function handleLongformEvent(index, token) {
   const event = longformDemo.events[index];
-  renderLongformEvent(index);
+  renderLegacyLongformEvent(index);
   if (!event.clip && !event.longClip) return;
 
   if (event.pauseHuman && longformHumanAudio) {
@@ -1532,7 +1532,7 @@ async function handleLongformEvent(index, token) {
   }
 }
 
-async function runLongformConversation() {
+async function runLegacyLongformConversation() {
   const demo = document.querySelector("#longformDemo");
   if (longformRunning) {
     longformPaused = !longformPaused;
@@ -1577,7 +1577,7 @@ async function runLongformConversation() {
   elements.longformAudioStatus.textContent = "Loading continuous voice…";
   elements.runLongformButton.innerHTML = "<i>Ⅱ</i> Pause conversation";
   elements.withdrawalCard.className = "withdrawal-card";
-  renderLongformEvent(0);
+  renderLegacyLongformEvent(0);
 
   try {
     const source = await fetchLongformAudio("human");

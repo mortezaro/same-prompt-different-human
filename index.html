@@ -8,7 +8,7 @@
         content="CAST: Same words, different human. A multimodal speech-first demo about internal-state-aware AI."
       />
     <title>CAST — Same Words, Different Human</title>
-    <link rel="stylesheet" href="styles.css?v=47" />
+    <link rel="stylesheet" href="styles.css?v=48" />
   </head>
   <body>
     <div class="noise"></div>
@@ -44,7 +44,7 @@
         <div class="demo-header">
           <div>
             <span class="section-kicker">MULTIMODAL COMPARISON</span>
-            <h2>One utterance. Two listeners.</h2>
+            <h2>One utterance. Four human states.</h2>
           </div>
           <div class="scenario-picker">
             <label for="scenarioSelect">SCENARIO</label>
@@ -130,90 +130,32 @@
           <div class="signal-constellation" aria-label="Human state signal layer">
             <div class="compact-card-heading">
               <span>ANALYSIS</span>
-              <strong>Live state</strong>
+              <strong id="primaryAnalysisStatus">Ready</strong>
             </div>
             <div class="signal-intro">
-              <span>Continuous read</span>
-              <strong>Speech and language become one interaction state.</strong>
+              <span id="primaryAnalysisStage">Waiting for speech</span>
+              <strong id="primaryAnalysisSummary">Play the utterance to watch the state estimate form live.</strong>
             </div>
-            <div class="signal-family speech-family">
-              <i>◌</i><span><b>Speech</b><em>pace · pauses · certainty</em></span>
+            <div class="signal-family speech-family" id="primarySpeechSignal">
+              <i>◌</i><span><b id="primarySpeechLabel">Speech</b><em id="primarySpeechReading">pace · pauses · certainty</em></span>
+              <strong id="primarySpeechConfidence">0%</strong>
             </div>
-            <div class="signal-family language-family">
-              <i>Aa</i><span><b>Language</b><em>self-correction · contradiction</em></span>
+            <div class="signal-family language-family" id="primaryLanguageSignal">
+              <i>Aa</i><span><b id="primaryLanguageLabel">Language</b><em id="primaryLanguageReading">meaning · repair · intent</em></span>
+              <strong id="primaryLanguageConfidence">0%</strong>
             </div>
-            <div class="signal-family behavior-family">
-              <i>✦</i><span><b>Repair</b><em>friction · recovery · next-step need</em></span>
+            <div class="signal-family behavior-family" id="primaryPolicySignal">
+              <i>✦</i><span><b id="primaryPolicyLabel">Policy</b><em id="primaryPolicyReading">waiting for enough evidence</em></span>
+              <strong id="primaryPolicyConfidence">0%</strong>
             </div>
           </div>
 
           <div class="comparison-grid">
-            <article class="response-panel standard-panel">
-              <div class="compact-card-heading machine-heading">
-                <span>MACHINE</span>
-                <strong>Two listeners</strong>
-              </div>
-            <div class="panel-heading">
-              <div>
-                <span class="model-orb standard-orb"></span>
-                <span>
-                  <small>BASELINE AI</small>
-                  Responds to transcript
-                </span>
-              </div>
-              <span class="model-status">BASELINE</span>
-            </div>
-            <div class="output-voice baseline-voice">
-              <div class="output-voice-label">
-                <span><i class="speaker-icon"></i> VOICE RESPONSE</span>
-                <span>1.0× · DEFAULT</span>
-              </div>
-              <div class="mini-waveform" id="standardVoiceWave">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-            <div class="modality-tabs" data-panel="standard" role="group" aria-label="Standard AI output view">
-              <button class="modality-tab active" data-view="audio" type="button">Audio</button>
-              <button class="modality-tab" data-view="transcript" type="button">Transcript</button>
-              <button class="modality-tab" data-view="live" type="button">Live signals</button>
-            </div>
-            <div class="response-body view-pane transcript-pane" data-pane="standard-transcript">
-              <div class="thinking standard-thinking">
-                <span></span><span></span><span></span>
-                Generating useful answer
-              </div>
-              <div class="response-text" id="standardResponse"></div>
-            </div>
-            <div class="response-body view-pane audio-pane active" data-pane="standard-audio">
-              <div class="audio-stage">
-                <button class="round-play" id="standardAudioButton" type="button" aria-label="Play standard AI voice">▶</button>
-                <div>
-                  <small>COMPUTER VOICE · BASELINE</small>
-                  <strong>Same delivery, regardless of state.</strong>
-                  <span class="audio-status" id="standardAudioStatus">Studio voice ready on play</span>
-                </div>
-              </div>
-              <div class="large-waveform muted-wave" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-            <div class="response-body view-pane live-pane" data-pane="standard-live">
-              <div class="live-grid baseline-live-grid">
-                <span><small>INPUT USED</small><strong>Transcript only</strong></span>
-                <span><small>DELIVERY</small><strong>Default pace</strong></span>
-                <span><small>TURN POLICY</small><strong>Fixed</strong></span>
-                <span><small>STATE</small><strong>Not observed</strong></span>
-              </div>
-            </div>
-            <div class="impact-meter">
-              <div class="impact-label">
-                <span>COGNITIVE BURDEN</span><strong id="standardBurden">HIGH</strong>
-              </div>
-              <div class="meter-track"><i id="standardMeter"></i></div>
-            </div>
-          </article>
-
           <article class="response-panel aware-panel">
+            <div class="compact-card-heading machine-heading">
+              <span>CAST MODEL</span>
+              <strong>State-aware response</strong>
+            </div>
             <div class="panel-heading">
               <div>
                 <span class="model-orb aware-orb"><i></i></span>
@@ -692,6 +634,6 @@
       <span>DEMO 01 / 2026</span>
     </footer>
 
-    <script src="app.js?v=48"></script>
+    <script src="app.js?v=49"></script>
   </body>
 </html>

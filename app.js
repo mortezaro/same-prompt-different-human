@@ -3,14 +3,10 @@ const scenarios = {
     prompt:
       "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
     promptAudio: {
-      focused:
-        "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
-      confused:
-        "I've tried five things, and it still doesn't work. What is wrong with this shape mismatch?",
-      overloaded:
-        "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
-      low:
-        "I've tried five things... it still doesn't work. What is wrong with this shape mismatch?",
+      focused: "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+      confused: "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+      overloaded: "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
+      low: "I've tried five things. It still doesn't work. What is wrong with this shape mismatch?",
     },
     standard: `
       <p>A shape mismatch can have several causes. You should check:</p>
@@ -41,14 +37,10 @@ const scenarios = {
     prompt:
       "I keep getting lost with gradient descent. Can you explain it one more time?",
     promptAudio: {
-      focused:
-        "I keep getting lost with gradient descent. Can you explain it one more time?",
-      confused:
-        "I keep getting lost with gradient descent, and I still don't have it. Can you explain it one more time?",
-      overloaded:
-        "I keep getting lost with gradient descent. Can you explain it one more time?",
-      low:
-        "I keep getting lost with gradient descent... can you explain it one more time?",
+      focused: "I keep getting lost with gradient descent. Can you explain it one more time?",
+      confused: "I keep getting lost with gradient descent. Can you explain it one more time?",
+      overloaded: "I keep getting lost with gradient descent. Can you explain it one more time?",
+      low: "I keep getting lost with gradient descent. Can you explain it one more time?",
     },
     standard: `
       <p>Gradient descent is an optimization algorithm used to minimize a loss function. It works by calculating the gradient, which is the vector of partial derivatives, and updating parameters in the opposite direction.</p>
@@ -648,7 +640,6 @@ let animationToken = 0;
 
 const elements = {
   userPrompt: document.querySelector("#userPrompt"),
-  standardResponse: document.querySelector("#standardResponse"),
   awareResponse: document.querySelector("#awareResponse"),
   detectedState: document.querySelector("#detectedState"),
   confidence: document.querySelector("#confidenceValue"),
@@ -656,7 +647,6 @@ const elements = {
   replayButton: document.querySelector("#replayButton"),
   replayLabel: document.querySelector(".replay-label"),
   scenarioSelect: document.querySelector("#scenarioSelect"),
-  standardThinking: document.querySelector(".standard-thinking"),
   awareThinking: document.querySelector(".aware-thinking"),
   awareBurden: document.querySelector("#awareBurden"),
   awareMeter: document.querySelector("#awareMeter"),
@@ -666,12 +656,9 @@ const elements = {
   speechWeight: document.querySelector("#speechWeight"),
   visionWeight: document.querySelector("#visionWeight"),
   textWeight: document.querySelector("#textWeight"),
-  standardVoiceWave: document.querySelector("#standardVoiceWave"),
   adaptiveVoiceWave: document.querySelector("#adaptiveVoiceWave"),
-  standardAudioButton: document.querySelector("#standardAudioButton"),
   awareAudioButton: document.querySelector("#awareAudioButton"),
   awareAudioResponse: document.querySelector("#awareAudioResponse"),
-  standardAudioStatus: document.querySelector("#standardAudioStatus"),
   awareAudioStatus: document.querySelector("#awareAudioStatus"),
   audioStrategy: document.querySelector("#audioStrategy"),
   recordButton: document.querySelector("#recordButton"),
@@ -680,6 +667,18 @@ const elements = {
   liveSpeech: document.querySelector("#liveSpeech"),
   liveVision: document.querySelector("#liveVision"),
   liveText: document.querySelector("#liveText"),
+  primaryAnalysisStatus: document.querySelector("#primaryAnalysisStatus"),
+  primaryAnalysisStage: document.querySelector("#primaryAnalysisStage"),
+  primaryAnalysisSummary: document.querySelector("#primaryAnalysisSummary"),
+  primarySpeechSignal: document.querySelector("#primarySpeechSignal"),
+  primarySpeechReading: document.querySelector("#primarySpeechReading"),
+  primarySpeechConfidence: document.querySelector("#primarySpeechConfidence"),
+  primaryLanguageSignal: document.querySelector("#primaryLanguageSignal"),
+  primaryLanguageReading: document.querySelector("#primaryLanguageReading"),
+  primaryLanguageConfidence: document.querySelector("#primaryLanguageConfidence"),
+  primaryPolicySignal: document.querySelector("#primaryPolicySignal"),
+  primaryPolicyReading: document.querySelector("#primaryPolicyReading"),
+  primaryPolicyConfidence: document.querySelector("#primaryPolicyConfidence"),
   cameraFeed: document.querySelector("#cameraFeed"),
   cameraButton: document.querySelector("#cameraButton"),
   visionStatus: document.querySelector("#visionStatus"),
@@ -801,47 +800,39 @@ const deepDemoWordCache = new Map();
 const localAudioLibrary = new Map(
   Object.entries({
     "human|focused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/f1a5df5d1e77e57b3c9dbd4973537e68892dd216a2a7a82848adfdb5af569dfd.mp3",
+      "audio/73a8ad1e3140a5703c05a680ee6ec4ce40163077ccee21028c12e5a4329f07a7.mp3",
     "aware|focused|The mismatch is at the loss boundary: logits are [32, 1] , targets are [32] . Use targets = targets.unsqueeze(1) or return flat logits. I prefer flat logits here because the extra singleton dimension carries no information.":
-      "audio/3758d93a9d3047a0d163ef31cce3ca0a1572c1afbc1a0c008538c30d1d8ef8e2.mp3",
+      "audio/d8f8abf7e878655079dfb4ec09d77cbf8e698ab29301065e73139b6d23d6e707.mp3",
     "human|confused|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/54f6c3d373f22a685b2e510bc802418bd4e557d157a6c6b20855482927b5674d.mp3",
-    "human|confused|I've tried five things, and it still doesn't work. What is wrong with this shape mismatch?":
-      "audio/dbd3eab81cf8ba024c514102003dc4902d19715d278ccda82ff52779e9ac8116.mp3",
+      "audio/0072d651cf9982137be1393bf80b3a6e202c9dc9a6925fac1fdcdbd57f8a116d.mp3",
     "aware|confused|Let’s make the error concrete. The model returns a column of 32 values, but the labels are a simple list of 32 values. They contain the same amount of data, but their shapes are written differently. First check: print logits.shape and targets.shape directly before the loss call.":
-      "audio/9de9b021b5ea165b2a3beef225b20b29f86f335a4133a18feea2d8eaeece6521.mp3",
+      "audio/34b3f1b12c7fbaa0758f1820680983f1a6b12804c92696bb4cd6ac87a96a46e8.mp3",
     "human|overloaded|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/8225b2abda8d1ad5055f68f3fe12c509f9dfb28e9804878cda4be192ecf4f9b5.mp3",
+      "audio/a18abce4f70b8da4d885bee90bfda92265a7cb2ced03d10d7a00387560b4f497.mp3",
     "aware|overloaded|Let’s not branch into five possibilities. The error is coming from one place: your logits are [32, 1], while targets are [32]. Change the loss line to use logits.squeeze(-1) . Run that first. We can inspect the broader pipeline only if it still fails.":
-      "audio/e49110f1c9b34066f8d3afda5316b44ea305d30414875d80c71d62d2ae9151de.mp3",
+      "audio/8e89bd6ec598947176c7913ce0edbad585e3896d236fcf884bb4d6c767379f47.mp3",
     "human|low|I've tried five things. It still doesn't work. What is wrong with this shape mismatch?":
-      "audio/4ac6f1e49fd4e564b14a4ac73b37bc8ce17fe86e497dc5511d3bb1d4de999dad.mp3",
-    "human|low|I've tried five things... it still doesn't work. What is wrong with this shape mismatch?":
-      "audio/67cd8949910c483ff7ca97db8e82445916bd6fdcc2cc951f4437c3b4acf2cc6d.mp3",
+      "audio/082d834282bb4d23ed18a088c9e5e8f5f218967e603bd1f2dff90829097abbe4.mp3",
     "aware|low|This is a small mismatch, not a broken model. When you have the energy, make just this change: logits = logits.squeeze(-1) . Then stop there and run it once.":
-      "audio/205a0810c55386cf77fd0808825b5f410d07950d6cb0a40a1912361cb77c3b88.mp3",
+      "audio/74c3ee8e05658c7f6fa96750b89003bebcae4dadbe8f520a67b9d33392544711.mp3",
     "standard|overloaded|A shape mismatch can have several causes. You should check: The input and expected tensor dimensions. Batch dimension ordering and broadcasting behavior. Whether a reshape, squeeze, or transpose was applied incorrectly. The model's output layer and loss function expectations. Data loader collation and padding. Try printing the shape after every operation to identify where the dimensions diverge.":
       "audio/0d478144ea21448b62218682a581a391e3ecf461f224c9d89ac64fcbd200483c.mp3",
     "human|focused|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/6133b26f8a3792ba5b634d411ead21e8ad11996c12ed295ee47790780536dd5e.mp3",
+      "audio/609aee745f7e698cc05ee9601235eb77d7ef69c94eeac685ba9f5ee8371867ca.mp3",
     "aware|focused|Skip the analogy. Here is the key test: if the learning rate doubles, when does convergence improve and when does it become unstable? Your answer should connect local curvature to step size. Take a shot, and I’ll challenge the weak point.":
-      "audio/3603aecbea8c47cf66c79dacb83ccfed46e7073bd37e6b79bac4cf4b6e5dcb5c.mp3",
+      "audio/4abcf8b3c7dd7f259d7f93daca8912e350c89ff5c57e0fd5003e00464854b52a.mp3",
     "human|confused|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/f9a2d3de692d57246d68d162991dd0ad3711bc70cee0a0bb885feaf25094512a.mp3",
-    "human|confused|I keep getting lost with gradient descent, and I still don't have it. Can you explain it one more time?":
-      "audio/db360fc76ff591d984faa218ac3b5d7ee1bfdd57ae275d766ebfeb75e4aa461a.mp3",
+      "audio/432cc7519f84b63eda7d1ef63a87dcc4b825fc73e96d764608779896aa103afb.mp3",
     "aware|confused|One idea only: imagine standing on a foggy hill. You cannot see the bottom, but you can feel which way the ground slopes under your feet. Gradient descent means taking one small step downhill, checking the slope again, then repeating. Before we move on: what tells you which direction is downhill?":
-      "audio/019396b6816fcc0b4d625dcb5bb2149ce55a3c3862591448591635118059f7fc.mp3",
+      "audio/b750376b85726fa4e22cfc7905bf6e6902dd040c992f0b97e432c484cb07b0a1.mp3",
     "human|overloaded|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/b895b19af2f62fa6c1db6cae84d1771c824309ad472201bd3d6bd5d975ca2f18.mp3",
+      "audio/fe66caf1946baa198b54f2284cecc2a715ccfc5f85777824a0b2e8e98b013b7b.mp3",
     "aware|overloaded|Let’s strip away the notation. Remember only this: Check the slope. Take one small downhill step. Repeat. That is gradient descent. We can leave learning rates and derivatives for the next pass.":
-      "audio/62047df6478996feadf2e108dbf446ae8141e86dea3e251e199cd2b2960f1eec.mp3",
+      "audio/db3e605ff8208bc2675c0bfff69bf220ff04a57455aec44b5d80369d7c1a25e6.mp3",
     "human|low|I keep getting lost with gradient descent. Can you explain it one more time?":
-      "audio/a88908157680d44d2d3fbe6eb32b8f87a37ed64e913c3bd7db10137f5093d2f7.mp3",
-    "human|low|I keep getting lost with gradient descent... can you explain it one more time?":
-      "audio/3ef95cd8454ba3f6d2645a3a734e21c74e7cd1045b9a9c6308137a9caac33b97.mp3",
+      "audio/c7c62d6308dcbbeed06eeba60dff5739b362a67588e122cc7dbe9eaa8baa14e0.mp3",
     "aware|low|We can leave the equation alone today. Keep one quiet picture in mind: a ball settling toward the bottom of a bowl. The slope tells it where to move next. That is enough.":
-      "audio/254b52c89547bbf164bc40a76d11079a346d504d81cd9e08bb1d7eb99b5702df.mp3",
+      "audio/ccbb25a698ed28c320e647e07089e8bc184ccdeebe0dfa2d9e5f6ea734bd3406.mp3",
     "standard|overloaded|Gradient descent is an optimization algorithm used to minimize a loss function. It works by calculating the gradient, which is the vector of partial derivatives, and updating parameters in the opposite direction. The update rule is θ = θ − α∇J(θ), where α is the learning rate. Common variants include batch, stochastic, and mini-batch gradient descent.":
       "audio/463879447adf538ed2655bb34d8275deb43858d09c60dfa6d5519ea3e1c059ea.mp3",
     "human|focused|So I think recursion is when a function calls another function many times, and it keeps looping until the computer stops it. Basically recursion is just a kind of loop, right? And it should always be faster because it breaks the problem into smaller parts. So I would probably use recursion whenever performance matters.":
@@ -1965,7 +1956,6 @@ function stopAudio() {
   activeAudioWaveform = null;
   elements.pauseAudioButton.disabled = true;
   elements.pauseAudioButton.innerHTML = "<span>Ⅱ</span> Pause audio";
-  elements.standardVoiceWave.classList.remove("speaking");
   elements.adaptiveVoiceWave.classList.remove("speaking");
   elements.userWaveform.classList.remove("playing");
 }
@@ -2007,64 +1997,13 @@ function studioVoiceSource(role, text, statusElement) {
 }
 
 async function shapePrimaryAudio(audio, profile) {
-  if (!window.AudioContext || shapedPrimaryAudio.has(audio)) return;
-  const profileKey = profile || "standard";
-  const configs = {
-    standard: { rate: 1, low: 0, high: 0, pan: -0.02, gain: 1, threshold: -20, ratio: 2.2 },
-    "human:focused": { rate: 1.03, low: 2.2, high: 1.1, pan: -0.07, gain: 1.01, threshold: -20, ratio: 2.1 },
-    "human:confused": { rate: 0.98, low: 3.4, high: -1.2, pan: -0.09, gain: 1.02, threshold: -22, ratio: 2.4 },
-    "human:overloaded": { rate: 0.95, low: 4.5, high: -3.1, pan: -0.1, gain: 1.04, threshold: -24, ratio: 2.8 },
-    "human:low": { rate: 0.9, low: 5.2, high: -4.8, pan: -0.12, gain: 1.06, threshold: -25, ratio: 3.0 },
-    aware: { rate: 0.99, low: -2.6, high: 3.8, pan: 0.12, gain: 0.98, threshold: -20, ratio: 2.0 },
-  };
-  const config = configs[profileKey] || configs.standard;
-  audio.playbackRate = config.rate;
+  // Demo 1 uses the original mastered v12/v14 assets without browser-side coloration.
+  audio.playbackRate = 1;
   audio.preservesPitch = true;
-  try {
-    if (!primaryAudioContext) {
-      primaryAudioContext = new window.AudioContext();
-    }
-    if (primaryAudioContext.state === "suspended") {
-      primaryAudioContext.resume().catch(() => {});
-    }
-    const source = primaryAudioContext.createMediaElementSource(audio);
-    const lowShelf = primaryAudioContext.createBiquadFilter();
-    lowShelf.type = "lowshelf";
-    lowShelf.frequency.value = 200;
-    lowShelf.gain.value = config.low;
-    const highShelf = primaryAudioContext.createBiquadFilter();
-    highShelf.type = "highshelf";
-    highShelf.frequency.value = 2500;
-    highShelf.gain.value = config.high;
-    const compressor = primaryAudioContext.createDynamicsCompressor();
-    compressor.threshold.value = config.threshold;
-    compressor.knee.value = 18;
-    compressor.ratio.value = config.ratio;
-    compressor.attack.value = 0.008;
-    compressor.release.value = 0.16;
-    const pan = primaryAudioContext.createStereoPanner();
-    pan.pan.value = config.pan;
-    const gain = primaryAudioContext.createGain();
-    gain.gain.value = config.gain;
-
-    source.connect(lowShelf);
-    lowShelf.connect(highShelf);
-    highShelf.connect(compressor);
-    compressor.connect(pan);
-    pan.connect(gain);
-    gain.connect(primaryAudioContext.destination);
-    shapedPrimaryAudio.add(audio);
-  } catch {
-    // Native playback fallback is still fine for browsers that block routing.
-  }
 }
 
 function prefetchAllAudio() {
   Object.values(scenarios).forEach((scenario) => {
-    const standardText = plainText(scenario.standard);
-    if (!audioUrlCache.has(audioCacheKey("standard", standardText))) {
-      fetchStudioVoice("standard", standardText, null, "overloaded").catch(() => {});
-    }
     Object.keys(states).forEach((state) => {
       const jobs = [
         ["human", scenario.promptAudio?.[state] || scenario.prompt],
@@ -2088,7 +2027,6 @@ function prefetchCurrentAudio() {
   const scenario = scenarios[activeScenario];
   const items = [
     ["human", activeHumanPromptText(), elements.inputQuality],
-    ["standard", plainText(scenario.standard), elements.standardAudioStatus],
     ["aware", plainText(scenario.aware[activeState]), elements.awareAudioStatus],
   ];
   items.forEach(([role, text, status]) => {
@@ -2701,6 +2639,160 @@ function typeHTML(target, html, duration, token) {
   });
 }
 
+const primaryAnalysisCopy = {
+  focused: {
+    speech: "steady pace · decisive delivery",
+    language: "specific request · high task clarity",
+    policy: "match pace · challenge directly",
+    summary: "The person is fluent, engaged, and ready for a dense technical answer.",
+  },
+  confused: {
+    speech: "clipped pace · rising tension",
+    language: "repeated attempts · friction unresolved",
+    policy: "de-escalate · make one check concrete",
+    summary: "Frustration is rising, but engagement is intact. Reduce friction without oversimplifying.",
+  },
+  overloaded: {
+    speech: "strained pace · compressed breathing",
+    language: "too many attempted branches",
+    policy: "reduce choices · give one next action",
+    summary: "Cognitive load is high. The helpful response is one diagnosis and one immediate step.",
+  },
+  low: {
+    speech: "soft onset · low vocal energy",
+    language: "low momentum · help still requested",
+    policy: "slow down · offer one optional step",
+    summary: "The person is depleted but still engaged. Preserve energy and avoid creating more work.",
+  },
+};
+
+function setPrimarySignal(signal, reading, confidence, text, value, active) {
+  reading.textContent = text;
+  confidence.textContent = `${value}%`;
+  signal.classList.toggle("active", active);
+}
+
+function resetPrimaryAnalysis() {
+  elements.primaryAnalysisStatus.textContent = "Listening";
+  elements.primaryAnalysisStage.textContent = "Speech stream opened";
+  elements.primaryAnalysisSummary.textContent =
+    "The model is gathering enough evidence before committing to a state.";
+  setPrimarySignal(
+    elements.primarySpeechSignal,
+    elements.primarySpeechReading,
+    elements.primarySpeechConfidence,
+    "pace · pauses · certainty",
+    12,
+    true,
+  );
+  setPrimarySignal(
+    elements.primaryLanguageSignal,
+    elements.primaryLanguageReading,
+    elements.primaryLanguageConfidence,
+    "meaning · repair · intent",
+    0,
+    false,
+  );
+  setPrimarySignal(
+    elements.primaryPolicySignal,
+    elements.primaryPolicyReading,
+    elements.primaryPolicyConfidence,
+    "waiting for enough evidence",
+    0,
+    false,
+  );
+  elements.detectedState.textContent = "Listening…";
+  elements.confidence.textContent = "—";
+  elements.fusionState.textContent = "Listening";
+  elements.fusionConfidence.textContent = "gathering evidence";
+  elements.metricOneValue.textContent = "Sampling";
+  elements.metricTwoValue.textContent = "Waiting";
+  elements.metricThreeValue.textContent = "Waiting";
+  elements.metricOneBar.style.width = "12%";
+  elements.metricTwoBar.style.width = "0%";
+  elements.metricThreeBar.style.width = "0%";
+}
+
+function renderPrimaryAnalysisComplete(state) {
+  const copy = primaryAnalysisCopy[activeState];
+  const confidence = Number.parseInt(state.confidence, 10);
+  elements.primaryAnalysisStatus.textContent = "Policy ready";
+  elements.primaryAnalysisStage.textContent = `${state.label} detected`;
+  elements.primaryAnalysisSummary.textContent = copy.summary;
+  setPrimarySignal(
+    elements.primarySpeechSignal,
+    elements.primarySpeechReading,
+    elements.primarySpeechConfidence,
+    copy.speech,
+    state.metrics[0][2],
+    true,
+  );
+  setPrimarySignal(
+    elements.primaryLanguageSignal,
+    elements.primaryLanguageReading,
+    elements.primaryLanguageConfidence,
+    copy.language,
+    state.metrics[1][2],
+    true,
+  );
+  setPrimarySignal(
+    elements.primaryPolicySignal,
+    elements.primaryPolicyReading,
+    elements.primaryPolicyConfidence,
+    copy.policy,
+    confidence,
+    true,
+  );
+  elements.detectedState.textContent = state.label;
+  elements.confidence.textContent = state.confidence;
+  elements.fusionState.textContent = state.label;
+  elements.fusionConfidence.textContent = `${state.confidence} confidence`;
+  state.metrics.forEach((metric, index) => {
+    const prefix = ["metricOne", "metricTwo", "metricThree"][index];
+    elements[`${prefix}Label`].textContent = metric[0];
+    elements[`${prefix}Value`].textContent = metric[1];
+    elements[`${prefix}Bar`].style.width = `${metric[2]}%`;
+  });
+}
+
+async function runPrimaryAnalysis(token, state) {
+  const copy = primaryAnalysisCopy[activeState];
+  await wait(420);
+  if (token !== animationToken) return;
+  elements.primaryAnalysisStage.textContent = "Prosody pattern forming";
+  setPrimarySignal(
+    elements.primarySpeechSignal,
+    elements.primarySpeechReading,
+    elements.primarySpeechConfidence,
+    copy.speech,
+    Math.round(state.metrics[0][2] * 0.72),
+    true,
+  );
+  elements.metricOneValue.textContent = "Forming";
+  elements.metricOneBar.style.width = `${Math.round(state.metrics[0][2] * 0.72)}%`;
+
+  await wait(520);
+  if (token !== animationToken) return;
+  elements.primaryAnalysisStatus.textContent = "Fusing signals";
+  elements.primaryAnalysisStage.textContent = "Language and speech aligned";
+  setPrimarySignal(
+    elements.primaryLanguageSignal,
+    elements.primaryLanguageReading,
+    elements.primaryLanguageConfidence,
+    copy.language,
+    Math.round(state.metrics[1][2] * 0.82),
+    true,
+  );
+  elements.metricTwoValue.textContent = "Aligning";
+  elements.metricTwoBar.style.width = `${Math.round(state.metrics[1][2] * 0.82)}%`;
+  elements.fusionState.textContent = "Fusing";
+  elements.fusionConfidence.textContent = "speech + language";
+
+  await wait(620);
+  if (token !== animationToken) return;
+  renderPrimaryAnalysisComplete(state);
+}
+
 async function playExchange(instant = false) {
   animationToken += 1;
   const token = animationToken;
@@ -2708,7 +2800,6 @@ async function playExchange(instant = false) {
   const state = states[activeState];
 
   elements.userWaveform.classList.remove("playing");
-  elements.standardVoiceWave.classList.remove("speaking");
   elements.adaptiveVoiceWave.classList.remove("speaking");
   elements.detectedState.textContent = state.label;
   elements.fusionState.textContent = state.label;
@@ -2742,8 +2833,8 @@ async function playExchange(instant = false) {
   prefetchCurrentAudio();
 
   if (instant) {
-    elements.standardResponse.innerHTML = scenario.standard;
     elements.awareResponse.innerHTML = scenario.aware[activeState];
+    renderPrimaryAnalysisComplete(state);
     return;
   }
 
@@ -2754,26 +2845,13 @@ async function playExchange(instant = false) {
   document.querySelector(".aware-panel").classList.add("live-input");
   await playHumanVoice();
   if (token !== animationToken) return;
-  elements.standardResponse.innerHTML = "";
   elements.awareResponse.innerHTML = "";
-  elements.standardResponse.style.clipPath = "none";
   elements.awareResponse.style.clipPath = "none";
-  elements.standardThinking.classList.add("visible");
   elements.awareThinking.classList.add("visible");
+  resetPrimaryAnalysis();
+  const liveAnalysis = runPrimaryAnalysis(token, state);
 
   await wait(650);
-  if (token !== animationToken) return;
-
-  elements.standardThinking.classList.remove("visible");
-  elements.standardVoiceWave.classList.add("speaking");
-  const standardTyping = typeHTML(
-    elements.standardResponse,
-    scenario.standard,
-    950,
-    token,
-  );
-
-  await wait(380);
   if (token !== animationToken) return;
 
   elements.awareThinking.classList.remove("visible");
@@ -2785,12 +2863,11 @@ async function playExchange(instant = false) {
     token,
   );
 
-  await Promise.all([standardTyping, awareTyping]);
+  await Promise.all([awareTyping, liveAnalysis]);
   if (token !== animationToken) return;
 
   elements.userWaveform.classList.remove("playing");
   document.querySelector(".aware-panel").classList.remove("live-input");
-  elements.standardVoiceWave.classList.remove("speaking");
   elements.adaptiveVoiceWave.classList.remove("speaking");
   elements.replayLabel.textContent = "Play human voice";
   elements.replayButton.disabled = false;
@@ -2869,20 +2946,6 @@ document.querySelectorAll(".deep-demo-button").forEach((button) => {
     renderLongformEvent(0, true);
     prefetchDeepDemoAudio(activeDeepDemo);
   });
-});
-
-elements.standardAudioButton.addEventListener("click", () => {
-  playAudioSource(
-    () => studioVoiceSource(
-      "standard",
-      plainText(scenarios[activeScenario].standard),
-      elements.standardAudioStatus,
-    ),
-    elements.standardVoiceWave,
-    elements.standardAudioButton,
-    elements.standardAudioStatus,
-    "standard",
-  );
 });
 
 elements.awareAudioButton.addEventListener("click", () => {

@@ -3,520 +3,401 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta
-        name="description"
-        content="CAST: Same words, different human. A multimodal speech-first demo about internal-state-aware AI."
-      />
-    <title>CAST — Same Words, Different Human</title>
-    <link rel="stylesheet" href="styles.css?v=49" />
+    <meta
+      name="description"
+      content="CAST: a scrolling internal-state demo showing one student learning gradient descent across a day."
+    />
+    <title>CAST - Internal State Demo</title>
+    <link rel="stylesheet" href="styles.css?v=65" />
   </head>
   <body>
-    <div class="noise"></div>
+    <div class="grain"></div>
     <header class="topbar">
       <a class="brand" href="#" aria-label="CAST home">
         <span class="brand-mark"><i></i><i></i><i></i></span>
-        <span>CAST</span>
+        CAST
       </a>
-      <div class="topbar-center">
-        <span class="live-dot"></span>
-        LIVE MULTIMODAL DEMO
-      </div>
-      <button class="reset-button" id="resetButton" type="button">Reset demo</button>
+      <div class="loop-chip"><span></span>80 ms stream + 40 ms state head = 120 ms loop</div>
     </header>
 
     <main>
-      <section class="hero">
-        <div class="eyebrow"><span>01</span> CAST</div>
-        <h1>Same words.<br /><em>Different human.</em></h1>
-        <h2>Why Internal State Is the Next Frontier.</h2>
-        <p>
-          Today’s AI responds to the transcript. CAST responds to the human
-          state behind it.
-        </p>
-        <div class="hero-modalities" aria-label="Supported modalities">
-          <span class="primary"><i class="modality-mic"></i> SPEECH · PRIMARY</span>
-          <span><i class="modality-eye"></i> VISION</span>
-          <span><i class="modality-text">Aa</i> TEXT</span>
-        </div>
-      </section>
-
-      <section class="demo-shell">
-        <div class="demo-header">
-          <div>
-            <span class="section-kicker">MULTIMODAL COMPARISON</span>
-            <h2>One utterance. Four human states.</h2>
-          </div>
-          <div class="scenario-picker">
-            <label for="scenarioSelect">SCENARIO</label>
-            <select id="scenarioSelect">
-              <option value="code">Coding assistant</option>
-              <option value="learn">AI tutor</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="state-console">
-          <div class="state-copy">
-            <span class="step-number">1</span>
-            <div>
-              <strong>Change the human, not the prompt.</strong>
-              <span>Same transcript. Different voice and visible behavior.</span>
-            </div>
-          </div>
-          <div class="state-options" role="group" aria-label="User state">
-            <button class="state-button" data-state="focused" type="button">
-              <span class="state-icon">↗</span>
-              Focused
-            </button>
-            <button class="state-button" data-state="confused" type="button">
-              <span class="state-icon">?</span>
-              Frustrated
-            </button>
-            <button class="state-button active" data-state="overloaded" type="button">
-              <span class="state-icon">≋</span>
-              Overloaded
-            </button>
-            <button class="state-button" data-state="low" type="button">
-              <span class="state-icon">—</span>
-              Low energy
-            </button>
-          </div>
-        </div>
-
-        <div class="compact-demo-grid">
-          <div class="multimodal-input">
-            <div class="speech-capture">
-              <div class="compact-card-heading">
-                <span>USER</span>
-                <strong>Live speech</strong>
-              </div>
-            <div class="capture-heading">
-              <span class="message-label"><i class="record-dot"></i> HUMAN VOICE · <b id="inputDuration">00:08</b></span>
-              <span class="speech-quality" id="inputQuality">STUDIO SAMPLE · EN</span>
-            </div>
-            <div class="voice-waveform user-waveform" id="userWaveform" aria-hidden="true">
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-            </div>
-            <div class="transcript-line">
-              <span>TRANSCRIPT</span>
-              <p id="userPrompt">
-                I've tried five things. It still doesn't work. What is wrong
-                with this shape mismatch?
-              </p>
-            </div>
-            <div class="input-actions">
-              <div class="signal-stack">
-                <span class="signal-source active"><i class="modality-mic"></i><b>SPEECH</b><em>PRIMARY</em></span>
-                <span class="signal-source"><i class="modality-text">Aa</i><b>TEXT</b><em>ALIGNED</em></span>
-                <span class="signal-source"><i>◎</i><b>STATE</b><em>LIVE</em></span>
-              </div>
-              <button class="record-button" id="recordButton" type="button">
-                <i></i><span>Use my voice</span>
-              </button>
-              <button class="pause-button" id="pauseAudioButton" type="button" disabled>
-                <span>Ⅱ</span> Pause audio
-              </button>
-            <button class="replay-button" id="replayButton" type="button">
-              <span class="play-icon">▶</span>
-              <span class="replay-label">Play utterance</span>
-            </button>
-            </div>
-          </div>
-          </div>
-
-          <div class="signal-constellation primary-analysis-column" aria-label="Live multimodal state analysis">
-            <div class="compact-card-heading">
-              <span>ANALYSIS</span>
-              <strong id="primaryAnalysisStatus">Live fusion</strong>
-            </div>
-            <div class="analysis-live-status">
-              <i></i>
-              <span id="primaryAnalysisStage">Waiting for speech</span>
-            </div>
-
-            <div class="state-readout multimodal-readout">
-              <div class="fusion-visual">
-                <div class="fusion-node speech-node"><i class="modality-mic"></i><b id="speechWeight">64%</b></div>
-                <div class="fusion-line line-one"></div>
-                <div class="fusion-node vision-node"><i class="modality-eye"></i><b id="visionWeight">23%</b></div>
-                <div class="fusion-line line-two"></div>
-                <div class="fusion-node text-node"><i class="modality-text">Aa</i><b id="textWeight">13%</b></div>
-                <div class="fusion-core"><span></span></div>
-              </div>
-              <div class="state-result">
-                <small>MULTIMODAL STATE</small>
-                <strong id="detectedState">Overloaded</strong>
-              </div>
-              <div class="confidence-result">
-                <small>CONFIDENCE</small>
-                <strong id="confidenceValue">87%</strong>
-              </div>
-            </div>
-
-            <div class="policy-strip">
-              <span>INTERVENTION + ADAPTATION POLICY</span>
-              <div id="policyChips"></div>
-            </div>
-
-            <div class="attention-live primary-attention-live">
-              <div class="attention-orbit"><i></i><span>ATTENTION<br />FUSION</span></div>
-              <div class="attention-signals">
-                <span><b id="liveSpeech">79%</b><em id="metricOneLabel">Prosodic strain</em><strong id="metricOneValue">Elevated</strong><i><u id="metricOneBar"></u></i></span>
-                <span><b id="liveVision">38%</b><em id="metricTwoLabel">Engagement stability</em><strong id="metricTwoValue">Fragmented</strong><i><u id="metricTwoBar"></u></i></span>
-                <span><b id="liveText">86%</b><em id="metricThreeLabel">Repair pressure</em><strong id="metricThreeValue">High</strong><i><u id="metricThreeBar"></u></i></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="comparison-grid">
-          <article class="response-panel aware-panel">
-            <div class="compact-card-heading machine-heading">
-              <span>CAST RESPONSE</span>
-              <strong>Adapted to this human state</strong>
-            </div>
-            <div class="machine-answer-shell">
-              <div class="thinking aware-thinking">
-                <span></span><span></span><span></span>
-                Preparing the response
-              </div>
-              <div class="response-text" id="awareResponse"></div>
-              <div class="audio-stage aware-audio-stage">
-                <button class="round-play aware-round-play" id="awareAudioButton" type="button" aria-label="Play adaptive AI voice">▶</button>
-                <div>
-                  <small>COMPUTER VOICE · STATE ADAPTED</small>
-                  <strong id="audioStrategy">Calmer pace. Shorter turns. No interruption.</strong>
-                  <span class="audio-status" id="awareAudioStatus">Studio voice ready on play</span>
-                </div>
-              </div>
-              <div class="mini-waveform adaptive-waveform" id="adaptiveVoiceWave" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-            </div>
-          </article>
-        </div>
-        </div>
-      </section>
-
-      <section class="live-intervention-section">
-          <div class="live-section-heading">
-          <div>
-            <span class="section-kicker">02 · LIVE INTERVENTION POLICY</span>
-            <h2>Knowing when to enter the conversation.</h2>
-          </div>
+      <section class="intro scene">
+        <div class="intro-copy">
+          <p class="kicker">CAST</p>
+          <h1>Why Internal State Is the Next Frontier.</h1>
           <p>
-            Realtime AI should not interrupt because it can. It should intervene
-            when human state and task risk make it helpful.
+            One student studies gradient descent across a day. CAST first reads
+            the learner, then the room, then the interaction policy.
           </p>
         </div>
-        <div class="minimum-principle">
-          <span>Core principle</span>
-          <strong>CAST chooses the minimum helpful intervention.</strong>
+        <div class="architecture-strip" aria-label="CAST processing loop">
+          <span>speech</span>
+          <i></i>
+          <span>state</span>
+          <i></i>
+          <span>policy</span>
+          <i></i>
+          <span>response</span>
         </div>
+        <div class="voice-note">
+          <span>male student voice</span>
+          <span>female CAST voice</span>
+          <span>mood changes across the day</span>
+        </div>
+      </section>
 
-        <div class="live-demo">
-          <div class="live-demo-nav" role="group" aria-label="Live intervention scenario">
-            <button class="live-scenario-button active" data-live-scenario="tutor" type="button">
-              <span>01</span> Tutor misconception
-            </button>
-            <button class="live-scenario-button" data-live-scenario="coding" type="button">
-              <span>02</span> Coding safety flag
-            </button>
-            <button class="live-scenario-button" data-live-scenario="health" type="button">
-              <span>03</span> Healthcare clarification
-            </button>
+      <section class="story-stage" aria-label="CAST scrolling story">
+        <article class="story-scene" data-scene="morning">
+          <div class="scene-meta">
+            <div><span>01</span><strong>Morning home</strong></div>
+            <button class="play-session" type="button" data-play="morning"><i></i>Run session</button>
           </div>
 
-          <div class="live-demo-grid">
-            <article class="live-transcript-panel">
-              <div class="live-panel-heading">
-                <span><i class="record-dot"></i> HUMAN · SPEAKING LIVE</span>
-                <button id="runLiveButton" type="button"><i>▶</i> Run moment</button>
+          <div class="conversation-grid">
+            <aside class="rail user-rail" aria-label="Student transcript">
+              <div class="rail-label">Student <b>male · morning neutral</b></div>
+              <div class="turn active" data-at="0">
+                <span>00:00</span>
+                <p>Okay, I want to try explaining gradient descent from memory.</p>
               </div>
-              <div class="stream-wave" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <div class="turn" data-at="900">
+                <span>00:04</span>
+                <p>It is when the model tries to reduce the error by moving downhill on the loss curve.</p>
               </div>
-              <div class="live-speaking-status">
-                <span><i></i> HUMAN AUDIO CONTINUES</span>
-                <strong id="liveClock">00:00</strong>
+              <div class="turn cue-turn" data-at="2100">
+                <span>00:10</span>
+                <p>So it looks at the slope, or the... the thing that tells it which direction is steepest.</p>
               </div>
-              <p id="liveTranscript" aria-live="polite"></p>
-              <div class="trigger-marker" id="triggerMarker">
-                <span>IF THIS WERE INTERACTIVE</span>
-                <em>THE MODEL WOULD INTERJECT HERE · THE DEMO KEEPS LISTENING</em>
-                <strong id="triggerPhrase"></strong>
+              <div class="turn" data-at="3900">
+                <span>00:17</span>
+                <p>Yes, gradient. It uses the gradient to know which way to move.</p>
               </div>
-            </article>
+              <div class="turn" data-at="5200">
+                <span>00:23</span>
+                <p>And the learning rate decides how big the step is.</p>
+              </div>
+              <div class="turn" data-at="6500">
+                <span>00:29</span>
+                <p>So if the loss is high, it keeps adjusting the parameters until the loss gets lower.</p>
+              </div>
+            </aside>
 
-            <article class="decision-panel">
-              <div class="live-panel-heading"><span>MODEL INTERNAL LAYER</span><em id="analysisStatus">LISTENING</em></div>
-              <div class="live-analysis-top">
-                <div class="affect-space-card live-affect-card">
-                  <div class="affect-card-heading">
-                    <span>Affect space</span>
-                    <strong id="liveAffectReading">Neutral</strong>
-                  </div>
-                  <div class="affect-space compact-affect-space">
-                    <span class="affect-axis x-axis">negative</span>
-                    <span class="affect-axis x-axis positive">positive</span>
-                    <span class="affect-axis y-axis">high arousal</span>
-                    <span class="affect-axis y-axis low">low arousal</span>
-                    <span class="affect-grid"></span>
-                    <span class="affect-dot live-dot-node" id="liveAffectDot"></span>
-                  </div>
-                </div>
-                <div class="signal-pill-column">
-                  <div class="signal-pill">
-                    <i>≈</i>
-                    <small>Prosodic strain</small>
-                    <strong id="liveSignalProsody">22%</strong>
-                  </div>
-                  <div class="signal-pill">
-                    <i>◎</i>
-                    <small>Engagement stability</small>
-                    <strong id="liveSignalEngagement">25%</strong>
-                  </div>
-                  <div class="signal-pill">
-                    <i>✦</i>
-                    <small>Repair pressure</small>
-                    <strong id="liveSignalPressure">18%</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="model-thought-stream" id="modelThoughtStream" aria-live="polite">
-                <div class="thought-placeholder">
-                  <i></i><i></i><i></i>
-                  Waiting for enough evidence
-                </div>
-              </div>
-              <div class="telemetry-grid">
-                <div><small>COGNITIVE STATE</small><strong id="telemetryState">Listening</strong><span class="telemetry-bar"><i id="telemetryStateBar"></i></span></div>
-                <div><small>COGNITIVE LOAD</small><strong id="telemetryLoad">Low</strong><span class="telemetry-bar"><i id="telemetryLoadBar"></i></span></div>
-                <div><small>AFFECT / AROUSAL</small><strong id="telemetryAffect">Neutral</strong><span class="telemetry-bar"><i id="telemetryAffectBar"></i></span></div>
-                <div><small>STATE CONFIDENCE</small><strong id="telemetryConfidence">32%</strong><span class="telemetry-bar"><i id="telemetryConfidenceBar"></i></span></div>
-              </div>
-              <div class="decision-chain">
-                <div><small>SIGNAL</small><strong id="liveSignal"></strong></div>
-                <i>→</i>
-                <div><small>INTERNAL STATE</small><strong id="liveState"></strong></div>
-                <i>→</i>
-                <div><small>RISK</small><strong id="liveRisk"></strong></div>
-              </div>
-              <div class="intervention-scale">
-                <span data-level="0">0<em>Quiet</em></span>
-                <span data-level="1">1<em>Backchannel</em></span>
-                <span data-level="2">2<em>Soft flag</em></span>
-                <span data-level="3">3<em>Guide</em></span>
-                <span data-level="4">4<em>Interrupt</em></span>
-              </div>
-            </article>
-
-            <article class="intervention-panel">
-              <div class="live-panel-heading"><span>INTERVENTION POLICY</span><em id="interventionType">OBSERVING</em></div>
-              <div class="policy-decision" id="policyDecision">
-                <span class="decision-light"></span>
+            <section class="mind-panel" aria-label="Internal state model">
+              <div class="mind-header">
                 <div>
-                  <small>MODEL DECISION</small>
-                  <strong id="decisionText">Stay quiet. Keep listening.</strong>
+                  <span>Internal state head</span>
+                  <strong>Human state becomes measurable.</strong>
+                </div>
+                <em>120 ms adaptive loop</em>
+              </div>
+
+              <div class="visual-stack">
+                <div class="science-board" data-at="900">
+                  <div class="board-title"><span>Layer 1</span><strong>Learner state</strong></div>
+                  <div class="affect-space morning-point">
+                    <span class="axis x">negative</span>
+                    <span class="axis x right">positive</span>
+                    <span class="axis y">high arousal</span>
+                    <span class="axis y bottom">low arousal</span>
+                    <i></i>
+                  </div>
+                  <div class="metric-grid">
+                    <div><span>Prosodic strain</span><strong>17%</strong></div>
+                    <div><span>Attention stability</span><strong>84%</strong></div>
+                    <div><span>Working memory</span><strong>Open</strong></div>
+                    <div><span>Cognitive load</span><strong>Low</strong></div>
+                    <div><span>Retrieval latency</span><strong>1.4 s</strong></div>
+                    <div><span>Repair pressure</span><strong>Light</strong></div>
+                  </div>
+                </div>
+
+                <div class="layer-bars" data-at="0">
+                  <div class="layer active">
+                    <div><span>Human state</span><strong>Neutral affect · stable attention</strong></div>
+                    <meter min="0" max="100" value="86"></meter>
+                  </div>
+                  <div class="layer dormant">
+                    <div><span>Physical grounding</span><strong>Not needed yet</strong></div>
+                    <meter min="0" max="100" value="18"></meter>
+                  </div>
+                  <div class="layer dormant">
+                    <div><span>Interaction policy</span><strong>Wait / minimal cue</strong></div>
+                    <meter min="0" max="100" value="36"></meter>
+                  </div>
                 </div>
               </div>
-              <div class="intervention-alert">
-                <span id="interventionLabel">MISCONCEPTION DETECTED</span>
-                <p id="interventionNote"></p>
-              </div>
-              <div class="suggested-response">
-                <small>POTENTIAL INTERJECTION AT THE RED MOMENT</small>
-                <p id="interventionResponse"></p>
-                <button class="interjection-audio-button" id="interjectionAudioButton" type="button" disabled>
-                  <i>▶</i>
-                  <span>Hear what the model would have said</span>
-                  <em id="interjectionAudioStatus">Waiting for trigger</em>
-                </button>
-              </div>
-              <div class="human-continuation">
-                <i></i>
-                <span id="continuationText">The human is still speaking. The model prepares an intervention but does not play it automatically.</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      <section class="longform-section deep-demo-section">
-        <div class="longform-heading">
-          <div>
-            <span class="section-kicker">03 · LONGER LIVE EXAMPLES</span>
-            <h2>Two richer interaction examples.</h2>
-          </div>
-          <div class="prototype-label">
-            <i></i>
-            <span>Live policy simulation</span>
-            <small>Compact speech · state · response view</small>
-          </div>
-        </div>
+              <div class="state-feed generated-state" data-at="450">
+                <p>
+                  Listening to the student reconstruct the concept from memory. The pause after
+                  "slope" looks like lexical retrieval, not disengagement. Prosody stays even,
+                  attention is stable, working memory is available, and the best next move is to
+                  wait briefly before offering a tiny cue. If the cue lands, return control.
+                </p>
+              </div>
+            </section>
 
-        <div class="longform-demo" id="longformDemo">
-          <div class="longform-toolbar">
-            <div>
-              <span id="deepDemoLabel">Gradient descent</span>
-              <strong id="deepDemoSummary">Grounded tutoring during a confused explanation</strong>
-            </div>
-            <div class="deep-demo-nav" role="group" aria-label="Longer examples">
-              <button class="deep-demo-button active" data-deep-demo="gradient" type="button">Gradient descent</button>
-              <button class="deep-demo-button" data-deep-demo="debugging" type="button">Debugging</button>
-            </div>
-            <button id="runLongformButton" type="button"><i>▶</i> Run example</button>
+            <aside class="rail cast-rail" aria-label="CAST response">
+              <div class="rail-label">CAST <b>female tutor</b></div>
+              <div class="turn quiet" data-at="500">
+                <span>00:03</span>
+                <p>Listening.</p>
+              </div>
+              <div class="turn response" data-at="3200">
+                <span>00:13</span>
+                <p>Gradient?</p>
+              </div>
+              <div class="turn response" data-at="5000">
+                <span>00:22</span>
+                <p>Mm-hmm. Good.</p>
+              </div>
+              <div class="turn response" data-at="7600">
+                <span>00:34</span>
+                <p>Exactly. Keep going.</p>
+              </div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="story-scene" data-scene="cafe">
+          <div class="scene-meta">
+            <div><span>02</span><strong>Midday cafe</strong></div>
+            <button class="play-session" type="button" data-play="cafe"><i></i>Run session</button>
           </div>
 
-          <div class="longform-workspace">
-            <article class="longform-transcript">
-              <div class="longform-panel-heading">
-                <span><i></i> Person's speech</span>
-                <strong id="longformClock">00:00</strong>
+          <div class="conversation-grid">
+            <aside class="rail user-rail" aria-label="Student transcript">
+              <div class="rail-label">Student <b>male · distracted / frustrated</b></div>
+              <div class="turn active" data-at="0">
+                <span>00:00</span>
+                <p>I think I understood it this morning, but now I am losing the thread.</p>
               </div>
-              <div class="longform-wave" aria-hidden="true">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <div class="turn" data-at="1200">
+                <span>00:06</span>
+                <p>The cafe is loud, and every time I get to the math part, I forget what the pieces mean.</p>
               </div>
-              <div class="conversation-transcript" id="longformTranscript" aria-live="polite">
-                <p class="empty-transcript">Run the example to watch speech appear live.</p>
+              <div class="turn" data-at="3200">
+                <span>00:15</span>
+                <p>Yeah. Just one sentence.</p>
               </div>
-            </article>
+              <div class="turn" data-at="5600">
+                <span>00:24</span>
+                <p>Okay. Repeated correction. That is much easier.</p>
+              </div>
+              <div class="turn" data-at="7000">
+                <span>00:31</span>
+                <p>So the gradient tells the direction, and the learning rate tells the size of the step?</p>
+              </div>
+            </aside>
 
-            <article class="current-policy-card">
-              <div class="longform-panel-heading">
-                <span>Machine internal state</span>
-                <strong id="longformPolicyLevel">LISTEN</strong>
-              </div>
-              <div class="policy-orbit">
-                <span></span>
+            <section class="mind-panel" aria-label="Internal state model">
+              <div class="mind-header">
                 <div>
-                  <small id="longformEventTime">00:00</small>
-                  <strong id="longformInterpretation">Listening</strong>
+                  <span>Internal state head</span>
+                  <strong>Human state plus physical grounding.</strong>
                 </div>
+                <em>physical grounding active</em>
               </div>
-              <p id="longformPolicyText">The model keeps a lightweight state estimate while the person continues.</p>
-              <div class="deep-state-grid">
-                <div class="deep-state-metric">
-                  <span>Cognitive load</span>
-                  <strong id="deepMetricOneValue">38%</strong>
-                  <small id="deepMetricOneLabel">Low pressure</small>
-                  <span class="deep-state-bar"><i id="deepMetricOneBar"></i></span>
-                </div>
-                <div class="deep-state-metric">
-                  <span>Engagement</span>
-                  <strong id="deepMetricTwoValue">74%</strong>
-                  <small id="deepMetricTwoLabel">Staying with it</small>
-                  <span class="deep-state-bar"><i id="deepMetricTwoBar"></i></span>
-                </div>
-                <div class="deep-state-metric">
-                  <span>Intervention confidence</span>
-                  <strong id="deepMetricThreeValue">31%</strong>
-                  <small id="deepMetricThreeLabel">Still observing</small>
-                  <span class="deep-state-bar"><i id="deepMetricThreeBar"></i></span>
-                </div>
-              </div>
-              <div class="affect-space-card deep-affect-card">
-                <div class="affect-card-heading">
-                  <span>Live affect space</span>
-                  <strong id="deepAffectReading">Listening</strong>
-                </div>
-                <div class="affect-space compact-affect-space">
-                  <span class="affect-axis x-axis">negative</span>
-                  <span class="affect-axis x-axis positive">positive</span>
-                  <span class="affect-axis y-axis">high arousal</span>
-                  <span class="affect-axis y-axis low">low arousal</span>
-                  <span class="affect-grid"></span>
-                  <span class="affect-dot live-dot-node" id="deepAffectDot"></span>
-                </div>
-                <div class="deep-chip-row" id="deepChipRow"></div>
-              </div>
-              <div class="deep-analysis-box" id="deepAnalysisBox">
-                Live interpretation appears here as the exchange unfolds.
-              </div>
-              <div class="micro-response-card" id="microResponseCard">
-                <small>Current move</small>
-                <strong id="longformResponse">Listening…</strong>
-                <span id="longformAudioStatus">Ready</span>
-              </div>
-              <div class="withdrawal-card" id="withdrawalCard">
-                <span>Prepared state</span>
-                <strong>Waiting for enough evidence.</strong>
-              </div>
-            </article>
 
-            <article class="event-timeline machine-response-panel">
-              <div class="longform-panel-heading">
-                <span>Machine response</span>
-                <strong>LIVE</strong>
+              <div class="visual-stack">
+                <div class="science-board split-board" data-at="900">
+                  <div class="board-title"><span>Layer 1 persists</span><strong>Learner state</strong></div>
+                  <div class="compact-affect">
+                    <div class="mini-affect">
+                      <span></span>
+                    </div>
+                    <div class="metric-grid compact">
+                      <div><span>Attention stability</span><strong>52%</strong></div>
+                      <div><span>Cognitive load</span><strong>Moderate</strong></div>
+                      <div><span>Mood</span><strong>Frustrated / engaged</strong></div>
+                    </div>
+                  </div>
+
+                  <div class="board-title" data-at="2100"><span>Layer 2 added</span><strong>Physical grounding</strong></div>
+                  <div class="room-map" data-at="2100">
+                    <div class="room-plane">
+                      <span class="person target">student</span>
+                      <span class="person bystander b1">speaker A</span>
+                      <span class="person bystander b2">speaker B</span>
+                      <span class="person bystander b3">group</span>
+                      <span class="mic-device">mic</span>
+                      <i class="pickup primary"></i>
+                      <i class="pickup secondary"></i>
+                      <b class="motion-path"></b>
+                    </div>
+                    <div class="physical-readout">
+                      <span>Speaker count</span><strong>1 target + 3 background sources</strong>
+                      <span>Mic distance</span><strong>0.7 m, drifting right</strong>
+                      <span>Foreground ratio</span><strong>0.63 target / 0.37 environment</strong>
+                      <span>Turn boundary</span><strong>student still holding floor</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="layer-bars" data-at="0">
+                  <div class="layer active">
+                    <div><span>Human state</span><strong>Attention shifting · repair pressure rising</strong></div>
+                    <meter min="0" max="100" value="72"></meter>
+                  </div>
+                  <div class="layer active hot">
+                    <div><span>Physical grounding</span><strong>Competing speech + mic drift</strong></div>
+                    <meter min="0" max="100" value="88"></meter>
+                  </div>
+                  <div class="layer dormant">
+                    <div><span>Interaction policy</span><strong>Compress, no interruption</strong></div>
+                    <meter min="0" max="100" value="52"></meter>
+                  </div>
+                </div>
               </div>
-              <div class="deep-response-log" id="deepResponseLog">
-                <p class="empty-transcript">Machine cues and replies appear here as the example unfolds.</p>
+
+              <div class="state-feed generated-state" data-at="450">
+                <p>
+                  The learner still has the morning concept, but the acoustic scene is now unstable.
+                  Target speech remains foreground, while multiple nearby speakers enter the pickup
+                  field. Head orientation and mic distance drift during the math phrase. This points
+                  to divided attention and environmental load, so the response should compress the
+                  concept rather than diagnose a conceptual failure.
+                </p>
               </div>
-              <div class="timeline-list" id="longformTimeline">
+            </section>
+
+            <aside class="rail cast-rail" aria-label="CAST response">
+              <div class="rail-label">CAST <b>female tutor</b></div>
+              <div class="turn response" data-at="2500">
+                <span>00:12</span>
+                <p>Want the one-sentence version again?</p>
               </div>
-            </article>
+              <div class="turn response wide" data-at="4200">
+                <span>00:17</span>
+                <p>Gradient descent is repeated correction: check the error, move a little to reduce it, then check again.</p>
+              </div>
+              <div class="turn response" data-at="8200">
+                <span>00:38</span>
+                <p>Yes. Direction and step size.</p>
+              </div>
+            </aside>
           </div>
-        </div>
-      </section>
+        </article>
 
-      <section class="thesis">
-        <div class="thesis-number">04</div>
-        <blockquote>
-          “A voice is not just text arriving through a microphone.
-          It carries <em>pace</em>, <em>effort</em>, <em>certainty</em>, and the
-          moment a person needs you to <em>slow down.</em>”
-        </blockquote>
-        <div class="thesis-aside">
-          <span>THE SHIFT</span>
-          <p>From transcribing speech<br />to understanding speakers.</p>
-        </div>
-      </section>
+        <article class="story-scene" data-scene="evening">
+          <div class="scene-meta">
+            <div><span>03</span><strong>Evening home</strong></div>
+            <button class="play-session" type="button" data-play="evening"><i></i>Run session</button>
+          </div>
 
-      <section class="business-section">
-        <div class="business-heading">
-          <span class="section-kicker">05 · THE HUMAN-STATE LAYER</span>
-          <h2>What CAST Builds</h2>
-          <p>
-            Infrastructure for realtime AI that adapts timing, tone, modality,
-            autonomy, and interruption behavior to the person in front of it.
-          </p>
-        </div>
-        <div class="business-grid">
-          <article>
-            <span>01</span>
-            <h3>Human-state interaction data</h3>
-            <p>Labeled signals of fatigue, confusion, confidence, mood, attention, and cognitive load.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>State-conditioned preference data</h3>
-            <p>Which response works best for this human, in this state, at this moment.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Intervention policy engine</h3>
-            <p>When to stay quiet, backchannel, soft flag, guide, or interrupt.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>State-aware models</h3>
-            <p>Models trained to adapt timing, tone, modality, autonomy, and interruption behavior.</p>
-          </article>
-        </div>
-        <div class="trust-note">
-          <span>Trust by design</span>
-          <p>Consented signals. Probabilistic estimates. User-controlled interruption boundaries. Minimum helpful intervention.</p>
-        </div>
+          <div class="conversation-grid">
+            <aside class="rail user-rail" aria-label="Student transcript">
+              <div class="rail-label">Student <b>male · tired / low energy</b></div>
+              <div class="turn active" data-at="0">
+                <span>00:00</span>
+                <p>Okay, last pass. Gradient descent keeps changing the model to reduce the loss.</p>
+              </div>
+              <div class="turn warning" data-at="1600">
+                <span>00:07</span>
+                <p>The learning rate controls step size, so if the learning rate is bigger, it should always learn faster.</p>
+              </div>
+              <div class="turn" data-at="3600">
+                <span>00:17</span>
+                <p>Okay.</p>
+              </div>
+              <div class="turn" data-at="5700">
+                <span>00:27</span>
+                <p>Right. So bigger is not always better. It has to be balanced.</p>
+              </div>
+              <div class="turn" data-at="7400">
+                <span>00:35</span>
+                <p>Can we stop there for today?</p>
+              </div>
+            </aside>
+
+            <section class="mind-panel" aria-label="Internal state model">
+              <div class="mind-header">
+                <div>
+                  <span>Internal state head</span>
+                  <strong>All layers inform the intervention.</strong>
+                </div>
+                <em>intervention threshold reached</em>
+              </div>
+
+              <div class="visual-stack">
+                <div class="science-board all-layers" data-at="900">
+                  <div class="board-title"><span>Layer 1 persists</span><strong>Learner state</strong></div>
+                  <div class="metric-grid compact">
+                    <div><span>Fatigue</span><strong>High</strong></div>
+                    <div><span>Attention stability</span><strong>41%</strong></div>
+                    <div><span>Cognitive load</span><strong>High</strong></div>
+                    <div><span>Confidence</span><strong>Rising</strong></div>
+                  </div>
+
+                  <div class="board-title" data-at="1900"><span>Layer 2 persists</span><strong>Physical grounding</strong></div>
+                  <div class="mini-room" data-at="1900">
+                    <span class="mini-person">student</span>
+                    <span class="mini-mic">mic</span>
+                    <i></i>
+                    <b>clean channel · 0.45 m · no competing speaker</b>
+                  </div>
+
+                  <div class="board-title" data-at="3000"><span>Layer 3 added</span><strong>Interaction policy</strong></div>
+                  <div class="policy-board" data-at="3000">
+                    <div class="policy-step done">listen</div>
+                    <div class="policy-step done">detect premise</div>
+                    <div class="policy-step hot">soft interrupt</div>
+                    <div class="policy-step done">repair</div>
+                    <div class="policy-step">return control</div>
+                  </div>
+                </div>
+
+                <div class="layer-bars" data-at="0">
+                  <div class="layer active">
+                    <div><span>Human state</span><strong>Fatigue + high certainty</strong></div>
+                    <meter min="0" max="100" value="78"></meter>
+                  </div>
+                  <div class="layer active">
+                    <div><span>Physical grounding</span><strong>Clean channel, no external cause</strong></div>
+                    <meter min="0" max="100" value="54"></meter>
+                  </div>
+                  <div class="layer active hot">
+                    <div><span>Interaction policy</span><strong>Threshold crossed · soft repair</strong></div>
+                    <meter min="0" max="100" value="92"></meter>
+                  </div>
+                </div>
+              </div>
+
+              <div class="state-feed generated-state danger" data-at="450">
+                <p>
+                  The physical channel is clean, so the breakdown is not acoustic. The learner is
+                  tired, but the statement is becoming more confident: bigger learning rate means
+                  always faster learning. That premise will compound if the tutor waits too long.
+                  The policy head crosses the intervention threshold and selects a brief, low-pressure
+                  correction, then watches for self-repair and closes the session once the concept is stable.
+                </p>
+              </div>
+            </section>
+
+            <aside class="rail cast-rail" aria-label="CAST response">
+              <div class="rail-label">CAST <b>female tutor</b></div>
+              <div class="turn response alert" data-at="3000">
+                <span>00:14</span>
+                <p>Small correction there.</p>
+              </div>
+              <div class="turn response wide" data-at="4200">
+                <span>00:19</span>
+                <p>A bigger learning rate can help, but only up to a point. If it is too large, the model can overshoot the minimum.</p>
+              </div>
+              <div class="turn response" data-at="6600">
+                <span>00:32</span>
+                <p>Exactly. That is the key idea.</p>
+              </div>
+              <div class="turn response" data-at="8200">
+                <span>00:39</span>
+                <p>Yes. That is a good stopping point.</p>
+              </div>
+            </aside>
+          </div>
+        </article>
       </section>
     </main>
 
-    <footer>
-      <span>CAST · HUMAN STATE INFRASTRUCTURE</span>
-      <span>DEMO 01 / 2026</span>
-    </footer>
-
-    <script src="app.js?v=50"></script>
+    <script src="app.js?v=65"></script>
   </body>
 </html>

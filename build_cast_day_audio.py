@@ -10,10 +10,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "audio" / "cast_day"
+OUT = ROOT / "audio" / "cast_day_v2"
 MODEL = "gpt-4o-mini-tts"
-USER_VOICE = "echo"
+USER_VOICE = "onyx"
 CAST_VOICE = "nova"
+AUDIO_VERSION = "v2"
 
 
 SCENES = {
@@ -54,37 +55,40 @@ SCENES = {
 
 INSTRUCTIONS = {
     ("user", "morning"): (
-        "Natural adult male student, warm and human. Morning energy: rested, engaged, "
-        "slightly tentative while reconstructing an idea from memory. Use small natural "
-        "pauses around hesitation, but do not over-act. Never sound like a narrator."
+        "Natural adult male student, warm and human, same speaker identity for every user turn. "
+        "Morning energy: rested, engaged, slightly tentative while reconstructing an idea from memory. "
+        "Use small natural pauses around hesitation, but do not over-act. Never sound like a narrator, "
+        "announcer, or robotic assistant."
     ),
     ("user", "cafe"): (
-        "Natural adult male student, same speaker identity as morning. Midday in a cafe: "
-        "still engaged, mildly distracted and a little frustrated by noise. Conversational, "
-        "not theatrical. Slightly quicker and more clipped than morning."
+        "Natural adult male student, exactly the same speaker identity as morning. Midday in a cafe: "
+        "still engaged, mildly distracted and a little frustrated by noise. Conversational, not theatrical. "
+        "Slightly quicker and more clipped than morning, but still clearly the same person."
     ),
     ("user", "evening"): (
-        "Natural adult male student, same speaker identity. Evening: tired but motivated, "
+        "Natural adult male student, exactly the same speaker identity. Evening: tired but motivated, "
         "lower energy, slower starts, softer delivery. Keep it natural and humane, not sleepy "
         "or robotic."
     ),
     ("cast", "morning"): (
-        "Natural female tutor voice. Compact, calm, supportive, and consistent. The response "
-        "is a micro-cue or backchannel, so keep it brief and conversational."
+        "Natural female tutor voice. Compact, calm, supportive, audible, and consistent. The response "
+        "is a micro-cue or backchannel, so keep it brief and conversational. Do not whisper."
     ),
     ("cast", "cafe"): (
-        "Natural female tutor voice, same speaker identity. Calm, clear, and grounding. "
-        "Slightly lower volume and steady pacing, as if helping in a noisy setting."
+        "Natural female tutor voice, same speaker identity. Calm, clear, audible, and grounding. "
+        "Steady pacing, as if helping in a noisy setting. Do not sound distant or quiet."
     ),
     ("cast", "evening"): (
-        "Natural female tutor voice, same speaker identity. Gentle, low-pressure, precise. "
+        "Natural female tutor voice, same speaker identity. Gentle, low-pressure, precise, and audible. "
         "For the correction, be soft but clear; do not sound alarmed or robotic."
     ),
 }
 
 
 def slug(scene, role, index, text):
-    digest = hashlib.sha1(f"{scene}|{role}|{index}|{text}".encode()).hexdigest()[:10]
+    digest = hashlib.sha1(
+        f"{AUDIO_VERSION}|{USER_VOICE}|{CAST_VOICE}|{scene}|{role}|{index}|{text}".encode()
+    ).hexdigest()[:10]
     return f"{scene}_{index:02d}_{role}_{digest}.mp3"
 
 
@@ -126,6 +130,67 @@ def duration_seconds(path):
         text=True,
     )
     return float(result.stdout.strip())
+
+
+def make_silence(duration_ms):
+    rounded = max(80, int(round(duration_ms / 20) * 20))
+    path = OUT / f"silence_{rounded}.mp3"
+    if path.exists():
+        return path
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-y",
+            "-f",
+            "lavfi",
+            "-i",
+            "anullsrc=r=24000:cl=mono",
+            "-t",
+            f"{rounded / 1000:.3f}",
+            "-q:a",
+            "9",
+            "-acodec",
+            "libmp3lame",
+            str(path),
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return path
+
+
+def concat_scene(scene, timeline):
+    list_path = OUT / f"{scene}_concat.txt"
+    mix_path = OUT / f"{scene}_session.mp3"
+    lines = []
+    cursor = 0
+    for item in timeline:
+        gap = int(item["at"]) - cursor
+        if gap > 20:
+            lines.append(f"file '{make_silence(gap).resolve()}'")
+        lines.append(f"file '{(ROOT / item['file']).resolve()}'")
+        cursor = int(item["at"] + item["duration"] * 1000)
+    list_path.write_text("\n".join(lines) + "\n")
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-y",
+            "-f",
+            "concat",
+            "-safe",
+            "0",
+            "-i",
+            str(list_path),
+            "-c",
+            "copy",
+            str(mix_path),
+        ],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return mix_path
 
 
 def word_timings(text, duration):
@@ -200,7 +265,7 @@ def main():
     if "OPENAI_API_KEY" not in os.environ:
         raise SystemExit("OPENAI_API_KEY is not set. Run: OPENAI_API_KEY=... python3 build_cast_day_audio.py")
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = {"model": MODEL, "voices": {"user": USER_VOICE, "cast": CAST_VOICE}, "scenes": {}}
+    manifest = {"model": MODEL, "version": AUDIO_VERSION, "voices": {"user": USER_VOICE, "cast": CAST_VOICE}, "scenes": {}}
     for scene, events in SCENES.items():
         manifest["scenes"][scene] = []
         cursor_ms = 0
@@ -224,13 +289,18 @@ def main():
                     "role": role,
                     "at": cursor_ms,
                     "text": text,
-                    "file": f"audio/cast_day/{filename}",
+                    "file": f"audio/cast_day_v2/{filename}",
                     "duration": round(duration, 3),
                     "words": transcribe_words(path, text, duration),
                 }
             )
             cursor_ms += int(duration * 1000)
             previous_role = role
+        mix_path = concat_scene(scene, manifest["scenes"][scene])
+        manifest["scenes"][scene + "_audio"] = {
+            "file": f"audio/cast_day_v2/{mix_path.name}",
+            "duration": round(duration_seconds(mix_path), 3),
+        }
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2))
     print(f"wrote {OUT / 'manifest.json'}")
 

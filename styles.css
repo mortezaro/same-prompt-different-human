@@ -220,6 +220,10 @@ h1 {
   transform: scale(1);
 }
 
+.session-audio {
+  display: none;
+}
+
 .scene-meta {
   display: flex;
   align-items: center;
@@ -235,6 +239,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
 }
 
 .scene-meta span {
@@ -244,6 +249,17 @@ h1 {
 .scene-meta strong {
   color: var(--ink);
   font-weight: 650;
+}
+
+.scene-meta em {
+  font-style: normal;
+  color: var(--blue);
+  background: rgba(25, 119, 210, 0.07);
+  border: 1px solid rgba(25, 119, 210, 0.14);
+  padding: 7px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.12em;
+  font-size: 0.58rem;
 }
 
 .play-session {
@@ -358,7 +374,15 @@ h1 {
   transition: opacity 120ms ease, background 120ms ease, color 120ms ease;
 }
 
+.story-scene.is-running .word {
+  opacity: 0;
+}
+
 .word.is-spoken {
+  opacity: 0.92;
+}
+
+.story-scene.is-running .word.is-spoken {
   opacity: 0.92;
 }
 
@@ -367,6 +391,10 @@ h1 {
   color: var(--ink);
   background: rgba(111, 149, 15, 0.18);
   box-shadow: 0 0 0 2px rgba(111, 149, 15, 0.18);
+}
+
+.story-scene.is-running .word.is-speaking {
+  opacity: 1;
 }
 
 .turn.active,

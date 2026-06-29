@@ -1,0 +1,1587 @@
+{
+  "model": "gpt-4o-mini-tts",
+  "version": "v2",
+  "voices": {
+    "user": "onyx",
+    "cast": "nova"
+  },
+  "scenes": {
+    "morning": [
+      {
+        "role": "user",
+        "at": 0,
+        "text": "Okay, I want to try explaining gradient descent from memory.",
+        "file": "audio/cast_day_v2/morning_00_user_c6f4fc00f7.mp3",
+        "duration": 5.016,
+        "words": [
+          {
+            "w": "Okay",
+            "s": 0.0,
+            "e": 0.46
+          },
+          {
+            "w": "I",
+            "s": 1.1,
+            "e": 1.38
+          },
+          {
+            "w": "want",
+            "s": 1.38,
+            "e": 1.52
+          },
+          {
+            "w": "to",
+            "s": 1.52,
+            "e": 1.72
+          },
+          {
+            "w": "try",
+            "s": 1.72,
+            "e": 1.88
+          },
+          {
+            "w": "explaining",
+            "s": 1.88,
+            "e": 2.32
+          },
+          {
+            "w": "gradient",
+            "s": 2.32,
+            "e": 2.76
+          },
+          {
+            "w": "descent",
+            "s": 2.76,
+            "e": 3.16
+          },
+          {
+            "w": "from",
+            "s": 3.16,
+            "e": 3.5
+          },
+          {
+            "w": "memory",
+            "s": 3.5,
+            "e": 3.74
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 5236,
+        "text": "It is when the model tries to reduce the error by moving downhill on the loss curve.",
+        "file": "audio/cast_day_v2/morning_01_user_af1df421e3.mp3",
+        "duration": 5.616,
+        "words": [
+          {
+            "w": "It",
+            "s": 0.0,
+            "e": 0.34
+          },
+          {
+            "w": "is",
+            "s": 0.34,
+            "e": 0.66
+          },
+          {
+            "w": "when",
+            "s": 0.66,
+            "e": 0.94
+          },
+          {
+            "w": "the",
+            "s": 0.94,
+            "e": 1.16
+          },
+          {
+            "w": "model",
+            "s": 1.16,
+            "e": 1.42
+          },
+          {
+            "w": "tries",
+            "s": 1.42,
+            "e": 1.82
+          },
+          {
+            "w": "to",
+            "s": 1.82,
+            "e": 2.4
+          },
+          {
+            "w": "reduce",
+            "s": 2.4,
+            "e": 2.4
+          },
+          {
+            "w": "the",
+            "s": 2.4,
+            "e": 2.8
+          },
+          {
+            "w": "error",
+            "s": 2.8,
+            "e": 2.86
+          },
+          {
+            "w": "by",
+            "s": 2.86,
+            "e": 3.2
+          },
+          {
+            "w": "moving",
+            "s": 3.2,
+            "e": 3.58
+          },
+          {
+            "w": "downhill",
+            "s": 3.58,
+            "e": 4.1
+          },
+          {
+            "w": "on",
+            "s": 4.1,
+            "e": 4.36
+          },
+          {
+            "w": "the",
+            "s": 4.36,
+            "e": 4.5
+          },
+          {
+            "w": "loss",
+            "s": 4.5,
+            "e": 4.76
+          },
+          {
+            "w": "curve",
+            "s": 4.76,
+            "e": 5.1
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 11072,
+        "text": "So it looks at the slope, or the... the thing that tells it which direction is steepest.",
+        "file": "audio/cast_day_v2/morning_02_user_d9b8833d50.mp3",
+        "duration": 6.12,
+        "words": [
+          {
+            "w": "so",
+            "s": 0.0,
+            "e": 0.66
+          },
+          {
+            "w": "it",
+            "s": 0.66,
+            "e": 0.86
+          },
+          {
+            "w": "looks",
+            "s": 0.86,
+            "e": 1.06
+          },
+          {
+            "w": "at",
+            "s": 1.06,
+            "e": 1.28
+          },
+          {
+            "w": "the",
+            "s": 1.28,
+            "e": 1.5
+          },
+          {
+            "w": "slope",
+            "s": 1.5,
+            "e": 1.82
+          },
+          {
+            "w": "or",
+            "s": 2.04,
+            "e": 2.28
+          },
+          {
+            "w": "the",
+            "s": 2.28,
+            "e": 2.84
+          },
+          {
+            "w": "thing",
+            "s": 2.84,
+            "e": 3.22
+          },
+          {
+            "w": "that",
+            "s": 3.22,
+            "e": 3.76
+          },
+          {
+            "w": "tells",
+            "s": 3.76,
+            "e": 3.76
+          },
+          {
+            "w": "it",
+            "s": 3.76,
+            "e": 4.0
+          },
+          {
+            "w": "which",
+            "s": 4.0,
+            "e": 4.3
+          },
+          {
+            "w": "direction",
+            "s": 4.3,
+            "e": 4.7
+          },
+          {
+            "w": "is",
+            "s": 4.7,
+            "e": 5.0
+          },
+          {
+            "w": "steepest",
+            "s": 5.0,
+            "e": 5.56
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 17452,
+        "text": "Gradient?",
+        "file": "audio/cast_day_v2/morning_03_cast_6cb9a32bbf.mp3",
+        "duration": 1.464,
+        "words": [
+          {
+            "w": "Gradient",
+            "s": 0.0,
+            "e": 1.0
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 19276,
+        "text": "Yes, gradient. It uses the gradient to know which way to move.",
+        "file": "audio/cast_day_v2/morning_04_user_d12e5ccdba.mp3",
+        "duration": 5.664,
+        "words": [
+          {
+            "w": "Yes",
+            "s": 0.0,
+            "e": 0.56
+          },
+          {
+            "w": "gradient",
+            "s": 1.38,
+            "e": 1.38
+          },
+          {
+            "w": "It",
+            "s": 2.02,
+            "e": 2.46
+          },
+          {
+            "w": "uses",
+            "s": 2.46,
+            "e": 2.68
+          },
+          {
+            "w": "the",
+            "s": 2.68,
+            "e": 3.02
+          },
+          {
+            "w": "gradient",
+            "s": 3.02,
+            "e": 3.16
+          },
+          {
+            "w": "to",
+            "s": 3.16,
+            "e": 3.48
+          },
+          {
+            "w": "know",
+            "s": 3.48,
+            "e": 3.66
+          },
+          {
+            "w": "which",
+            "s": 3.66,
+            "e": 3.94
+          },
+          {
+            "w": "way",
+            "s": 3.94,
+            "e": 4.1
+          },
+          {
+            "w": "to",
+            "s": 4.1,
+            "e": 4.34
+          },
+          {
+            "w": "move",
+            "s": 4.34,
+            "e": 4.58
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 25200,
+        "text": "Mm-hmm. Good.",
+        "file": "audio/cast_day_v2/morning_05_cast_ff19bdbbcf.mp3",
+        "duration": 2.016,
+        "words": [
+          {
+            "w": "Mm",
+            "s": 0.0,
+            "e": 0.54
+          },
+          {
+            "w": "hmm",
+            "s": 0.54,
+            "e": 1.04
+          },
+          {
+            "w": "Good",
+            "s": 1.06,
+            "e": 1.7
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 27576,
+        "text": "And the learning rate decides how big the step is.",
+        "file": "audio/cast_day_v2/morning_06_user_41beef4c86.mp3",
+        "duration": 3.36,
+        "words": [
+          {
+            "w": "and",
+            "s": 0.0,
+            "e": 0.52
+          },
+          {
+            "w": "the",
+            "s": 0.52,
+            "e": 0.74
+          },
+          {
+            "w": "learning",
+            "s": 0.74,
+            "e": 1.06
+          },
+          {
+            "w": "rate",
+            "s": 1.06,
+            "e": 1.42
+          },
+          {
+            "w": "decides",
+            "s": 1.42,
+            "e": 1.96
+          },
+          {
+            "w": "how",
+            "s": 1.96,
+            "e": 2.24
+          },
+          {
+            "w": "big",
+            "s": 2.24,
+            "e": 2.4
+          },
+          {
+            "w": "the",
+            "s": 2.4,
+            "e": 2.64
+          },
+          {
+            "w": "step",
+            "s": 2.64,
+            "e": 2.82
+          },
+          {
+            "w": "is",
+            "s": 2.82,
+            "e": 3.14
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 31156,
+        "text": "So if the loss is high, it keeps adjusting the parameters until the loss gets lower.",
+        "file": "audio/cast_day_v2/morning_07_user_c0b3b57cf4.mp3",
+        "duration": 5.664,
+        "words": [
+          {
+            "w": "So",
+            "s": 0.0,
+            "e": 0.44
+          },
+          {
+            "w": "if",
+            "s": 0.58,
+            "e": 0.68
+          },
+          {
+            "w": "the",
+            "s": 0.68,
+            "e": 1.06
+          },
+          {
+            "w": "loss",
+            "s": 1.06,
+            "e": 1.08
+          },
+          {
+            "w": "is",
+            "s": 1.08,
+            "e": 1.3
+          },
+          {
+            "w": "high",
+            "s": 1.3,
+            "e": 1.7
+          },
+          {
+            "w": "it",
+            "s": 2.12,
+            "e": 2.3
+          },
+          {
+            "w": "keeps",
+            "s": 2.3,
+            "e": 2.52
+          },
+          {
+            "w": "adjusting",
+            "s": 2.52,
+            "e": 2.96
+          },
+          {
+            "w": "the",
+            "s": 2.96,
+            "e": 3.24
+          },
+          {
+            "w": "parameters",
+            "s": 3.24,
+            "e": 3.72
+          },
+          {
+            "w": "until",
+            "s": 3.72,
+            "e": 4.46
+          },
+          {
+            "w": "the",
+            "s": 4.46,
+            "e": 4.7
+          },
+          {
+            "w": "loss",
+            "s": 4.7,
+            "e": 4.92
+          },
+          {
+            "w": "gets",
+            "s": 4.92,
+            "e": 5.2
+          },
+          {
+            "w": "lower",
+            "s": 5.2,
+            "e": 5.48
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 37080,
+        "text": "Exactly. Keep going.",
+        "file": "audio/cast_day_v2/morning_08_cast_629c4a2aad.mp3",
+        "duration": 2.712,
+        "words": [
+          {
+            "w": "Exactly",
+            "s": 0.0,
+            "e": 0.98
+          },
+          {
+            "w": "Keep",
+            "s": 1.52,
+            "e": 1.72
+          },
+          {
+            "w": "going",
+            "s": 1.72,
+            "e": 2.0
+          }
+        ]
+      }
+    ],
+    "morning_audio": {
+      "file": "audio/cast_day_v2/morning_session.mp3",
+      "duration": 40.248
+    },
+    "cafe": [
+      {
+        "role": "user",
+        "at": 0,
+        "text": "I think I understood it this morning, but now I am losing the thread.",
+        "file": "audio/cast_day_v2/cafe_00_user_4aaf923c67.mp3",
+        "duration": 4.656,
+        "words": [
+          {
+            "w": "I",
+            "s": 0.0,
+            "e": 0.48
+          },
+          {
+            "w": "think",
+            "s": 0.48,
+            "e": 0.7
+          },
+          {
+            "w": "I",
+            "s": 0.7,
+            "e": 1.02
+          },
+          {
+            "w": "understood",
+            "s": 1.02,
+            "e": 1.34
+          },
+          {
+            "w": "it",
+            "s": 1.34,
+            "e": 1.58
+          },
+          {
+            "w": "this",
+            "s": 1.58,
+            "e": 1.9
+          },
+          {
+            "w": "morning",
+            "s": 1.9,
+            "e": 2.16
+          },
+          {
+            "w": "but",
+            "s": 2.34,
+            "e": 3.16
+          },
+          {
+            "w": "now",
+            "s": 3.16,
+            "e": 3.42
+          },
+          {
+            "w": "I",
+            "s": 3.42,
+            "e": 3.52
+          },
+          {
+            "w": "am",
+            "s": 3.52,
+            "e": 3.68
+          },
+          {
+            "w": "losing",
+            "s": 3.68,
+            "e": 3.92
+          },
+          {
+            "w": "the",
+            "s": 3.92,
+            "e": 4.22
+          },
+          {
+            "w": "thread",
+            "s": 4.22,
+            "e": 4.46
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 4876,
+        "text": "The cafe is loud, and every time I get to the math part, I forget what the pieces mean.",
+        "file": "audio/cast_day_v2/cafe_01_user_36e3c49e5c.mp3",
+        "duration": 5.856,
+        "words": [
+          {
+            "w": "The",
+            "s": 0.0,
+            "e": 0.32
+          },
+          {
+            "w": "cafe",
+            "s": 0.32,
+            "e": 0.78
+          },
+          {
+            "w": "is",
+            "s": 0.78,
+            "e": 1.16
+          },
+          {
+            "w": "loud",
+            "s": 1.16,
+            "e": 1.56
+          },
+          {
+            "w": "and",
+            "s": 1.96,
+            "e": 2.06
+          },
+          {
+            "w": "every",
+            "s": 2.06,
+            "e": 2.4
+          },
+          {
+            "w": "time",
+            "s": 2.4,
+            "e": 2.56
+          },
+          {
+            "w": "I",
+            "s": 2.56,
+            "e": 2.76
+          },
+          {
+            "w": "get",
+            "s": 2.76,
+            "e": 2.86
+          },
+          {
+            "w": "to",
+            "s": 2.86,
+            "e": 3.04
+          },
+          {
+            "w": "the",
+            "s": 3.04,
+            "e": 3.18
+          },
+          {
+            "w": "math",
+            "s": 3.18,
+            "e": 3.4
+          },
+          {
+            "w": "part",
+            "s": 3.4,
+            "e": 3.74
+          },
+          {
+            "w": "I",
+            "s": 4.38,
+            "e": 4.6
+          },
+          {
+            "w": "forget",
+            "s": 4.6,
+            "e": 4.78
+          },
+          {
+            "w": "what",
+            "s": 4.78,
+            "e": 4.98
+          },
+          {
+            "w": "the",
+            "s": 4.98,
+            "e": 5.1
+          },
+          {
+            "w": "pieces",
+            "s": 5.1,
+            "e": 5.4
+          },
+          {
+            "w": "mean",
+            "s": 5.4,
+            "e": 5.7
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 10992,
+        "text": "Want the one-sentence version again?",
+        "file": "audio/cast_day_v2/cafe_02_cast_bbab9e1bc7.mp3",
+        "duration": 2.856,
+        "words": [
+          {
+            "w": "Want",
+            "s": 0.0,
+            "e": 0.4
+          },
+          {
+            "w": "the",
+            "s": 0.4,
+            "e": 0.66
+          },
+          {
+            "w": "one",
+            "s": 0.66,
+            "e": 1.04
+          },
+          {
+            "w": "sentence",
+            "s": 1.04,
+            "e": 1.38
+          },
+          {
+            "w": "version",
+            "s": 1.38,
+            "e": 1.72
+          },
+          {
+            "w": "again",
+            "s": 1.72,
+            "e": 2.16
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 14208,
+        "text": "Yeah. Just one sentence.",
+        "file": "audio/cast_day_v2/cafe_03_user_5592e3577c.mp3",
+        "duration": 2.352,
+        "words": [
+          {
+            "w": "Yeah",
+            "s": 0.0,
+            "e": 0.6
+          },
+          {
+            "w": "just",
+            "s": 0.7,
+            "e": 1.16
+          },
+          {
+            "w": "one",
+            "s": 1.16,
+            "e": 1.54
+          },
+          {
+            "w": "sentence",
+            "s": 1.54,
+            "e": 1.78
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 16820,
+        "text": "Gradient descent is repeated correction: check the error, move a little to reduce it, then check again.",
+        "file": "audio/cast_day_v2/cafe_04_cast_a138585a76.mp3",
+        "duration": 6.264,
+        "words": [
+          {
+            "w": "Gradient",
+            "s": 0.0,
+            "e": 0.68
+          },
+          {
+            "w": "Descent",
+            "s": 0.68,
+            "e": 1.02
+          },
+          {
+            "w": "is",
+            "s": 1.02,
+            "e": 1.28
+          },
+          {
+            "w": "repeated",
+            "s": 1.28,
+            "e": 1.68
+          },
+          {
+            "w": "correction",
+            "s": 1.68,
+            "e": 2.16
+          },
+          {
+            "w": "Check",
+            "s": 2.84,
+            "e": 2.84
+          },
+          {
+            "w": "the",
+            "s": 2.84,
+            "e": 3.16
+          },
+          {
+            "w": "error",
+            "s": 3.16,
+            "e": 3.24
+          },
+          {
+            "w": "move",
+            "s": 3.94,
+            "e": 3.96
+          },
+          {
+            "w": "a",
+            "s": 3.96,
+            "e": 4.14
+          },
+          {
+            "w": "little",
+            "s": 4.14,
+            "e": 4.26
+          },
+          {
+            "w": "to",
+            "s": 4.26,
+            "e": 4.52
+          },
+          {
+            "w": "reduce",
+            "s": 4.52,
+            "e": 4.76
+          },
+          {
+            "w": "it",
+            "s": 4.76,
+            "e": 5.02
+          },
+          {
+            "w": "then",
+            "s": 5.38,
+            "e": 5.56
+          },
+          {
+            "w": "check",
+            "s": 5.56,
+            "e": 5.78
+          },
+          {
+            "w": "again",
+            "s": 5.78,
+            "e": 6.08
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 23444,
+        "text": "Okay. Repeated correction. That is much easier.",
+        "file": "audio/cast_day_v2/cafe_05_user_5af859d628.mp3",
+        "duration": 4.104,
+        "words": [
+          {
+            "w": "Okay",
+            "s": 0.0,
+            "e": 0.88
+          },
+          {
+            "w": "repeated",
+            "s": 1.5,
+            "e": 1.5
+          },
+          {
+            "w": "correction",
+            "s": 1.5,
+            "e": 2.0
+          },
+          {
+            "w": "That",
+            "s": 2.64,
+            "e": 2.94
+          },
+          {
+            "w": "is",
+            "s": 2.94,
+            "e": 3.14
+          },
+          {
+            "w": "much",
+            "s": 3.14,
+            "e": 3.34
+          },
+          {
+            "w": "easier",
+            "s": 3.34,
+            "e": 3.66
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 27768,
+        "text": "So the gradient tells the direction, and the learning rate tells the size of the step?",
+        "file": "audio/cast_day_v2/cafe_06_user_0e3af64a7f.mp3",
+        "duration": 5.064,
+        "words": [
+          {
+            "w": "So",
+            "s": 0.0,
+            "e": 0.44
+          },
+          {
+            "w": "the",
+            "s": 0.48,
+            "e": 0.66
+          },
+          {
+            "w": "gradient",
+            "s": 0.66,
+            "e": 0.98
+          },
+          {
+            "w": "tells",
+            "s": 0.98,
+            "e": 1.3
+          },
+          {
+            "w": "the",
+            "s": 1.3,
+            "e": 1.58
+          },
+          {
+            "w": "direction",
+            "s": 1.58,
+            "e": 1.94
+          },
+          {
+            "w": "and",
+            "s": 2.4,
+            "e": 2.62
+          },
+          {
+            "w": "the",
+            "s": 2.62,
+            "e": 2.76
+          },
+          {
+            "w": "learning",
+            "s": 2.76,
+            "e": 3.04
+          },
+          {
+            "w": "rate",
+            "s": 3.04,
+            "e": 3.32
+          },
+          {
+            "w": "tells",
+            "s": 3.32,
+            "e": 3.54
+          },
+          {
+            "w": "the",
+            "s": 3.54,
+            "e": 3.8
+          },
+          {
+            "w": "size",
+            "s": 3.8,
+            "e": 4.1
+          },
+          {
+            "w": "of",
+            "s": 4.1,
+            "e": 4.24
+          },
+          {
+            "w": "the",
+            "s": 4.24,
+            "e": 4.48
+          },
+          {
+            "w": "step",
+            "s": 4.48,
+            "e": 4.68
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 33092,
+        "text": "Yes. Direction and step size.",
+        "file": "audio/cast_day_v2/cafe_07_cast_72de3bdd9b.mp3",
+        "duration": 3.648,
+        "words": [
+          {
+            "w": "Yes",
+            "s": 0.0,
+            "e": 0.76
+          },
+          {
+            "w": "direction",
+            "s": 1.5,
+            "e": 1.5
+          },
+          {
+            "w": "and",
+            "s": 1.5,
+            "e": 2.02
+          },
+          {
+            "w": "step",
+            "s": 2.02,
+            "e": 2.26
+          },
+          {
+            "w": "size",
+            "s": 2.26,
+            "e": 2.6
+          }
+        ]
+      }
+    ],
+    "cafe_audio": {
+      "file": "audio/cast_day_v2/cafe_session.mp3",
+      "duration": 37.128
+    },
+    "evening": [
+      {
+        "role": "user",
+        "at": 0,
+        "text": "Okay, last pass. Gradient descent keeps changing the model to reduce the loss.",
+        "file": "audio/cast_day_v2/evening_00_user_3984db507d.mp3",
+        "duration": 5.712,
+        "words": [
+          {
+            "w": "Okay",
+            "s": 0.0,
+            "e": 0.62
+          },
+          {
+            "w": "last",
+            "s": 0.98,
+            "e": 1.32
+          },
+          {
+            "w": "pass",
+            "s": 1.32,
+            "e": 1.72
+          },
+          {
+            "w": "Gradient",
+            "s": 2.4,
+            "e": 2.6
+          },
+          {
+            "w": "descent",
+            "s": 2.6,
+            "e": 2.94
+          },
+          {
+            "w": "keeps",
+            "s": 2.94,
+            "e": 3.26
+          },
+          {
+            "w": "changing",
+            "s": 3.26,
+            "e": 3.64
+          },
+          {
+            "w": "the",
+            "s": 3.64,
+            "e": 4.06
+          },
+          {
+            "w": "model",
+            "s": 4.06,
+            "e": 4.06
+          },
+          {
+            "w": "to",
+            "s": 4.06,
+            "e": 4.36
+          },
+          {
+            "w": "reduce",
+            "s": 4.36,
+            "e": 4.64
+          },
+          {
+            "w": "the",
+            "s": 4.64,
+            "e": 4.9
+          },
+          {
+            "w": "loss",
+            "s": 4.9,
+            "e": 5.18
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 5932,
+        "text": "The learning rate controls step size, so if the learning rate is bigger, it should always learn faster.",
+        "file": "audio/cast_day_v2/evening_01_user_a5868535e5.mp3",
+        "duration": 6.048,
+        "words": [
+          {
+            "w": "The",
+            "s": 0.0,
+            "e": 0.28
+          },
+          {
+            "w": "learning",
+            "s": 0.28,
+            "e": 0.56
+          },
+          {
+            "w": "rate",
+            "s": 0.56,
+            "e": 0.86
+          },
+          {
+            "w": "controls",
+            "s": 0.86,
+            "e": 1.4
+          },
+          {
+            "w": "step",
+            "s": 1.4,
+            "e": 1.78
+          },
+          {
+            "w": "size",
+            "s": 1.78,
+            "e": 2.22
+          },
+          {
+            "w": "so",
+            "s": 2.5,
+            "e": 2.7
+          },
+          {
+            "w": "if",
+            "s": 2.7,
+            "e": 2.8
+          },
+          {
+            "w": "the",
+            "s": 2.8,
+            "e": 2.96
+          },
+          {
+            "w": "learning",
+            "s": 2.96,
+            "e": 3.22
+          },
+          {
+            "w": "rate",
+            "s": 3.22,
+            "e": 3.42
+          },
+          {
+            "w": "is",
+            "s": 3.42,
+            "e": 3.58
+          },
+          {
+            "w": "bigger",
+            "s": 3.58,
+            "e": 3.9
+          },
+          {
+            "w": "it",
+            "s": 4.5,
+            "e": 4.62
+          },
+          {
+            "w": "should",
+            "s": 4.62,
+            "e": 4.76
+          },
+          {
+            "w": "always",
+            "s": 4.76,
+            "e": 5.1
+          },
+          {
+            "w": "learn",
+            "s": 5.1,
+            "e": 5.36
+          },
+          {
+            "w": "faster",
+            "s": 5.36,
+            "e": 5.8
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 12240,
+        "text": "Small correction there.",
+        "file": "audio/cast_day_v2/evening_02_cast_b5c3d8ec5e.mp3",
+        "duration": 2.52,
+        "words": [
+          {
+            "w": "Small",
+            "s": 0.0,
+            "e": 0.56
+          },
+          {
+            "w": "correction",
+            "s": 0.56,
+            "e": 1.02
+          },
+          {
+            "w": "there",
+            "s": 1.02,
+            "e": 1.42
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 15120,
+        "text": "Okay.",
+        "file": "audio/cast_day_v2/evening_03_user_b02e239160.mp3",
+        "duration": 1.248,
+        "words": [
+          {
+            "w": "Okay",
+            "s": 0.0,
+            "e": 0.7
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 16628,
+        "text": "A bigger learning rate can help, but only up to a point. If it is too large, the model can overshoot the minimum.",
+        "file": "audio/cast_day_v2/evening_04_cast_52ad7be750.mp3",
+        "duration": 7.32,
+        "words": [
+          {
+            "w": "A",
+            "s": 0.0,
+            "e": 0.3
+          },
+          {
+            "w": "bigger",
+            "s": 0.3,
+            "e": 0.62
+          },
+          {
+            "w": "learning",
+            "s": 0.62,
+            "e": 0.96
+          },
+          {
+            "w": "rate",
+            "s": 0.96,
+            "e": 1.26
+          },
+          {
+            "w": "can",
+            "s": 1.26,
+            "e": 1.56
+          },
+          {
+            "w": "help",
+            "s": 1.56,
+            "e": 1.86
+          },
+          {
+            "w": "but",
+            "s": 2.14,
+            "e": 2.26
+          },
+          {
+            "w": "only",
+            "s": 2.26,
+            "e": 2.58
+          },
+          {
+            "w": "up",
+            "s": 2.58,
+            "e": 2.82
+          },
+          {
+            "w": "to",
+            "s": 2.82,
+            "e": 2.98
+          },
+          {
+            "w": "a",
+            "s": 2.98,
+            "e": 3.14
+          },
+          {
+            "w": "point",
+            "s": 3.14,
+            "e": 3.34
+          },
+          {
+            "w": "If",
+            "s": 3.74,
+            "e": 3.82
+          },
+          {
+            "w": "it",
+            "s": 3.82,
+            "e": 3.92
+          },
+          {
+            "w": "is",
+            "s": 3.92,
+            "e": 4.14
+          },
+          {
+            "w": "too",
+            "s": 4.14,
+            "e": 4.38
+          },
+          {
+            "w": "large",
+            "s": 4.38,
+            "e": 4.76
+          },
+          {
+            "w": "the",
+            "s": 5.16,
+            "e": 5.34
+          },
+          {
+            "w": "model",
+            "s": 5.34,
+            "e": 5.56
+          },
+          {
+            "w": "can",
+            "s": 5.56,
+            "e": 5.86
+          },
+          {
+            "w": "overshoot",
+            "s": 5.86,
+            "e": 6.42
+          },
+          {
+            "w": "the",
+            "s": 6.42,
+            "e": 6.72
+          },
+          {
+            "w": "minimum",
+            "s": 6.72,
+            "e": 6.9
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 24308,
+        "text": "Right. So bigger is not always better. It has to be balanced.",
+        "file": "audio/cast_day_v2/evening_05_user_ff2cea438b.mp3",
+        "duration": 5.064,
+        "words": [
+          {
+            "w": "Right",
+            "s": 0.0,
+            "e": 1.0
+          },
+          {
+            "w": "so",
+            "s": 1.4,
+            "e": 1.64
+          },
+          {
+            "w": "bigger",
+            "s": 1.64,
+            "e": 1.88
+          },
+          {
+            "w": "is",
+            "s": 1.88,
+            "e": 2.1
+          },
+          {
+            "w": "not",
+            "s": 2.1,
+            "e": 2.36
+          },
+          {
+            "w": "always",
+            "s": 2.36,
+            "e": 2.72
+          },
+          {
+            "w": "better",
+            "s": 2.72,
+            "e": 3.02
+          },
+          {
+            "w": "it",
+            "s": 3.28,
+            "e": 3.82
+          },
+          {
+            "w": "has",
+            "s": 3.82,
+            "e": 4.04
+          },
+          {
+            "w": "to",
+            "s": 4.04,
+            "e": 4.22
+          },
+          {
+            "w": "be",
+            "s": 4.22,
+            "e": 4.56
+          },
+          {
+            "w": "balanced",
+            "s": 4.56,
+            "e": 4.7
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 29632,
+        "text": "Exactly. That is the key idea.",
+        "file": "audio/cast_day_v2/evening_06_cast_c0f34dd766.mp3",
+        "duration": 2.856,
+        "words": [
+          {
+            "w": "Exactly",
+            "s": 0.0,
+            "e": 0.62
+          },
+          {
+            "w": "That",
+            "s": 1.18,
+            "e": 1.7
+          },
+          {
+            "w": "is",
+            "s": 1.7,
+            "e": 1.84
+          },
+          {
+            "w": "the",
+            "s": 1.84,
+            "e": 2.0
+          },
+          {
+            "w": "key",
+            "s": 2.0,
+            "e": 2.28
+          },
+          {
+            "w": "idea",
+            "s": 2.28,
+            "e": 2.62
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "at": 32848,
+        "text": "Can we stop there for today?",
+        "file": "audio/cast_day_v2/evening_07_user_46ae6306d7.mp3",
+        "duration": 2.76,
+        "words": [
+          {
+            "w": "Can",
+            "s": 0.0,
+            "e": 0.88
+          },
+          {
+            "w": "we",
+            "s": 0.88,
+            "e": 1.16
+          },
+          {
+            "w": "stop",
+            "s": 1.16,
+            "e": 1.36
+          },
+          {
+            "w": "there",
+            "s": 1.36,
+            "e": 1.6
+          },
+          {
+            "w": "for",
+            "s": 1.6,
+            "e": 1.88
+          },
+          {
+            "w": "today",
+            "s": 1.88,
+            "e": 2.1
+          }
+        ]
+      },
+      {
+        "role": "cast",
+        "at": 35868,
+        "text": "Yes. That is a good stopping point.",
+        "file": "audio/cast_day_v2/evening_08_cast_df2849ee04.mp3",
+        "duration": 2.952,
+        "words": [
+          {
+            "w": "Yes",
+            "s": 0.0,
+            "e": 0.86
+          },
+          {
+            "w": "that",
+            "s": 1.04,
+            "e": 1.46
+          },
+          {
+            "w": "is",
+            "s": 1.46,
+            "e": 1.64
+          },
+          {
+            "w": "a",
+            "s": 1.64,
+            "e": 1.84
+          },
+          {
+            "w": "good",
+            "s": 1.84,
+            "e": 2.12
+          },
+          {
+            "w": "stopping",
+            "s": 2.12,
+            "e": 2.42
+          },
+          {
+            "w": "point",
+            "s": 2.42,
+            "e": 2.78
+          }
+        ]
+      }
+    ],
+    "evening_audio": {
+      "file": "audio/cast_day_v2/evening_session.mp3",
+      "duration": 39.24
+    }
+  }
+}
